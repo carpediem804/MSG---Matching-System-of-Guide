@@ -1,0 +1,26 @@
+{
+  "name": "homework2-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "module": "^1.2.5",
+    "modules": "^0.4.0",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.3.16",
+    "mongoose-auto-increment": "^5.0.1",
+    "multer": "^1.4.1",
+    "pandas": "0.0.3",
+    "peer": "^0.2.10",
+    "php": "0.0.1",
+    "python": "0.0.4",
+    "python-shell": "^1.0.6",
+    "uuid": "^3.3.2",
+    "youtube-crawler": "0.0.3"
+  }
+}
