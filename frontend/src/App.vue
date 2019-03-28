@@ -4,7 +4,8 @@
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
     <div id="nav">
       <router-link to="/">Home1515</router-link> |
-      <router-link to="/user">Doctor Menu</router-link>
+      <router-link to="/user">Doctor Menu</router-link> |
+      <router-link to="/search">search Menu</router-link>
     </div>
     <router-view/>
   </div>
