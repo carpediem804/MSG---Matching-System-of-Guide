@@ -16,13 +16,16 @@
 
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-item-dropdown text="Local" right>
-                        <b-dropdown-item href="#">춘천</b-dropdown-item>
-                        <b-dropdown-item href="#">대구</b-dropdown-item>
-                        <b-dropdown-item href="#">대전</b-dropdown-item>
-                        <b-dropdown-item href="#">서산</b-dropdown-item>
-                        <b-dropdown-item href="#">분당</b-dropdown-item>
-                    </b-nav-item-dropdown>
+                    <v-select :options="['foo','bar']"></v-select>
+                    <v-select :options="[{label: 'foo', value: 'Foo'}]"></v-select>
+                    <v-select label="countryName" :options="countries"></v-select>
+                    <!--<b-nav-item-dropdown text="Local" right>-->
+                        <!--<b-dropdown-item href="#">춘천</b-dropdown-item>-->
+                        <!--<b-dropdown-item href="#">대구</b-dropdown-item>-->
+                        <!--<b-dropdown-item href="#">대전</b-dropdown-item>-->
+                        <!--<b-dropdown-item href="#">서산</b-dropdown-item>-->
+                        <!--<b-dropdown-item href="#">분당</b-dropdown-item>-->
+                    <!--</b-nav-item-dropdown>-->
 
                     <b-nav-form>
                         <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
@@ -60,7 +63,7 @@
                 <div style="border: 10px solid white; float: left; width: 30%; padding:10px;">
                 <b-card title="대구" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
                     <b-card-text>
-                        It's me
+                        혐홓몋뫃ㅁ혐호며홈혀ㅗㅁ혀모혀ㅗ며호며호며홓
                     </b-card-text>
                     <div slot="footer"><small class="text-muted">Last updated 3 mins ago</small></div>
                 </b-card>
@@ -109,7 +112,11 @@
 
 <script>
     export default {
-        name: "toursearch"
+        name: "toursearch",
+        options: {
+            countryCode: "CA",
+            countryName: "Canada"
+        }
     }
 </script>
 
