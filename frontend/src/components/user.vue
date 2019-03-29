@@ -39,8 +39,6 @@
         },
 
     }
-
-
 </script>
 
 <style scoped>
