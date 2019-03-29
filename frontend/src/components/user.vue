@@ -31,8 +31,16 @@
 
 <script>
     export default {
-        name: "user.vue"
+        name: "user.vue",
+        data (){
+            return {
+
+            }
+        },
+
     }
+
+
 </script>
 
 <style scoped>
