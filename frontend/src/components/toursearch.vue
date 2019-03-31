@@ -16,20 +16,16 @@
 
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
-                    <v-select :options="['foo','bar']"></v-select>
-                    <v-select :options="[{label: 'foo', value: 'Foo'}]"></v-select>
-                    <v-select label="countryName" :options="countries"></v-select>
-                    <!--<b-nav-item-dropdown text="Local" right>-->
-                        <!--<b-dropdown-item href="#">춘천</b-dropdown-item>-->
-                        <!--<b-dropdown-item href="#">대구</b-dropdown-item>-->
-                        <!--<b-dropdown-item href="#">대전</b-dropdown-item>-->
-                        <!--<b-dropdown-item href="#">서산</b-dropdown-item>-->
-                        <!--<b-dropdown-item href="#">분당</b-dropdown-item>-->
-                    <!--</b-nav-item-dropdown>-->
 
                     <b-nav-form>
-                        <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-                        <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+                        <b-form-select size="sm"  v-model="localValue" :options="localoptions"></b-form-select>
+                        <b-form-select size="sm"  v-model="themaValue" :options="themaoptions"></b-form-select>
+                    </b-nav-form>
+
+
+                    <b-nav-form>
+                        <b-form-input size="sm" class="mr-sm-2" placeholder="Search" v-model="searchValue"></b-form-input>
+                        <b-button size="sm" class="my-2 my-sm-0" type="submit" v-on:click="con">Search</b-button>
                     </b-nav-form>
 
                     <b-nav-item-dropdown text="Lang" right>
@@ -50,7 +46,7 @@
         </b-navbar>
 
 
-            <b-card-group deck style="max-width: 90rem" >
+            <b-card-group deck style="max-width: 90rem"  >
                 <div style="border: 10px solid white; float: left; width: 30%; padding:10px;">
                 <b-card title="춘천" img-src="https://picsum.photos/300/300/?image=41" img-alt="Image" img-top>
                     <b-card-text>
@@ -113,9 +109,42 @@
 <script>
     export default {
         name: "toursearch",
-        options: {
-            countryCode: "CA",
-            countryName: "Canada"
+        data() {
+            return {
+
+                contacts:[],
+                counter: 0,
+                searchValue: '',
+                exValue:[5],
+
+                localValue: null,
+                localoptions: [
+                    { value: null, text: 'Local' },
+                    { value: '춘천', text: '춘천' },
+                    { value: '대구', text: '대구' },
+                    { value: '분당', text: '분당' },
+                    { value: '서산', text: '서산' },
+                    { value: '대전', text: '대전' }
+                ],
+                themaValue: null,
+                themaoptions: [
+                    { value: null, text: 'Thema' },
+                    { value: '힐링', text: '힐링' },
+                    { value: '쇼핑', text: '쇼핑' },
+                    { value: '효도', text: '효도' },
+                    { value: '관광', text: '관광' },
+                    { value: '맛집', text: '맛집' }
+                ]
+            }
+        },
+        methods: {
+
+            con(){
+
+                this.exValue[0] = this.localValue;
+                this.exValue[1] = this.themaValue;
+                this.exValue[2] = this.searchValue;
+            },
         }
     }
 </script>
