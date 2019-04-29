@@ -1,19 +1,36 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import axios from 'axios'
-import BootstrapVue from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import VueSession from 'vue-session'
+import 'onsenui/css/onsenui.css'; // Onsen UI basic CSS
+// import 'onsenui/css/onsen-css-components.css'; // Default Onsen UI CSS components
+import './onsen-css-components.css'; // Onsen UI CSS components source for custom themes (requires cssnext)
+import './vue-onsenui-kitchensink.css'; // CSS specific to this app
 
-Vue.config.productionTip = false
-Vue.prototype.$http = axios;
-Vue.use(VueSession);
-Vue.use(BootstrapVue);
+import Vue from 'vue';
+import Vuex from 'vuex';
+import VueOnsen from 'vue-onsenui'; // For UMD
+// import VueOnsen from 'vue-onsenui/esm'; // For ESM
+// import * as OnsenComponents from './onsen-components'; // For ESM
+import storeLike from './store.js';
+import CustomToolbar from './partials/CustomToolbar.vue';
+import AppNavigator from './AppNavigator.vue';
 
+Vue.use(Vuex);
+Vue.use(VueOnsen);
+
+// Register components globally
+// Object.values(OnsenComponents).forEach(component => Vue.component(component.name, component)); // For ESM
+Vue.component('custom-toolbar', CustomToolbar); // Common toolbar
 
 new Vue({
-    router,
-  render: h => h(App),
-}).$mount('#app')
+  el: '#app',
+  render: h => h(AppNavigator),
+  store: new Vuex.Store(storeLike),
+  beforeCreate() {
+    // Shortcut for Material Design
+    Vue.prototype.md = this.$ons.platform.isAndroid();
+
+    // Set iPhoneX flag based on URL
+    if (window.location.search.match(/iphonex/i)) {
+      document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
+      document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+    }
+  }
+});
