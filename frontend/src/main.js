@@ -5,6 +5,7 @@ import './vue-onsenui-kitchensink.css'; // CSS specific to this app
 
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios'
 import VueOnsen from 'vue-onsenui'; // For UMD
 // import VueOnsen from 'vue-onsenui/esm'; // For ESM
 // import * as OnsenComponents from './onsen-components'; // For ESM
@@ -18,6 +19,7 @@ Vue.use(VueOnsen);
 // Register components globally
 // Object.values(OnsenComponents).forEach(component => Vue.component(component.name, component)); // For ESM
 Vue.component('custom-toolbar', CustomToolbar); // Common toolbar
+Vue.prototype.$http = axios;
 
 new Vue({
   el: '#app',
