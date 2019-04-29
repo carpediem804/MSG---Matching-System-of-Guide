@@ -8,6 +8,7 @@ const deletepost = require('./routes/removeblog')
 const like = require('./routes/like')
 const signup = require('./routes/signup')
 const app = express()
+var login = require('./routes/login')
 
 app.use((req, res, next) =>{
     res.header("Access-Control-Allow-Origin", "*")
@@ -25,6 +26,7 @@ app.use('/upload', upload)
 app.use('/delete',deletepost);
 app.use('/like',like);
 app.use('/signup',signup);
+app.use('/login', login);
 //app.use('/blogimage',express.static('blogimage'))
 
 module.exports = app
