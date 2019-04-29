@@ -8,6 +8,10 @@ const router = Router()
 //var answer=0;
 /* ... */
 var send_data = []
+router.get('/recommend', function(req, res) {
+        console.log('/recommend로 들어옴');
+        res.json('gogogogo');
+})
 
 router.post('/recipe', function(req, res){
     console.log("/recipe로 들어옴")

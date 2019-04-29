@@ -29,7 +29,7 @@
       </div>
 
     </v-ons-pull-hook>
-
+    <input type="submit" value="axios 통신해보자" v-on:click="test">
     <v-ons-list>
       <v-ons-list-header>Pull to refresh</v-ons-list-header>
       <v-ons-list-item v-for="(kitten, index) in kittens" :key="kitten.name + index">
@@ -85,7 +85,22 @@ export default {
         data.push(this.getRandomKitten());
       }
       return data;
-    }
+    },
+      test:function(evt){
+        console.log('버튼 눌렷다');
+        evt.preventDefault();
+        this.$http.get('http://localhost:8000/findcook/recommend').then(res=>{
+            console.log("보냇다 보냇다~ ")
+            console.log(res)
+            //요리이름
+            //이미지
+            //요리법
+            //url
+
+        }).catch(res=>{
+            console.log(res)
+        })
+      }
   }
 };
 </script>
