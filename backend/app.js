@@ -10,6 +10,12 @@ const signup = require('./routes/signup')
 const app = express()
 var login = require('./routes/login')
 
+ // getTourList
+ // applyTour
+ // registerTour
+ // getReqList
+ // getReqList
+ //
 app.use((req, res, next) =>{
     res.header("Access-Control-Allow-Origin", "*")
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
@@ -17,8 +23,7 @@ app.use((req, res, next) =>{
     next()
 })
 
-//app.use('/upload', express.static('blogupload'));
-app.use(express.static('uploads'));
+app.use(express.static('uploads')); //서버에 저장되는 이미지 파일들
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use('/findcook', findcook)
@@ -27,6 +32,6 @@ app.use('/delete',deletepost);
 app.use('/like',like);
 app.use('/signup',signup);
 app.use('/login', login);
-//app.use('/blogimage',express.static('blogimage'))
+
 
 module.exports = app
