@@ -2,13 +2,13 @@ const express = require('express')
 const bodyParser = require('body-parser')
 
 require('./db/mongo') //connect db
-const findcook = require('./routes/findcook')
-const upload = require('./routes/upload')
+const getTourList = require('./routes/getTourList')
+const registerTour = require('./routes/registerTour')
 const deletepost = require('./routes/removeblog')
 const like = require('./routes/like')
-const signup = require('./routes/signup')
+//const signup = require('./routes/signup')
 const app = express()
-var login = require('./routes/login')
+//var login = require('./routes/login')
 
  // getTourList
  // applyTour
@@ -24,14 +24,14 @@ app.use((req, res, next) =>{
 })
 
 app.use(express.static('uploads')); //서버에 저장되는 이미지 파일들
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
-app.use('/findcook', findcook)
-app.use('/upload', upload)
-app.use('/delete',deletepost);
-app.use('/like',like);
-app.use('/signup',signup);
-app.use('/login', login);
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use('/getTourList', getTourList);
+app.use('/registerTour', registerTour);
+//app.use('/delete',deletepost);
+//app.use('/like',like);
+//app.use('/signup',signup);
+//app.use('/login', login);
 
 
 module.exports = app
