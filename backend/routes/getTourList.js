@@ -29,6 +29,7 @@ router.get('/', function (req, res, next) {
            console.log(err);
        }else{
            console.log(tourdata);
+           res.send(tourdata);
        }
    });
 
