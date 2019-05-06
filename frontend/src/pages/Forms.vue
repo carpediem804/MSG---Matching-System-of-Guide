@@ -1,6 +1,5 @@
 <template>
   <v-ons-page>
-    <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
 
     <div class="center" style="text-align: center;">
 

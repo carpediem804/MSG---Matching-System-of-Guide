@@ -11,7 +11,7 @@
             </div>
 
             <div class="register_location" align="center">
-                가격<input v-model="recruit.price" placeholder="지역을 입력하세요.">
+                가격<input v-model="recruit.price" placeholder="가격을 입력하세요.">
             </div>
 
             <div class="register_content" align="center">
@@ -66,8 +66,9 @@
                     type: ''
                 }
             };
+        },
         }
-    };
+    }
 </script>
 
 <style>
