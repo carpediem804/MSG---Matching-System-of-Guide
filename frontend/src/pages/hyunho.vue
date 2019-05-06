@@ -22,7 +22,7 @@
                 </option>
             </v-ons-select>
 
-            <v-ons-button class="button-margin">Search</v-ons-button>
+            <v-ons-button @click="categories[0] = search; categories[1]= selectedLocal; categories[2]= selectedThema" class="button-margin">Search</v-ons-button>
 
         </v-ons-list-item>
 
@@ -33,7 +33,7 @@
         </v-ons-list-item>
         <v-ons-list-item>
             <div class="center">
-                Thema is {{ selectedThema }} !
+                Thema is {{ selectedThema }} !!!!
             </div>
         </v-ons-list-item>
         <v-ons-list-item>
@@ -43,19 +43,81 @@
             </div>
 
         </v-ons-list-item>
-
+        <v-ons-list-item>
+        <v-ons-card>
+            <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
+            <div class="title">
+                BBauk tour
+            </div>
+            <div class="content">
+                <div>
+                    <v-ons-button @click="$ons.notification.alert('Hello, world!')" ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>
+                    <v-ons-button @click=" Localsearch= '서울'; Themasearch = '효도'"><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
+                </div>
+                <v-ons-list>
+                    <v-ons-list-header>TourInfo</v-ons-list-header>
+                    <v-ons-list-item ># {{Localsearch}} #{{Themasearch}} #컴온베이비~</v-ons-list-item>
+                    <v-ons-list-item>max: 10인</v-ons-list-item>
+                </v-ons-list>
+            </div>
+        </v-ons-card>
+            <v-ons-card>
+                <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
+                <div class="title">
+                    Awesome tour
+                </div>
+                <div class="content">
+                    <div>
+                        <v-ons-button><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>
+                        <v-ons-button><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
+                    </div>
+                    <v-ons-list>
+                        <v-ons-list-header>TourInfo</v-ons-list-header>
+                        <v-ons-list-item>#대전 #힐링 #사나이 킹키훈~</v-ons-list-item>
+                        <v-ons-list-item>max: 10인</v-ons-list-item>
+                    </v-ons-list>
+                </div>
+            </v-ons-card>
+            <v-ons-card>
+                <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
+                <div class="title">
+                    Awesome tour
+                </div>
+                <div class="content">
+                    <div>
+                        <v-ons-button><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>
+                        <v-ons-button><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
+                    </div>
+                    <v-ons-list>
+                        <v-ons-list-header>TourInfo</v-ons-list-header>
+                        <v-ons-list-item>#대구 #효도 #헬로~</v-ons-list-item>
+                        <v-ons-list-item>max: 10인</v-ons-list-item>
+                    </v-ons-list>
+                </div>
+            </v-ons-card>
+        </v-ons-list-item>
 
     </v-ons-page>
 </template>
 
 <script>
     export default {
+        created(){
+            this.$http.get('http://localhost:8000/getTourList').then(res=>{
+                console.log("보냇다 보냇다~ ")
+                console.log(res)
+            }).catch(res=>{
+                console.log(res)
+            })
+        },
         data() {
             return {
+                categories:[],
 
                 search: '',
                 spdOpen: false,
-
+                Localsearch: 'hi',
+                Themasearch: 'll',
                 localitems: [
                     { value: '미설정', text: 'Local' },
                     { value: '서울', text: '서울' },
@@ -76,6 +138,13 @@
                 ],
                 selectedThema: '미설정'
             };
+        },
+        methods:{
+            'exa': function () {
+                Localsearch ='서울'
+                Themasearch= '효도'
+                alert('Hello ' )
+            }
         }
 
 
