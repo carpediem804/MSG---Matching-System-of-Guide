@@ -5,7 +5,7 @@
   "author": "Fran Dios <me@frandiox.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --host 0.0.0.0 --port 7000",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --host localhost --port 7000",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "build:watch": "cross-env NODE_ENV=production WEBPACK_WATCH=true webpack --progress --hide-modules",
     "demo:index": "mv www/index.html www/main.html && sed -i -e 's/index\\.html/main\\.html/' www/demo.html && mv www/demo.html www/index.html",
@@ -17,7 +17,8 @@
     "onsenui": "^2.10.2",
     "vue": "^2.5.3",
     "vue-onsenui": "^2.6.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "yarn": "^1.15.2"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
@@ -38,7 +39,7 @@
     "postcss-url": "^7.1.2",
     "style-loader": "^0.18.2",
     "vue-loader": "^12.0.4",
-    "vue-template-compiler": "^2.5.3",
+    "vue-template-compiler": "^2.6.10",
     "webpack": "^3.8.1",
     "webpack-dev-server": "2.7.1"
   }

@@ -1,7 +1,7 @@
 <template>
   <v-ons-page modifier="white">
     <div class="profile-pic">
-      <img src="../assets/vue-onsenui.png">
+      <img src="../assets/logo1.png">
     </div>
 
     <v-ons-list-title>Access</v-ons-list-title>
