@@ -91,12 +91,7 @@ export default {
         evt.preventDefault();
         this.$http.get('http://localhost:8000/getTourList').then(res=>{
             console.log("보냇다 보냇다~ ")
-            console.log(res)
-            //요리이름
-            //이미지
-            //요리법
-            //url
-
+            console.log(res);
         }).catch(res=>{
             console.log(res)
         })
