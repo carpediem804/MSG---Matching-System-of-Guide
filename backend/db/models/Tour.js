@@ -3,13 +3,14 @@ const { mongoose, autoIncrement } = require('../mongo')
 var Tour_Schema = new mongoose.Schema({
     TourNum: {
         type: Number,
-       // unique: true
+        unique: true
     },
     UserID: String,
     TourImageURL: String,
     TourTitle: String,
     TourLocation: String,
-    TourDayandTime : { type:Date, default:Date.now },
+    TourDayandTime_start : { type:Date, default:Date.now },
+    TourDayandTime_end : { type:Date, default:Date.now },
     TourMaxNum : Number,
     TourMinNum :Number,
     TourContent : String,

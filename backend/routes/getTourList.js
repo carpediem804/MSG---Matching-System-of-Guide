@@ -29,7 +29,7 @@ router.get('/', function (req, res, next) {
        if(err) {
            console.log(err);
        }else{
-           console.log(tourdata);
+          // console.log(tourdata);
 
            res.json({tourdata});
        }

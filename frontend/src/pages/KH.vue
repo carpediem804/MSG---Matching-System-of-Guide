@@ -54,19 +54,19 @@
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
         methods: {
             signUp(){
                 this.recruit.id = localStorage.getItem('newUser');
 
-                axios.post('http://localhost:8000/recruit/', formData,{
+                axios.post('http://localhost:8000/recruit/',{
                     params: {
                         recruitdata: this.recruit
 
                     }
-
                 }).then(function(data){
-
+                    console.log("던졋다");
                     this.submitted = true;
                     console.log("submitted가 true 됨 ")
 
