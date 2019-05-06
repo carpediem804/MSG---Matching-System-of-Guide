@@ -1,15 +1,15 @@
 const { mongoose, autoIncrement } = require('../mongo')
 
-var TourSchema = new mongoose.Schema({
+var Tour_Schema = new mongoose.Schema({
     TourNum: {
         type: Number,
-        unique: true
+       // unique: true
     },
     UserID: String,
     TourImageURL: String,
     TourTitle: String,
     TourLocation: String,
-    TourDayandTime : Date,
+    TourDayandTime : { type:Date, default:Date.now },
     TourMaxNum : Number,
     TourMinNum :Number,
     TourContent : String,
@@ -18,9 +18,9 @@ var TourSchema = new mongoose.Schema({
     Tour_create_date: { type:Date, default:Date.now },
     TourNowPeopleNum : Number
 });
-TourSchema.plugin(autoIncrement, {
-    model: 'Tourmodel',
+Tour_Schema.plugin(autoIncrement, {
+    model: 'tourinfo',
     field: 'TourNum',
     startAt: 0
-})
-module.exports = mongoose.model('Tourmodel', TourSchema);
+});
+module.exports = mongoose.model('tourinfo', Tour_Schema);

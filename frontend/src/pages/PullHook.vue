@@ -89,7 +89,7 @@ export default {
       test:function(evt){
         console.log('버튼 눌렷다');
         evt.preventDefault();
-        this.$http.get('http://localhost:8000/findcook/recommend').then(res=>{
+        this.$http.get('http://localhost:8000/getTourList').then(res=>{
             console.log("보냇다 보냇다~ ")
             console.log(res)
             //요리이름
