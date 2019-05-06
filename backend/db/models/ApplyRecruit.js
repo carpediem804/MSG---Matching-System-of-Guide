@@ -13,8 +13,8 @@ var ApplyRecruitSchema = new mongoose.Schema({
     SuggestPrice:Number
 });
 ApplyRecruitSchema.plugin(autoIncrement, {
-    model: 'ApplyRecruitModel',
+    model: 'applyrecruit',
     field: 'ApplyRecruitID',
     startAt: 0
 })
-module.exports = mongoose.model('ApplyRecruitModel', ApplyRecruitSchema);
+module.exports = mongoose.model('applyrecruit', ApplyRecruitSchema);
