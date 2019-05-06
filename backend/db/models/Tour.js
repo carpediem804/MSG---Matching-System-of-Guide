@@ -16,7 +16,8 @@ var Tour_Schema = new mongoose.Schema({
     TourPrice : Number,
     TourApplyList : String,
     Tour_create_date: { type:Date, default:Date.now },
-    TourNowPeopleNum : Number
+    TourNowPeopleNum : Number,
+    TourThema : String
 });
 Tour_Schema.plugin(autoIncrement, {
     model: 'tourinfo',

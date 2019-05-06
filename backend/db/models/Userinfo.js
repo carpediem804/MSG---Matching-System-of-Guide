@@ -5,14 +5,12 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         unique: true
     },
-    loginID:{
-        type:String
-    },
     Name:{
         type:String
     },
     Email:{
-        type : String
+        type : String,
+        unique : true
     },
     PhoneNum:{
         type : String
@@ -30,9 +28,9 @@ const UserSchema = new mongoose.Schema({
 
 // userId를 Auto Increment 필드로 지정
  UserSchema.plugin(autoIncrement, {
-     model: 'Usermodel',
+     model: 'Userinfo',
      field: 'UserID',
      startAt: 0
  })
 
-module.exports = mongoose.model('Usermodel', UserSchema);
+module.exports = mongoose.model('Userinfo', UserSchema);

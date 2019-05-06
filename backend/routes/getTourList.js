@@ -13,7 +13,8 @@ router.get('/', function (req, res, next) {
    //      TourContent: "버거킹없지만 찾아먹으러가보자",
    //      TourPrice: 150000,
    //      TourApplyList: "a,b,c,d",
-   //      TourNowPeopleNum: 3
+   //      TourNowPeopleNum: 3,
+   //      TourThema : "먹방"
    //  })
    // resitemp.save(function(error,data){
    //      if(error){
@@ -29,6 +30,7 @@ router.get('/', function (req, res, next) {
            console.log(err);
        }else{
            console.log(tourdata);
+
            res.json({tourdata});
        }
    });
