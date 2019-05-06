@@ -1,6 +1,5 @@
 <template>
     <v-ons-page>
-        <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
 
         <v-ons-header class ="center">TourSearch</v-ons-header>
 
@@ -115,14 +114,7 @@
                 selectedThema: '미설정'
             };
         },
-        methods:{
-            'exa': function () {
-                Localsearch ='서울'
-                Themasearch= '효도'
-                alert('Hello ' )
-            }
-        },
-        created(){
+        beforeCreate(){
             this.$http.get('http://localhost:8000/getTourList').then(res=>{
                 console.log("보냇다 보냇다~ ")
                 this.categories = res.data.tourdata;
