@@ -28,6 +28,6 @@ router.post('/apply', function (req, res, next) {
 router.post('/', function (req, res, next) {
     console.log(req);
     console.log(req.body);
-}
+});
 
 module.exports = router;
