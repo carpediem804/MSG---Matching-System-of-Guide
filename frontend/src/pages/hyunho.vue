@@ -115,7 +115,7 @@
             };
         },
         beforeCreate(){
-            this.$http.get('http://localhost:8000/getTourList').then(res=>{
+            this.$http.get('http://localhost:8000/getTourList/custom').then(res=>{
                 console.log("보냇다 보냇다~ ")
                 this.categories = res.data.tourdata;
                 console.log(this.categories)

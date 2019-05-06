@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 const applyrecruit = require('../db/models/ApplyRecruit');
 router.post('/apply', function (req, res, next) {
+    console.log(req.body.params);
     //  let resitemp = applyrecruit({
     //      UserID : "kki",
     //      TourImageURL:  "ABCD",
@@ -25,7 +26,7 @@ router.post('/apply', function (req, res, next) {
     //  });
 
 });
-router.post('/', function (req, res, next) {
+router.post('/custom', function (req, res, next) {
     //console.log(req);
     console.log(req.body.params);
 });

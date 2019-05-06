@@ -60,7 +60,7 @@
             signUp(){
                 this.recruit.id = localStorage.getItem('newUser');
 
-                axios.post('http://localhost:8000/recruit/',{
+                axios.post('http://localhost:8000/recruit/custom',{
                     params: {
                         recruitdata: this.recruit
 

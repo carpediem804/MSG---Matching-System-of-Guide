@@ -2,7 +2,7 @@ const { Router } = require('express');
 const router = Router();
 const Tourcontent = require('../db/models/Tour');
 
-router.get('/', function (req, res, next) {
+router.get('/custom', function (req, res, next) {
    //  let resitemp = Tourcontent({
    //      UserID : "kki",
    //      TourImageURL:  "ABCD",
