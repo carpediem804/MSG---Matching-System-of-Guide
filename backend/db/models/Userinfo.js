@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         unique: true
     },
+    PWD:{type:String},
     Name:{
         type:String
     },
@@ -19,7 +20,7 @@ const UserSchema = new mongoose.Schema({
         type : String
     },
     Type : {
-        type : Number
+        type : String
     },
     GuideGrade :{
         type : Number

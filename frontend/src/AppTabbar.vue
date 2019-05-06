@@ -22,9 +22,10 @@
 </template>
 
 <script>
-  import test_2 from './pages/Home.vue';
+
   import test_3 from './pages/Forms.vue';
   import test_4 from './pages/Animations.vue';
+  import hyunho from "./pages/hyunho.vue";
 
   // Just a linear interpolation formula
   const lerp = (x0, x1, t) => parseInt((1 - t) * x0 + t * x1, 10);
@@ -51,20 +52,20 @@
           //   top: -105 // Toolbar + Tabbar heights
           // },
           {
-            label: 'Test2',
-            icon: this.md ? null : 'ion-home',
-            page: test_2,
+            label: '투어상품 검색',
+            icon: this.md ? null : 'ion-film-marker',
+            page: hyunho,
             theme: red
           },
           {
             label: 'Test4',
-            icon: this.md ? null : 'ion-edit',
+            icon: this.md ? null : 'ion-home',
             page: test_4,
             theme: blue
           },
           {
             label: '가이드 모집',
-            icon: this.md ? null : 'ion-film-marker',
+            icon: this.md ? null : 'ion-edit',
             page: test_3,
             theme: purple
           }
