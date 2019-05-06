@@ -30,21 +30,24 @@
 <script>
 
     import firebase from 'firebase';
+    import axios from 'axios'
 
     export default {
         methods: {
             signUp(){
-                firebase.auth().createUserWithEmailAndPassword(this.user.email, this.user.password)
-                    .then((user) => {
-                        console.log(user)
-                        alert('제출되었습니다.');
-                        this.$store.commit('navigator/pop');
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                        alert(error)
-                    })
-            }
+                this.recruit.id = localStorage.getItem('newUser');
+
+                axios.post('http://localhost:8000/recruit/apply',{
+                    params: {
+                        applydata: this.recruit
+
+                    }
+                }).then(function(data){
+                    console.log("던졋다");
+                    this.submitted = true;
+                    console.log("submitted가 true 됨 ")
+
+                });
         },
         data() {
             return {
