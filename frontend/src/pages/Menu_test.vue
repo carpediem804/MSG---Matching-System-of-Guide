@@ -35,19 +35,19 @@
             signUp(){
                 firebase.auth().createUserWithEmailAndPassword(this.user.email, this.user.password)
                     .then((user) => {
-                        // this.$http.post('http://localhost:8000/registUserInfo', {
-                        //     user: this.user
-                        // })
-                        //     .then((response) => {  //로그인 성공
-                        //             this.$session.start()
-                        //         },
-                        //         (error) => { // error 를 보여줌
-                        //             alert(error.response.data.error)
-                        //         }
-                        //     )
-                        //     .catch(error => {
-                        //         alert(error)
-                        //     })
+                        this.$http.post('http://localhost:8000/registUserInfo', {
+                            user: this.user
+                        })
+                            .then((response) => {  //로그인 성공
+                                    this.$session.start()
+                                },
+                                (error) => { // error 를 보여줌
+                                    alert(error.response.data.error)
+                                }
+                            )
+                            .catch(error => {
+                                alert(error)
+                            })
                         alert('제출되었습니다.');
                         this.$store.commit('navigator/pop');
                     })

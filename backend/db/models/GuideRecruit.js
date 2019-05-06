@@ -11,7 +11,7 @@ var GuideRecruitSchema = new mongoose.Schema({
     RecruitDayandTime: Date,
     RecruitPeopleNumber : Number,
     RecruitContent : String,
-    ApplyRecruitID :Number,
+    ApplyRecruitID :String,
 
 });
 GuideRecruitSchema.plugin(autoIncrement, {
