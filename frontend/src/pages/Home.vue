@@ -21,6 +21,7 @@ import Carousel from './Carousel.vue';
 import InfiniteScroll from './InfiniteScroll.vue';
 import Progress from './Progress.vue';
 import Yong from './Yong.vue';
+import hyunho from './hyunho.vue';
 
 export default {
   data () {
@@ -66,6 +67,11 @@ export default {
         //   label: 'Progress',
         //   desc: 'Linear progress, circular progress and spinners.'
         // }
+        {
+             component: hyunho,
+             label: 'hyunho',
+             desc: 'hyunho example'
+        }
       ]
     };
   },

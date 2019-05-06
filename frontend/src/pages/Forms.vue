@@ -1,160 +1,221 @@
 <template>
   <v-ons-page>
+    <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
 
-    <v-ons-list>
-      <v-ons-list-header>Text input</v-ons-list-header>
-      <v-ons-list-item :modifier="md ? 'nodivider' : ''">
-        <div class="left">
-          <v-ons-icon icon="md-face" class="list-item__icon"></v-ons-icon>
-        </div>
-        <label class="center">
-          <v-ons-input float maxlength="20"
-            placeholder="Name"
-            v-model="name"
+    <div class="center" style="text-align: center;">
+
+      <label class="center"  >
+        <p>
+
+        <form class='s-form'>
+          <v-ons-input float maxlength="100"
+                       placeholder="Keywords"
+                       v-model="name"
           >
           </v-ons-input>
-        </label>
-      </v-ons-list-item>
-      <v-ons-list-item :modifier="md ? 'nodivider' : ''">
-        <div class="left">
-          <v-ons-icon icon="fa-question-circle-o" class="list-item__icon"></v-ons-icon>
-        </div>
-        <label class="center">
-          <v-ons-search-input maxlength="20"
-            placeholder="Search"
-            v-model="name"
-          >
-          </v-ons-search-input>
-        </label>
-      </v-ons-list-item>
-      <v-ons-list-item>
-        <div class="right right-label">
-          Hello {{ name || 'anonymous' }}!<v-ons-icon icon="fa-hand-spock-o" size="lg" class="right-icon"></v-ons-icon>
-        </div>
-      </v-ons-list-item>
 
-      <v-ons-list-header>Range slider</v-ons-list-header>
-      <v-ons-list-item>
-        Adjust the volume:
-        <v-ons-row>
-          <v-ons-col width="40px" style="text-align: center; line-height: 31px;">
-            <v-ons-icon icon="md-volume-down"></v-ons-icon>
-          </v-ons-col>
-          <v-ons-col>
+          <v-ons-button style="text-align: center"
+                        @click="alert2()">찾기
+          </v-ons-button>
 
-            <v-ons-range v-model="volume" style="width: 100%;"></v-ons-range>
+        </form>
 
-          </v-ons-col>
-          <v-ons-col width="40px" style="text-align: center; line-height: 31px;">
-            <v-ons-icon icon="md-volume-up"></v-ons-icon>
-          </v-ons-col>
-        </v-ons-row>
-        Volume: {{ volume }} <span v-show="Number(volume) > 80">&nbsp;(careful, that's loud)</span>
-      </v-ons-list-item>
 
-      <v-ons-list-header>Switches</v-ons-list-header>
-      <ons-list-item>
-        <label class="center" for="switch1">
-          Switch ({{ switchOn ? 'on' : 'off' }})
-        </label>
-        <div class="right">
-          <v-ons-switch input-id="switch1" v-model="switchOn">
-          </v-ons-switch>
-        </div>
-      </ons-list-item>
-      <ons-list-item>
-        <label class="center" for="switch2">
-          {{ switchOn ? 'Enabled switch' : 'Disabled switch' }}
-        </label>
-        <div class="right">
-          <v-ons-switch input-id="switch2" :disabled="!switchOn">
-          </v-ons-switch>
-        </div>
-      </ons-list-item>
+        <!-- <v-ons-button style="text-align: center"
+        @click="alert2()">찾기
+        </v-ons-button> -->
 
-      <v-ons-list-header>Select</v-ons-list-header>
-      <ons-list-item>
+        <v-ons-select style="width: 120px" v-model ="selectedLocal " >
+
+          <option v-for="item in localitems"  :value="item.value" >
+            {{ item.text }}
+          </option>
+
+        </v-ons-select>
+
+        <v-ons-select style="width: 120px" v-model ="selectedLocal " >
+
+          <option v-for="item in localitems"  :value="item.value" >
+            {{ item.text }}
+          </option>
+
+        </v-ons-select>
+
         <div class="center">
-          <v-ons-select style="width: 120px" v-model="selectedItem">
-            <option v-for="item in items" :value="item.value">
-              {{ item.text }}
-            </option>
-          </v-ons-select>
-
+          {{ selectedLocal }} is awesome!
         </div>
-        <div class="right right-label">
-          <s v-show="selectedItem !== 'Vue'">{{ selectedItem }}</s> Vue is awesome!
-        </div>
-      </ons-list-item>
 
-      <v-ons-list-header>Radio buttons</v-ons-list-header>
-      <v-ons-list-item v-for="(vegetable, $index) in vegetables" :key="vegetable"
-        tappable
-        :modifier="($index === vegetables.length - 1) ? 'longdivider' : ''"
-      >
-        <label class="left">
-          <v-ons-radio
-            :input-id="'radio-' + $index"
-            :value="vegetable"
-            v-model=" selectedVegetable"
-          >
-          </v-ons-radio>
-        </label>
-        <label :for="'radio-' + $index" class="center">
-          {{ vegetable }}
-        </label>
-      </v-ons-list-item>
-      <v-ons-list-item>
-        <div class="center">
-          I love {{ selectedVegetable }}!
-        </div>
-      </v-ons-list-item>
+        <p>{{ name }}</p>
 
-      <v-ons-list-header>Checkboxes - {{checkedColors}}</v-ons-list-header>
-      <v-ons-list-item v-for="(color, $index) in colors" :key="color" tappable>
-        <label class="left">
-          <v-ons-checkbox
-            :input-id="'checkbox-' + $index"
-            :value="color"
-            v-model="checkedColors"
-          >
-          </v-ons-checkbox>
-        </label>
-        <label class="center" :for="'checkbox-' + $index">
-          {{ color }}
-        </label>
-      </v-ons-list-item>
-    </v-ons-list>
+
+
+
+      </label>
+
+      <v-ons-list>
+        <v-ons-list-header>검색 결과</v-ons-list-header>
+
+        <v-ons-list-item v-for="item in listitems" :key="item"
+                         @click="push(page2.component, page2.label)">
+
+          <!-- <div class="left">
+            <img class="list-item__thumbnail" :src="kitten.url">
+          </div> -->
+
+          <div class="center" >{{ item }}</div>
+        </v-ons-list-item>
+      </v-ons-list>
+
+
+    </div>
+
+    <P align="center">
+      <button class="button_apply" @click="push(page1.component, page1.label)">가이드 모집하기</button>
+    </p>
+
+    <br>
+    <br>
+
+
+
+
+
+
   </v-ons-page>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      name: '',
-      switchOn: true,
-      items: [
-        { text: 'Vue', value: 'Vue' },
-        { text: 'React', value: 'React' },
-        { text: 'Angular', value: 'Angular' }
-      ],
-      selectedItem: 'Vue',
-      vegetables: ['Apples', 'Bananas', 'Oranges'],
-      selectedVegetable: 'Bananas',
-      colors: ['Red', 'Green', 'Blue'],
-      checkedColors: ['Green', 'Blue'],
-      volume: 25
-    };
-  }
-};
+
+  import GuideApply from './RecruitGuide.vue'
+  import GuideRecruit from './KH.vue'
+
+  export default {
+    methods: {
+      alert2 () {
+        alert(this.name)
+      },
+
+      alert3 (kitten) {
+        this.kitten=kitten
+        alert(this.kitten+" 를 선택하셨습니다.")
+      },
+
+      filter(){
+
+        var isfiltered = false;
+        var todoObj = {};
+
+        for(var i=0;this.listitems.length;i++){
+          if (listitems[i].includes(name)){
+            this.todos.push(listitems[i])
+          }
+        }
+
+        this.listitems=this.todos
+        console.log(this.listitems)
+
+      },
+
+      push(page, key) {
+        this.$store.commit('navigator/push', {
+          extends: page,
+          data() {
+            return {
+              toolbarInfo: {
+                backLabel: 'Home',
+                title: key
+              }
+            }
+          }
+        });
+      }
+
+
+    },
+    data() {
+      return {
+        page1: {
+          component: GuideRecruit,
+          label: '가이드 모집글'
+        },
+
+        page2: {
+          component: GuideApply,
+          label: '가이드 모집글'
+        },
+
+        items: [
+          { text: 'Vue', value: 'Vue' },
+          { text: 'React', value: 'React' },
+          { text: 'Angular', value: 'Angular' }
+        ],
+
+        name: '',
+
+        localitems: [
+          { value: '1', text: '1' },
+          { value: '2', text: '2' },
+          { value: '3', text: '3' },
+          { value: '4', text: '4' },
+          { value: '5', text: '5' },
+          { value: '6', text: '6' }
+        ],
+
+        selectedLocal: '',
+
+        listitems: [
+          '제주 제주', '제주 서귀포', '제주 우도', '서울 남대문',
+          '서울 서대문', '서울 경복궁', '경기 수원시', '경기 성남시',
+          '경기 화성시', '경기 오산시', '경기 광주시'
+
+        ],
+
+        todos:[],
+
+
+        state: 'initial',
+
+        ratio: 0,
+
+
+      };
+    }
+  };
 </script>
 
+
+
+
+
+
+
+
+
 <style scoped>
-.right-icon {
-  margin-left: 10px;
-}
-.right-label {
-  color: #666;
-}
+  .carousel-item {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .color-tag {
+    color: #fff;
+    font-size: 48px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .dots {
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+  }
+
+  .dots > span {
+    cursor: pointer;
+  }
 </style>
