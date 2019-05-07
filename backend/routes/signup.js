@@ -26,5 +26,13 @@ router.post('/', function(req, res,next){
         }
     });
 })
+router.post('/login',function(req,res,next){
+    console.log(req.body);
+    userinfo.findOne({Email:req.body.email}).exec()
+        .then(user_info=>{
+            console.log("userinfo : "+user_info);
+            res.json({user_info});
+        })
+})
 
 module.exports = router;
