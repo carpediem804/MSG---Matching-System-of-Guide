@@ -64,7 +64,7 @@
     </v-ons-list-item>
 
         <p align="right">
-            <v-ons-button class="assign_button2" v-if="!session_existed()" icon='ion-edit'
+            <v-ons-button class="assign_button2" v-if="session_existed()" icon='ion-edit'
                           @click="push(page.component, page.label)"> 투어상품 작성하기
             </v-ons-button>
         </p>
