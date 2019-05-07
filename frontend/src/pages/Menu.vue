@@ -16,7 +16,12 @@
         <br><br>
       </div>
       <div id="login_after" v-if="!test2()">
-        <br>{{ present_user.email }}님 <br>
+        <br>{{ present_user.email }} <br>
+        <br>{{ present_user.password }} <br>
+        <br>{{ present_user.name }} <br>
+        <br>{{ present_user.phonenum }} <br>
+        <br>{{ present_user.kakaoid }} <br>
+        <br>{{ present_user.type }} <br>
         <button class="login_button" @click="push(page[1].component, page[1].label)">내 프로필</button>
         <button class="login_button" @click="push(page[2].component, page[2].label)">등록 상품</button>
         <button class="login_button" @click="push(page[3].component, page[3].label)">신청 상품</button>
@@ -34,11 +39,8 @@
 
   export default {
     methods: {
-      test(){
-        console.log(localStorage);
-      },
       test2(){
-        if(localStorage.getItem('newUser')==null){
+        if(localStorage.getItem('newEmail')==null){
           return true;
         }
         return false;
@@ -73,14 +75,13 @@
           this.$http.post('http://localhost:8000/registUserInfo/login', {
             email: this.user.email
           })
-                  .then((response) => {  //로그인 성공
-                           console.log(response);
-                            // localStorage.setItem('newUser', response.user.email)
-                            // localStorage.setItem('newPassword',response.user.password)
-                            // localStorage.setItem('newName', response.user.name)
-                            // localStorage.setItem('newName', response.user.phoneNum)
-                            // localStorage.setItem('newName', response.user.kakaoId)
-                            // localStorage.setItem('newName', response.user.type)
+                  .then((response) => {  //로그인 성공;
+                            localStorage.setItem('newEmail', response.data.user_info.Email)
+                            localStorage.setItem('newPWD',response.data.user_info.PWD)
+                            localStorage.setItem('newName', response.data.user_info.Name)
+                            localStorage.setItem('newPhoneNum', response.data.user_info.PhoneNum)
+                            localStorage.setItem('newkakaoID', response.data.user_info.kakaoID)
+                            localStorage.setItem('newType', response.data.user_info.Type)
                             alert("로그인 성공!")
                             location.reload();
                           },
@@ -106,12 +107,12 @@
     data() {
       return {
         present_user :{
-          email: localStorage.getItem('newUser')
-          password: localStorage.getItem('newPassword')
-          name: localStorage.setItem('newName')
-          phonenum: localStorage.setItem('newPhoneNum')
-          kakaoId: localStorage.setItem('newKakaoId')
-          type: localStorage.setItem('newType')
+          email: localStorage.getItem('newEmail'),
+          password: localStorage.getItem('newPWD'),
+          name: localStorage.getItem('newName'),
+          phonenum: localStorage.getItem('newPhoneNum'),
+          kakaoid: localStorage.getItem('newkakaoID'),
+          type: localStorage.getItem('newType')
         },
         page: [
           {
