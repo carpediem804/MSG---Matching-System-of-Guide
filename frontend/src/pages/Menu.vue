@@ -76,7 +76,11 @@
                   .then((response) => {  //로그인 성공
                            console.log(response);
                             // localStorage.setItem('newUser', response.user.email)
-                            // localStorage.setItem('logState',response.user.password)
+                            // localStorage.setItem('newPassword',response.user.password)
+                            // localStorage.setItem('newName', response.user.name)
+                            // localStorage.setItem('newName', response.user.phoneNum)
+                            // localStorage.setItem('newName', response.user.kakaoId)
+                            // localStorage.setItem('newName', response.user.type)
                             alert("로그인 성공!")
                             location.reload();
                           },
@@ -103,6 +107,11 @@
       return {
         present_user :{
           email: localStorage.getItem('newUser')
+          password: localStorage.getItem('newPassword')
+          name: localStorage.setItem('newName')
+          phonenum: localStorage.setItem('newPhoneNum')
+          kakaoId: localStorage.setItem('newKakaoId')
+          type: localStorage.setItem('newType')
         },
         page: [
           {
