@@ -35,7 +35,7 @@
     export default {
             methods: {
             signUp() {
-                this.recruit.id = localStorage.getItem('newUser');
+            //    this.recruit.id = localStorage.getItem('newEmail');
 
                 axios.post('http://localhost:8000/recruit/apply', {
                     params: {
@@ -57,7 +57,8 @@
                     title: '',
                     location: '',
                     price:'',
-                    content: ''
+                    content: '',
+                    id : localStorage.getItem('newEmail')
                 },
 
                 user: {
