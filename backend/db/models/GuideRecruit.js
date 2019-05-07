@@ -8,15 +8,16 @@ var GuideRecruitSchema = new mongoose.Schema({
     UserID: String,
     RecruitTitle: String,
     RecruitLocation: String,
-    RecruitDayandTime: Date,
+    WriteTime: {type:Date, default:Date.now },
+    From_time : {type:Date, default:Date.now },
+    To_time : {type:Date, default:Date.now },
     RecruitPeopleNumber : Number,
     RecruitContent : String,
     ApplyRecruitID :String,
-
 });
 GuideRecruitSchema.plugin(autoIncrement, {
-    model: 'GuideRecruitmodel',
+    model: 'GuideRecruit',
     field: 'RecruitNum',
     startAt: 0
 })
-module.exports = mongoose.model('GuideRecruitmodel', GuideRecruitSchema);
+module.exports = mongoose.model('GuideRecruit', GuideRecruitSchema);

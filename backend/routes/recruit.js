@@ -1,34 +1,33 @@
 const { Router } = require('express');
 const router = Router();
 const applyrecruit = require('../db/models/ApplyRecruit');
+const guiderecruit = require('../db/models/GuideRecruit');
 router.post('/apply', function (req, res, next) {
+    console.log("post apply임");
     console.log(req.body.params);
-    //  let resitemp = applyrecruit({
-    //      UserID : "kki",
-    //      TourImageURL:  "ABCD",
-    //      TourTitle: "버거킹",
-    //      TourLocation: "대전",
-    //      TourMaxNum: 15,
-    //      TourMinNum: 5,
-    //      TourContent: "버거킹없지만 찾아먹으러가보자",
-    //      TourPrice: 150000,
-    //      TourApplyList: "a,b,c,d",
-    //      TourNowPeopleNum: 3,
-    //      TourThema : "먹방"
-    //  })
-    // applyrecruit.save(function(error,data){
-    //      if(error){
-    //          console.log(error);
-    //      }else{
-    //          console.log("에러없이 doctor resi data : ");
-    //          console.log(data);
-    //      }
-    //  });
+
 
 });
 router.post('/custom', function (req, res, next) {
     //console.log(req);
+    console.log("/custom임");
     console.log(req.body.params);
+    let savecostom = new guiderecruit();
+
+    savecustom.UserID = req.body.params.recruitdata.id;
+    savecustom.RecruitTitle = req.body.params.recruitdata.title;
+    savecustom.RecruitLocation =req.body.params.recruitdata.location;
+    savecustom.RecruitPeopleNumber = req.body.params.recruitdata.number;
+    savecustom.RecruitContent = req.body.params.recruitdata.content;
+    savecustom.save(function(err,data){
+        if(err){
+            console.log(err);
+        }
+        else {
+            console.log("저장data "+data);
+        }
+    });
+
 });
 
 module.exports = router;
