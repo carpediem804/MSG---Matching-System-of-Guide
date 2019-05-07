@@ -5,7 +5,7 @@ const router = Router();
 const userinfo = require('../db/models/Userinfo');
 //const upload = require('../multer/storage');
 
-router.post('/', function(req, res,next){
+router.post('/signup', function(req, res,next){
     //console.log(req);
 
     console.log(req.body)
