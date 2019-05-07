@@ -70,7 +70,7 @@
             }
           }
         }).then((res)=>{
-          this.$http.post('http://localhost:8000/registUserInfo', {
+          this.$http.post('http://localhost:8000/registUserInfo/login', {
             email: this.user.email
           })
                   .then((response) => {  //로그인 성공
