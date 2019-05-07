@@ -5,7 +5,7 @@ const router = Router();
 const userinfo = require('../db/models/Userinfo');
 //const upload = require('../multer/storage');
 
-router.post('/', function(req, res,next){
+router.post('/signup', function(req, res,next){
     //console.log(req);
 
     console.log(req.body)
@@ -25,6 +25,14 @@ router.post('/', function(req, res,next){
             console.log("저장data "+data);
         }
     });
+})
+router.post('/login',function(req,res,next){
+    console.log(req.body);
+    userinfo.findOne({Email:req.body.email}).exec()
+        .then(user_info=>{
+            console.log("userinfo : "+user_info);
+            res.json({user_info});
+        })
 })
 
 module.exports = router;

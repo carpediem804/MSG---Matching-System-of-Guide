@@ -1,2 +1,2 @@
-.json
-node-modules/
+*.json
+node_modules/
