@@ -70,13 +70,23 @@
             }
           }
         }).then((res)=>{
-          let user=res.user
-          this.$store.state.user=res.user
-          this.$store.state.loggedIn=true
-          localStorage.setItem('newUser',this.$store.state.user.email)
-          localStorage.setItem('logState',this.$store.state.loggedIn)
-          alert("로그인 성공!")
-          location.reload();
+          this.$http.post('http://localhost:8000/registUserInfo', {
+            email: this.user.email
+          })
+                  .then((response) => {  //로그인 성공
+                           console.log(response);
+                            // localStorage.setItem('newUser', response.user.email)
+                            // localStorage.setItem('logState',response.user.password)
+                            alert("로그인 성공!")
+                            location.reload();
+                          },
+                          (error) => { // error 를 보여줌
+                            alert(error.response.data.error)
+                          }
+                  )
+                  .catch(error => {
+                    alert(error)
+                  })
         })
       },
       Logout(){

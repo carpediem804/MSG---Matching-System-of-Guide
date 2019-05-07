@@ -39,7 +39,6 @@
                             user: this.user
                         })
                             .then((response) => {  //로그인 성공
-                                    this.$session.start()
                                 },
                                 (error) => { // error 를 보여줌
                                     alert(error.response.data.error)
