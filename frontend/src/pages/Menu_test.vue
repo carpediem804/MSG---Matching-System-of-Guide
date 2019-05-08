@@ -34,7 +34,7 @@
         methods: {
             signUp(){
                 firebase.auth().createUserWithEmailAndPassword(this.user.email, this.user.password)
-                    .then((user) => {
+                    .then((res) => {
                         this.$http.post('http://localhost:8000/registUserInfo/signup', {
                             user: this.user
                         })

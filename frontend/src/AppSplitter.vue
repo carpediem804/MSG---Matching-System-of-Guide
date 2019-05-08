@@ -30,11 +30,11 @@
           return this.$store.state.splitter.open;
         },
         set(newValue) {
-          this.$store.commit('splitter/toggle', newValue)
-        }
-      }
-    },
-    components: {AppTabbar, MenuPage, Menu_test}
+    this.$store.commit('splitter/toggle', newValue)
+  }
+  }
+  },
+  components: {AppTabbar, MenuPage, Menu_test}
   };
 </script>
 

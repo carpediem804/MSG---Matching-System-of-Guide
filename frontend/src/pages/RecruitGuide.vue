@@ -59,6 +59,8 @@
         },
         data() {
             return {
+
+
                 page: {
                     component: GuideApply,
                     label: '가이드 신청글'
