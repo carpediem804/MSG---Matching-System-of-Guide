@@ -16,12 +16,7 @@
         <br><br>
       </div>
       <div id="login_after" v-if="!test2()">
-        <br>{{ present_user.email }} <br>
-        <br>{{ present_user.password }} <br>
-        <br>{{ present_user.name }} <br>
-        <br>{{ present_user.phonenum }} <br>
-        <br>{{ present_user.kakaoid }} <br>
-        <br>{{ present_user.type }} <br>
+        <br>{{ present_user.name }}님 / {{ present_user.type }}<br>
         <button class="login_button" @click="push(page[1].component, page[1].label)">내 프로필</button>
         <button class="login_button" @click="push(page[2].component, page[2].label)">등록 상품</button>
         <button class="login_button" @click="push(page[3].component, page[3].label)">신청 상품</button>
@@ -35,6 +30,7 @@
 <script>
 
   import Menu_test from "./Menu_test.vue";
+  import Mypage from "./Mypage.vue"
   import firebase from 'firebase'
 
   export default {
@@ -51,7 +47,7 @@
           data() {
             return {
               toolbarInfo: {
-                backLabel: 'Home',
+                backLabel: 'back',
                 title: key
               }
             }
@@ -120,20 +116,20 @@
             label: '회원가입'
           },
           {
-            component: Menu_test,
-            label: '테스트1'
+            component: Mypage,
+            label: '내 프로필'
           },
           {
             component: Menu_test,
-            label: '테스트2'
+            label: '등록 상품'
           },
           {
             component: Menu_test,
-            label: '테스트3'
+            label: '신청 상품'
           },
           {
             component: Menu_test,
-            label: '테스트4'
+            label: '완료 상품'
           }
         ],
         user: {
