@@ -14,16 +14,12 @@
           </v-ons-input>
 
           <v-ons-button style="text-align: center"
-                        @click="alert2()">찾기
+                        @click="test_func()">찾기
           </v-ons-button>
 
         </form>
 
 
-        <!-- <v-ons-button style="text-align: center"
-        @click="alert2()">찾기
-        </v-ons-button> -->
-
         <v-ons-select style="width: 120px" v-model ="selectedLocal " >
 
           <option v-for="item in localitems"  :value="item.value" >
@@ -40,29 +36,38 @@
 
         </v-ons-select>
 
-        <div class="center">
-          {{ selectedLocal }} is awesome!
-        </div>
+        <!--<div class="center">-->
+          <!--{{ selectedLocal }} is awesome!-->
+        <!--</div>-->
 
-        <p>{{ name }}</p>
+        <!--<p>{{ name }}</p>-->
+
 
 
 
 
       </label>
 
+      <!--<v-ons-list>-->
+        <!--<v-ons-list-header>검색 결과</v-ons-list-header>-->
+
+        <!--<v-ons-list-item v-for="item in listitems" :key="item"-->
+                         <!--@click="push(page2.component, page2.label)">-->
+          <!--<div class="center" >{{ item }}</div>-->
+        <!--</v-ons-list-item>-->
+
+      <!--</v-ons-list>-->
+
+
+
       <v-ons-list>
-        <v-ons-list-header>검색 결과</v-ons-list-header>
+        <v-ons-list-header>필터링</v-ons-list-header>
 
-        <v-ons-list-item v-for="item in listitems" :key="item"
-                         @click="push(page2.component, page2.label)">
-
-          <!-- <div class="left">
-            <img class="list-item__thumbnail" :src="kitten.url">
-          </div> -->
-
+        <v-ons-list-item v-for="item in filtered" :key="item"
+                         @click="push(page2.component, page2.label)" >
           <div class="center" >{{ item }}</div>
         </v-ons-list-item>
+
       </v-ons-list>
 
 
@@ -89,7 +94,22 @@
   import GuideRecruit from './KH.vue'
 
   export default {
+
     methods: {
+
+      test_func(){
+        console.log(this.filtered.length);
+        while(this.filtered.length !== 0){
+          this.filtered.pop();
+        }
+        for(var i=0; i<this.listitems.length; i++){
+          if(this.listitems[i].includes(this.name)){
+            this.filtered.push(this.listitems[i])
+          }
+        }
+        alert("보냈다!");
+      },
+
       alert2 () {
         alert(this.name)
       },
@@ -133,6 +153,15 @@
     },
     data() {
       return {
+
+        filtered: ['제주 제주', '제주 서귀포', '제주 우도', '서울 남대문',
+          '서울 서대문', '서울 경복궁', '경기 수원시', '경기 성남시',
+          '경기 화성시', '경기 오산시', '경기 광주시'
+        ],
+
+
+
+
         page1: {
           component: GuideRecruit,
           label: '가이드 모집글'
