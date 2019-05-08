@@ -20,6 +20,9 @@ export default {
 };
 </script>
 <style>
+    .home{
+     background-color: #CCEEFF;
+    }
   .back_image {
     width: 100%;
     max-width: 600px;
