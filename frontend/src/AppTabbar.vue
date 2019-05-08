@@ -1,6 +1,14 @@
 <template>
   <v-ons-page :style="swipePosition">
-    <custom-toolbar :style="swipeTheme" modifier="white-content">
+    <custom-toolbar :style="swipeTheme" modifier="white-content" v-if="title=='Home'||'투어상품 검색'||'가이드 모집'">
+      <img slot="logo" src="./assets/logo6.png">
+      <v-ons-toolbar-button slot="right" modifier="white-content"
+                            @click="$store.commit('splitter/toggle')"
+      >
+        <v-ons-icon icon="ion-navicon, material:md-menu"></v-ons-icon>
+      </v-ons-toolbar-button>
+    </custom-toolbar>
+    <custom-toolbar :style="swipeTheme" modifier="white-content" v-else>
       {{ title }}
       <v-ons-toolbar-button slot="right" modifier="white-content"
                             @click="$store.commit('splitter/toggle')"
@@ -58,7 +66,7 @@
             theme: red
           },
           {
-            label: 'Test4',
+            label: 'Home',
             icon: this.md ? null : 'ion-home',
             page: test_4,
             theme: blue
