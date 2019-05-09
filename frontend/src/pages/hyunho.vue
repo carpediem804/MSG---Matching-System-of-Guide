@@ -21,33 +21,34 @@
         <v-ons-button class="button-margin"  @click="test_func()">Search</v-ons-button>
     </div>
 
-    <v-ons-list-item>
-        <v-ons-card v-for="item in categories">
-            <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
-            <div class="title">
-                {{item.TourTitle}}
-            </div>
-            <div class="test" align="right">{{item.TourNowPeopleNum}}명 / {{item.TourMaxNum}}명</div>
-            <div class="content">
-                <div>
-                    <v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>
-                    <v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
-                </div>
-                <v-ons-list>
-                    <v-ons-list-item ># {{item.TourLocation}} # {{item.TourThema}} </v-ons-list-item>
-                    <v-ons-list-item># {{item.TourContent}}</v-ons-list-item>
-                    <v-ons-list-item># ${{item.TourPrice}}  </v-ons-list-item>
-                </v-ons-list>
-            </div>
+    <!--<v-ons-list-item>-->
+        <!--<v-ons-card v-for="item in categories">-->
+            <!--<img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">-->
+            <!--<div class="title">-->
+                <!--{{item.TourTitle}}-->
+            <!--</div>-->
+            <!--<div class="test" align="right">{{item.TourNowPeopleNum}}명 / {{item.TourMaxNum}}명</div>-->
+            <!--<div class="content">-->
+                <!--<div>-->
+                    <!--<v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>-->
+                    <!--<v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>-->
+                <!--</div>-->
+                <!--<v-ons-list>-->
+                    <!--<v-ons-list-item ># {{item.TourLocation}} # {{item.TourThema}} </v-ons-list-item>-->
+                    <!--<v-ons-list-item># {{item.TourContent}}</v-ons-list-item>-->
+                    <!--<v-ons-list-item># ${{item.TourPrice}}  </v-ons-list-item>-->
+                <!--</v-ons-list>-->
+            <!--</div>-->
 
-        </v-ons-card>
-    </v-ons-list-item>
+        <!--</v-ons-card>-->
+    <!--</v-ons-list-item>-->
     <v-ons-list-item>
-        <v-ons-card v-for="todo in filtered">
+        <v-ons-card v-for="todo in filtered"  >
             <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
             <div class="title2">
                 {{todo.TourTitle}}
             </div>
+            <v-ons-button class ="tourinfo"  :key="todo" @click="push(page2.component, page2.label)"> 투어상품</v-ons-button>
             <div class="test2" align="right">{{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명</div>
             <div class="content2">
                 <div>
@@ -61,10 +62,11 @@
                 </v-ons-list>
             </div>
         </v-ons-card>
+
     </v-ons-list-item>
 
         <p align="right">
-            <v-ons-button class="assign_button2" v-if="session_existed()" icon='ion-edit'
+            <v-ons-button class="maketourbutton" v-if="session_existed()" icon='ion-edit'
                           @click="push(page.component, page.label)"> 투어상품 작성하기
             </v-ons-button>
         </p>
@@ -76,10 +78,12 @@
 <script>
 
     import MakeTourItem from "./MakeTourItem.vue";
+    import TourInfo from "./TourInfo.vue";
 
     export default {
         methods: {
             push(page, key) {
+                console.log(localStorage.getItem('newType'));
                 this.$store.commit('navigator/push', {
                     extends: page,
                     data() {
@@ -93,36 +97,27 @@
                 });
             },
             session_existed() {
-                if (localStorage.getItem('newUser') == null) {
+                if (localStorage.getItem('newType') !== null) {
                     return true;
                 }
                 return false;
             },
             test_func() {
-                console.log(this.filtered.length);
+                console.log(this.categories.length);
                 while (this.filtered.length !== 0) {
                     this.filtered.pop();
                 }
+                console.log(this.filtered.length)
+
                 for (var i = 0; i < this.categories.length; i++) {
-                    if ((this.categories[i].TourLocation === (this.selectedLocal) )|| (this.categories[i].TourThema === (this.selectedThema))
-                        || (this.categories[i].TourTitle.includes(this.search)) || (this.categories[i].TourContent.includes(this.search))) {
-                        this.filtered.push({
-                            TourContent: this.categories[i].TourContent,
-                            TourDayandTime: this.categories[i].TourDayandTime,
-                            TourImageURL: this.categories[i].TourImageURL,
-                            TourLocation: this.categories[i].TourLocation,
-                            TourThema: this.categories[i].TourThema,
-                            TourMaxNum: this.categories[i].TourMaxNum,
-                            TourMinNum: this.categories[i].TourMinNum,
-                            TourNowPeopleNum: this.categories[i].TourNowPeopleNum,
-                            TourNum: this.categories[i].TourNum,
-                            TourPrice: this.categories[i].TourPrice,
-                            TourTitle: this.categories[i].TourTitle,
-                            Tour_create_date: this.categories[i].Tour_create_date,
-                            UserID: this.categories[i].UserID
-                        });
+                    console.log(this.categories[i].TourLocation);
+                  console.log(this.selectedLocal);
+                    if (this.categories[i].TourLocation === this.selectedLocal) {
+
+                        this.filtered.push( this.categories[i]);
                     }
                 }
+                console.log(this.filtered)
                 if(this.filtered.length !== 0){
                     alert("Items Searched !! ");
                 }
@@ -139,6 +134,11 @@
                     page: {
                         component: MakeTourItem,
                         label: '투어상품 등록'
+                    },
+
+                    page2: {
+                        component: TourInfo,
+                        label: '투어상품'
                     },
                     filtered: [
                         {
@@ -202,7 +202,9 @@
                 this.$http.get('http://localhost:8000/getTourList/custom').then(res => {
                     console.log("보냇다 보냇다~ ")
                     this.categories = res.data.tourdata;
-                    console.log(this.categories)
+                   //this.filtered = res.data.tourdata;
+                   // console.log(this.filtered)
+                   console.log(this.categories)
                     console.log(res)
                 }).catch(res => {
                     console.log(res)
