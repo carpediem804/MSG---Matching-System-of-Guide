@@ -17,7 +17,7 @@
       </div>
       <div id="login_after" v-if="!test2()">
         <br>{{ present_user.name }}님 / {{ present_user.type }}<br>
-        <button class="login_button" @click="push(page[1].component, page[1].label)">내 프로필</button>
+        <button class="login_button" @click="push(page[1].component, page[1].label)">프로필 수정</button>
         <button class="login_button" @click="push(page[2].component, page[2].label)">등록 상품</button>
         <button class="login_button" @click="push(page[3].component, page[3].label)">신청 상품</button>
         <button class="login_button" @click="push(page[4].component, page[4].label)">완료된 상품</button>
@@ -117,7 +117,7 @@
           },
           {
             component: Mypage,
-            label: '내 프로필'
+            label: '프로필 수정'
           },
           {
             component: Menu_test,

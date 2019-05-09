@@ -1,17 +1,78 @@
 <template>
     <v-ons-page modifier="white">
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
-        <v-ons-card>이름 : {{present_user.name}}</v-ons-card>
         <v-ons-card>이메일 : {{present_user.email}}</v-ons-card>
-        <v-ons-card>폰번호 : {{present_user.phonenum}}</v-ons-card>
-        <v-ons-card>카카오ID : {{present_user.kakaoid}}</v-ons-card>
         <v-ons-card>타입 : {{present_user.type}}</v-ons-card>
+        <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+            <div class="left">
+                <h3>이름</h3>
+            </div>
+            <label class="center">
+                <v-ons-input maxlength="20"
+                             placeholder="예)홍길동"
+                             v-model="present_user.name"
+                >
+                </v-ons-input>
+            </label>
+        </v-ons-list-item>
+        <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+            <div class="left">
+                <h3>폰번호</h3>
+            </div>
+            <label class="center">
+                <v-ons-input maxlength="20"
+                             placeholder="예)01012345678"
+                             v-model="present_user.phonenum"
+                >
+                </v-ons-input>
+            </label>
+        </v-ons-list-item>
+        <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+            <div class="left">
+                <h3>카카오ID</h3>
+            </div>
+            <label class="center">
+                <v-ons-input maxlength="20"
+                             placeholder="예)KAKAO1234"
+                             v-model="present_user.kakaoid"
+                >
+                </v-ons-input>
+            </label>
+        </v-ons-list-item>
+        <p align="center">
+            <button class="register_button" @click="fixup()">수정하기</button>
+        </p>
     </v-ons-page>
 </template>
 
 <script>
     export default {
         methods: {
+            fixup(){
+                this.$http.post('http://localhost:8000/registUserInfo/login', {
+                    user: this.present_user
+                })
+                    .then(
+                        (response) => {  //로그인 성공
+                            console.log(response.data.user_info);
+                            // localStorage.setItem('newEmail', response.data.user_info.Email);
+                            // localStorage.setItem('newPWD',response.data.user_info.PWD);
+                            // localStorage.setItem('newName', response.data.user_info.Name);
+                            // localStorage.setItem('newPhoneNum', response.data.user_info.PhoneNum);
+                            // localStorage.setItem('newkakaoID', response.data.user_info.kakaoID);
+                            // localStorage.setItem('newType', response.data.user_info.Type);
+                            alert('정보 수정 완료');
+                            // location.reload();
+
+                        },
+                        (error) => { // error 를 보여줌
+                            alert(error.response.data.error)
+                        }
+                    )
+                    .catch(error => {
+                        alert(error)
+                    })
+            }
         },
         data() {
             return {
@@ -43,11 +104,5 @@
         font-weight: 700;
         line-height: 61px;
         -webkit-appearance: none;
-    }
-    .register_form{
-        background: #fff;
-        display: block;
-        margin: auto;
-        padding: 5px 35px 10px 15px;
     }
 </style>
