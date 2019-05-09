@@ -8,9 +8,8 @@
       </slot>
     </div>
     <div class="center">
-      <img src="../assets/logo6.png" alt="">
-      <!-- <img v-if="this.title=='home'" src="../assets/logo5.png">
-      <slot v-else>{{ title }}</slot> -->
+      <slot name="logo"></slot>
+      <slot>{{ title }}</slot>
     </div>
     <div class="right"><slot name="right"></slot></div>
   </v-ons-toolbar>
@@ -18,6 +17,6 @@
 
 <script>
 export default {
-  props: ['title', 'backLabel']
+  props: ['title', 'backLabel'],
 };
 </script>

@@ -30,6 +30,17 @@ router.post('/custom', function (req, res, next) {
         }
     });
 
-});
 
+});
+router.get('/custom', function (req, res, next) {
+    guiderecruit.find(function(err,recruitdata){
+        if(err) {
+            console.log(err);
+        }else{
+            // console.log(tourdata);
+
+            res.json({recruitdata});
+        }
+    });
+});
 module.exports = router;
