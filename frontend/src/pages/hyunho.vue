@@ -108,12 +108,11 @@
                     this.filtered.pop();
                 }
                 console.log(this.filtered.length)
-
+                console.log(this.categories.length);
                 for (var i = 0; i < this.categories.length; i++) {
-                    console.log(this.categories[i].TourLocation);
-                  console.log(this.selectedLocal);
-                    if (this.categories[i].TourLocation === this.selectedLocal) {
 
+                    if (this.categories[i].TourLocation === this.selectedLocal) {
+                        console.log('seesees');
                         this.filtered.push( this.categories[i]);
                     }
                 }
@@ -142,11 +141,11 @@
                     },
                     filtered: [
                         {
-                            TourContent: "content",
-                            TourDayandTime: "2019-05-06T07:10:20.163Z",
-                            TourImageURL: "ABCD",
-                            TourLocation: "Local",
-                            TourThema: 'Thema',
+                            TourContent: "",
+                            TourDayandTime: "",
+                            TourImageURL: "",
+                            TourLocation: "",
+                            TourThema: '',
                             TourMaxNum: 10,
                             TourMinNum: 5,
                             TourNowPeopleNum: 0,
@@ -202,7 +201,10 @@
                 this.$http.get('http://localhost:8000/getTourList/custom').then(res => {
                     console.log("보냇다 보냇다~ ")
                     this.categories = res.data.tourdata;
-                   //this.filtered = res.data.tourdata;
+                    this.filtered.pop( );
+                    for (var i = 0; i < this.categories.length; i++) {
+                            this.filtered.push( this.categories[i]);
+                    }
                    // console.log(this.filtered)
                    console.log(this.categories)
                     console.log(res)
