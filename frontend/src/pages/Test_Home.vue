@@ -38,8 +38,8 @@
             //    this.recruit.id = localStorage.getItem('newEmail');
 
                 axios.post('http://localhost:8000/recruit/apply', {
-                    params: {
-                        applydata: this.recruit
+                params: {
+                    applydata: this.recruit
 
                     }
                 }).then(function (data) {

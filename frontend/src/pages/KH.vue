@@ -1,55 +1,155 @@
 <template>
     <v-ons-page modifier="white">
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
-        <div id="SignUp">
-            <div class="register_title" align="center">
-                제목<input v-model="recruit.title" placeholder="제목을 입력하세요.">
-            </div>
-            <div class="register_location" align="center">
-                지역<input v-model="recruit.location" placeholder="지역을 입력하세요.">
-            </div>
-            <div class="register_location" align="center">
-                인원<input v-model="recruit.number" placeholder="지역을 입력하세요.">
-            </div>
-            <div class="register_from_date" align="center">
-                여행 시작날짜
-                <v-ons-select style="width: 120px" v-model ="recruit.from_month">
-                    <option disabled value="">월</option>
-                    <option v-for="item in month"  :value="item.value" >
-                        {{ item.text }}
-                    </option>
-                </v-ons-select>
-                <v-ons-select style="width: 120px" v-model ="recruit.from_day">
-                    <option disabled value="">일</option>
-                    <option v-for="item in day"  :value="item.value" >
-                        {{ item.text }}
-                    </option>
-                </v-ons-select>
-            </div>
-            <div class="register_from_date" align="center">
-                여행 종료날짜
-                <v-ons-select style="width: 120px" v-model ="recruit.to_month">
-                    <option disabled value="">월</option>
-                    <option v-for="item in month"  :value="item.value" >
-                        {{ item.text }}
-                    </option>
-                </v-ons-select>
-                <v-ons-select style="width: 120px" v-model ="recruit.to_day">
-                    <option disabled value="">일</option>
-                    <option v-for="item in day"  :value="item.value" >
-                        {{ item.text }}
-                    </option>
-                </v-ons-select>
-            </div>
-            <div class="register_content" align="center">
-                <br>내용<br>
-                <textarea name="content" v-model="recruit.content" cols="100" rows="20" placeholder="내용을 입력하세요.">
-                </textarea>
-            </div>
-            <p align="center">
-                <button class="register_button" @click="signUp()">작성하기</button>
-            </p>
+        <div id="MakeTourItem">
+            <v-ons-list>
+                <v-ons-list-header>가이드 모집글</v-ons-list-header>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+
+                    <div class="left">
+                        제목
+                    </div>
+                    <label class="center">
+                        <v-ons-input float maxlength="20"
+                                     placeholder="Tour Title"
+                                     autofocus="true"
+                                     v-model="recruit.title"
+                        >
+                        </v-ons-input>
+                    </label>
+                </v-ons-list-item>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        장소
+                    </div>
+                    <label class="center">
+                        <v-ons-input maxlength="20"
+                                     placeholder="Tour Location"
+                                     v-model="recruit.location"
+                        >
+                        </v-ons-input>
+                    </label>
+                </v-ons-list-item>
+
+
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        희망 인원
+                    </div>
+                    <label class="center">
+                        <v-ons-input maxlength="20"
+                                     placeholder="MinNumber of People"
+                                     v-model="recruit.number"
+                        >
+                        </v-ons-input>
+                        명
+                    </label>
+                </v-ons-list-item>
+
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        투어 시작일
+                    </div>
+                    <label class="center">
+                        <v-ons-select style="width: 30%" v-model ="recruit.from_month">
+                            <option disabled value="">월</option>
+                            <option v-for="item in month"  :value="item.value" >
+                                {{ item.text }}
+                            </option>
+                        </v-ons-select>
+                        <pre>       </pre>
+                        <v-ons-select style="width: 30%" v-model ="recruit.from_day">
+                            <option disabled value="">일</option>
+                            <option v-for="item in day"  :value="item.value" >
+                                {{ item.text }}
+                            </option>
+                        </v-ons-select>
+                    </label>
+                </v-ons-list-item>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        투어 종료일
+                    </div>
+                    <label class="center">
+                        <v-ons-select style="width: 30%" v-model ="recruit.to_month">
+                            <option disabled value="">월</option>
+                            <option v-for="item in month"  :value="item.value" >
+                                {{ item.text }}
+                            </option>
+                        </v-ons-select>
+                        <pre>       </pre>
+                        <v-ons-select style="width: 30%" v-model ="recruit.to_day">
+                            <option disabled value="">일</option>
+                            <option v-for="item in day"  :value="item.value" >
+                                {{ item.text }}
+                            </option>
+                        </v-ons-select>
+                    </label>
+                </v-ons-list-item>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        투어 내용
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div>
+                        <textarea name="content" v-model="recruit.content" cols="50" rows="15" placeholder="투어 내용을 입력하세요."></textarea>
+                    </div>
+                </v-ons-list-item>
+                <p align="center">
+                    <button class="register_button" @click="signUp()">작성하기</button>
+                </p>
+            </v-ons-list>
         </div>
+        <!--<div id="SignUp">-->
+            <!--<div class="register_title" align="center">-->
+                <!--제목<input v-model="recruit.title" placeholder="제목을 입력하세요.">-->
+            <!--</div>-->
+            <!--<div class="register_location" align="center">-->
+                <!--지역<input v-model="recruit.location" placeholder="지역을 입력하세요.">-->
+            <!--</div>-->
+            <!--<div class="register_location" align="center">-->
+                <!--인원<input v-model="recruit.number" placeholder="지역을 입력하세요.">-->
+            <!--</div>-->
+            <!--<div class="register_from_date" align="center">-->
+                <!--여행 시작날짜-->
+                <!--<v-ons-select style="width: 120px" v-model ="recruit.from_month">-->
+                    <!--<option disabled value="">월</option>-->
+                    <!--<option v-for="item in month"  :value="item.value" >-->
+                        <!--{{ item.text }}-->
+                    <!--</option>-->
+                <!--</v-ons-select>-->
+                <!--<v-ons-select style="width: 120px" v-model ="recruit.from_day">-->
+                    <!--<option disabled value="">일</option>-->
+                    <!--<option v-for="item in day"  :value="item.value" >-->
+                        <!--{{ item.text }}-->
+                    <!--</option>-->
+                <!--</v-ons-select>-->
+            <!--</div>-->
+            <!--<div class="register_from_date" align="center">-->
+                <!--여행 종료날짜-->
+                <!--<v-ons-select style="width: 120px" v-model ="recruit.to_month">-->
+                    <!--<option disabled value="">월</option>-->
+                    <!--<option v-for="item in month"  :value="item.value" >-->
+                        <!--{{ item.text }}-->
+                    <!--</option>-->
+                <!--</v-ons-select>-->
+                <!--<v-ons-select style="width: 120px" v-model ="recruit.to_day">-->
+                    <!--<option disabled value="">일</option>-->
+                    <!--<option v-for="item in day"  :value="item.value" >-->
+                        <!--{{ item.text }}-->
+                    <!--</option>-->
+                <!--</v-ons-select>-->
+            <!--</div>-->
+            <!--<div class="register_content" align="center">-->
+                <!--<br>내용<br>-->
+                <!--<textarea name="content" v-model="recruit.content" cols="100" rows="20" placeholder="내용을 입력하세요.">-->
+                <!--</textarea>-->
+            <!--</div>-->
+            <!--<p align="center">-->
+                <!--<button class="register_button" @click="signUp()">작성하기</button>-->
+            <!--</p>-->
+        <!--</div>-->
     </v-ons-page>
 </template>
 
@@ -76,14 +176,16 @@
 
                 alert('제출되었습니다.');
 
-                var title=this.recruit.title;
-                var location=this.recruit.location;
+                // var title=this.recruit.title;
+                // var location=this.recruit.location;
+                //
+                // console.log(title);
+                // console.log(location);
+                //
+                //
+                // this.$store.commit('navigator/pop');
 
-                console.log(title);
-                console.log(location);
-
-
-                this.$store.commit('navigator/pop');
+                location.reload();
             },
 
 
