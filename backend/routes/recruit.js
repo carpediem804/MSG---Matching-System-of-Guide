@@ -12,7 +12,6 @@ router.post('/apply', function (req, res, next) {
     saveapply.SuggestLocation = req.body.params.applydata.location;
     saveapply.SuggestTitle = req.body.params.applydata.title;
     saveapply.SuggestContent = req.body.params.applydata.content;
-
     saveapply.SuggestPrice = req.body.params.applydata.price;
 
     saveapply.save(function(err,data){
