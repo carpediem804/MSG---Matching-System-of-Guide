@@ -42,8 +42,8 @@
 
         <!--</v-ons-card>-->
     <!--</v-ons-list-item>-->
-    <v-ons-list-item>
-        <v-ons-card v-for="todo in filtered"  >
+    <v-ons-list >
+        <v-ons-card v-for="todo in filtered">
             <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
             <div class="title2">
                 {{todo.TourTitle}}
@@ -63,7 +63,7 @@
             </div>
         </v-ons-card>
 
-    </v-ons-list-item>
+    </v-ons-list>
 
         <p align="right">
             <v-ons-button class="maketourbutton" v-if="session_existed()" icon='ion-edit'
