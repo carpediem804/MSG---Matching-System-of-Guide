@@ -49,20 +49,20 @@
     export default {
         methods: {
             fixup(){
-                this.$http.post('http://localhost:8000/registUserInfo/login', {
+                this.$http.post('http://localhost:8000/registUserInfo/fix', {
                     user: this.present_user
                 })
-                    .then(
-                        (response) => {  //로그인 성공
+                    .then(response => {  //로그인 성공
+                            console.log("qtewtwqet");
                             console.log(response.data.user_info);
-                            // localStorage.setItem('newEmail', response.data.user_info.Email);
-                            // localStorage.setItem('newPWD',response.data.user_info.PWD);
-                            // localStorage.setItem('newName', response.data.user_info.Name);
-                            // localStorage.setItem('newPhoneNum', response.data.user_info.PhoneNum);
-                            // localStorage.setItem('newkakaoID', response.data.user_info.kakaoID);
-                            // localStorage.setItem('newType', response.data.user_info.Type);
+                            localStorage.setItem('newEmail', response.data.user_info.Email);
+                            localStorage.setItem('newPWD',response.data.user_info.PWD);
+                            localStorage.setItem('newName', response.data.user_info.Name);
+                            localStorage.setItem('newPhoneNum', response.data.user_info.PhoneNum);
+                            localStorage.setItem('newkakaoID', response.data.user_info.kakaoID);
+                            localStorage.setItem('newType', response.data.user_info.Type);
                             alert('정보 수정 완료');
-                            // location.reload();
+                            location.reload();
 
                         },
                         (error) => { // error 를 보여줌
