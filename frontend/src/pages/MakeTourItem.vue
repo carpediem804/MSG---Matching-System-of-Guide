@@ -156,6 +156,7 @@
         data() {
             return {
                 Tour: {
+                    userId: localStorage.getItem('newEmail'),
                     title: '',
                     location: '',
                     thema: '',
