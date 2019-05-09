@@ -77,9 +77,23 @@
       <button class="button_apply" @click="push(page1.component, page1.label)">가이드 모집하기</button>
     </p>
 
+
+
+      <P align="center">
+          <button class="button_apply" @click="beforeCreate()">데이터확인!</button>
+      </p>
+
     <br>
     <br>
 
+      <v-ons-list>
+          <v-ons-list-header>데이터</v-ons-list-header>
+
+          <v-ons-list-item v-for="item in total_data" >
+              <div class="center" >{{ item.RecruitTitle }}</div>
+          </v-ons-list-item>
+
+      </v-ons-list>
 
 
 
@@ -92,65 +106,11 @@
 
   import GuideApply from './RecruitGuide.vue'
   import GuideRecruit from './KH.vue'
+  import axios from 'axios'
 
   export default {
 
-    methods: {
 
-      test_func(){
-        console.log(this.filtered.length);
-        while(this.filtered.length !== 0){
-          this.filtered.pop();
-        }
-        for(var i=0; i<this.listitems.length; i++){
-          if(this.listitems[i].includes(this.name)){
-            this.filtered.push(this.listitems[i])
-          }
-        }
-        alert("보냈다!");
-      },
-
-      alert2 () {
-        alert(this.name)
-      },
-
-      alert3 (kitten) {
-        this.kitten=kitten
-        alert(this.kitten+" 를 선택하셨습니다.")
-      },
-
-      filter(){
-
-        var isfiltered = false;
-        var todoObj = {};
-
-        for(var i=0;this.listitems.length;i++){
-          if (listitems[i].includes(name)){
-            this.todos.push(listitems[i])
-          }
-        }
-
-        this.listitems=this.todos
-        console.log(this.listitems)
-
-      },
-
-      push(page, key) {
-        this.$store.commit('navigator/push', {
-          extends: page,
-          data() {
-            return {
-              toolbarInfo: {
-                backLabel: 'Home',
-                title: key
-              }
-            }
-          }
-        });
-      }
-
-
-    },
     data() {
       return {
 
@@ -158,8 +118,23 @@
           '서울 서대문', '서울 경복궁', '경기 수원시', '경기 성남시',
           '경기 화성시', '경기 오산시', '경기 광주시'
         ],
+        temp :[],
+        total_data: [
+            {
+                ApplyRecruitID: "테스트",
+                From_time: "2019-05-08T13:47:49.925Z",
+                RecruitContent: " 수원수원",
+                RecruitLocation: "수원",
+                RecruitNum: 0,
+                RecruitPeopleNumber: 3,
+                RecruitTitle: "수원",
+                To_time: " 2019-05-08T13:47:49.925Z",
+                UserID: " swp0514@ajou.ac.kr",
+                WriteTime: "2019-05-08T13:47:49.925Z ",
 
 
+            }
+        ],
 
 
         page1: {
@@ -207,7 +182,93 @@
 
 
       };
-    }
+    },
+      methods: {
+
+          beforeCreate(){
+              this.$http.get('http://localhost:8000/recruit/custom').then(data => {
+
+                  console.log("sajfhewkjfhsdfhskjdaf")
+                  console.log(data);
+                  console.log(data.data.recruitdata)
+
+                  this.total_data=data.data.recruitdata;
+                  console.log(this.total_data)
+                  console.log("tempfkwlqjfjdsklafjlkasdf "+this.temp);
+
+              });
+
+
+
+
+              alert('제출되었습니다.');
+
+              // var title=this.recruit.title;
+              // var location=this.recruit.location;
+              //
+              // console.log(title);
+              // console.log(location);
+              //
+              //
+              // this.$store.commit('navigator/pop');
+
+              // location.reload();
+          },
+
+          test_func(){
+              console.log(this.filtered.length);
+              while(this.filtered.length !== 0){
+                  this.filtered.pop();
+              }
+              for(var i=0; i<this.listitems.length; i++){
+                  if(this.listitems[i].includes(this.name)){
+                      this.filtered.push(this.listitems[i])
+                  }
+              }
+              alert("보냈다!");
+          },
+
+          alert2 () {
+              alert(this.name)
+          },
+
+          alert3 (kitten) {
+              this.kitten=kitten
+              alert(this.kitten+" 를 선택하셨습니다.")
+          },
+
+          filter(){
+
+              var isfiltered = false;
+              var todoObj = {};
+
+              for(var i=0;this.listitems.length;i++){
+                  if (listitems[i].includes(name)){
+                      this.todos.push(listitems[i])
+                  }
+              }
+
+              this.listitems=this.todos
+              console.log(this.listitems)
+
+          },
+
+          push(page, key) {
+              this.$store.commit('navigator/push', {
+                  extends: page,
+                  data() {
+                      return {
+                          toolbarInfo: {
+                              backLabel: 'Home',
+                              title: key
+                          }
+                      }
+                  }
+              });
+          }
+
+
+      },
   };
 </script>
 

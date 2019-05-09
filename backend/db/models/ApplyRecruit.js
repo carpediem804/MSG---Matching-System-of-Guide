@@ -9,8 +9,9 @@ var ApplyRecruitSchema = new mongoose.Schema({
     TargetRecruit: String,
     SuggestImageURL: String,
     SuggestLocation: String,
+    SuggestTitle : String,
     SuggestContent: String,
-    SuggestPrice:Number
+    SuggestPrice : Number,
 });
 ApplyRecruitSchema.plugin(autoIncrement, {
     model: 'applyrecruit',
