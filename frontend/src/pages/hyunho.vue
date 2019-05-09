@@ -1,9 +1,6 @@
 <template>
 <v-ons-page>
     <div class="test2" align="center">
-
-
-
         <v-ons-search-input maxlength="20" placeholder="Search" v-model="search"></v-ons-search-input>
 
         <v-ons-select style="width: 80px" v-model ="selectedLocal " >
