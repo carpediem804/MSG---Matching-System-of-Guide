@@ -111,7 +111,7 @@
                 console.log(this.categories.length);
                 for (var i = 0; i < this.categories.length; i++) {
 
-                    if (this.categories[i].TourLocation === this.selectedLocal) {
+                    if ((this.categories[i].TourLocation === this.selectedLocal) || (this.categories[i].TourTitle === this.search )) {
                         console.log('seesees');
                         this.filtered.push( this.categories[i]);
                     }
