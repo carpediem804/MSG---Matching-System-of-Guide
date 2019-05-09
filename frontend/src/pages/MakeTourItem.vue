@@ -12,7 +12,7 @@
                     <v-ons-input float maxlength="20"
                         placeholder="Tour Title"
                         autofocus="true"
-                        v-model="recruit.title"
+                        v-model="Tour.title"
                     >
                     </v-ons-input>
                     </label>
@@ -24,7 +24,7 @@
                     <label class="center">
                     <v-ons-input maxlength="20"
                         placeholder="Tour Location"
-                        v-model="recruit.location"
+                        v-model="Tour.location"
                     >
                     </v-ons-input>
                     </label>
@@ -36,7 +36,7 @@
                     <label class="center">
                     <v-ons-input maxlength="20"
                         placeholder="Tour Thema"
-                        v-model="recruit.thema"
+                        v-model="Tour.thema"
                     >
                     </v-ons-input>
                     </label>
@@ -48,7 +48,7 @@
                     <label class="center">
                     <v-ons-input maxlength="20"
                         placeholder="Tour Price"
-                        v-model="recruit.price"
+                        v-model="Tour.price"
                     >
                     </v-ons-input>
                     원
@@ -61,7 +61,7 @@
                     <label class="center">
                     <v-ons-input maxlength="20"
                         placeholder="MaxNumber of People"
-                        v-model="recruit.MaxNum"
+                        v-model="Tour.maxNum"
                     >
                     </v-ons-input>
                     명
@@ -74,7 +74,7 @@
                     <label class="center">
                     <v-ons-input maxlength="20"
                         placeholder="MinNumber of People"
-                        v-model="recruit.MinNum"
+                        v-model="Tour.minNum"
                     >
                     </v-ons-input>
                     명
@@ -85,19 +85,10 @@
                             투어 시작일
                     </div>
                     <label class="center">
-                        <v-ons-select style="width: 30%" v-model ="recruit.from_month">
-                            <option disabled value="">월</option>
-                            <option v-for="item in month"  :value="item.value" >
-                                {{ item.text }}
-                            </option>
-                        </v-ons-select>
-                        <pre>       </pre>
-                        <v-ons-select style="width: 30%" v-model ="recruit.from_day">
-                            <option disabled value="">일</option>
-                            <option v-for="item in day"  :value="item.value" >
-                                {{ item.text }}
-                            </option>
-                        </v-ons-select>
+                        <v-ons-input type=datetime-local 
+                            v-model="Tour.startDate"
+                        >
+                        </v-ons-input>
                     </label>
                 </v-ons-list-item>
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">
@@ -105,19 +96,10 @@
                             투어 종료일
                     </div>
                     <label class="center">
-                        <v-ons-select style="width: 30%" v-model ="recruit.to_month">
-                            <option disabled value="">월</option>
-                            <option v-for="item in month"  :value="item.value" >
-                                {{ item.text }}
-                            </option>
-                        </v-ons-select>
-                        <pre>       </pre>
-                        <v-ons-select style="width: 30%" v-model ="recruit.to_day">
-                            <option disabled value="">일</option>
-                            <option v-for="item in day"  :value="item.value" >
-                                {{ item.text }}
-                            </option>
-                        </v-ons-select>
+                        <v-ons-input type=datetime-local 
+                            v-model="Tour.endDate"
+                        >
+                        </v-ons-input>
                     </label>
                 </v-ons-list-item>
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">
@@ -127,7 +109,7 @@
                 </v-ons-list-item>
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">
                     <div>
-                        <textarea name="content" v-model="recruit.content" cols="52" rows="19" placeholder="투어 내용을 입력하세요."></textarea>
+                        <textarea name="content" v-model="Tour.content" cols="52" rows="19" placeholder="투어 내용을 입력하세요."></textarea>
                     </div>
                 </v-ons-list-item>
                 <p align="center">
@@ -144,100 +126,46 @@
         methods: {
             signUp(){
                 this.recruit.id = localStorage.getItem('newUser');
-
                 axios.post('http://localhost:8000/recruit/custom',{
                     params: {
                         recruitdata: this.recruit
-
                     }
                 }).then(function(data){
                     console.log("던졋다");
                     this.submitted = true;
                     console.log("submitted가 true 됨 ")
-
                 });
-
-
-
-
                 alert('제출되었습니다.');
-
                 var title=this.recruit.title;
                 var location=this.recruit.location;
-
                 console.log(title);
                 console.log(location);
-
-
                 this.$store.commit('navigator/pop');
             },
-
-
+            makeTour(){
+                console.log(this.Tour);
+                axios.post('http://localhost:8000/registerTour',{
+                    params: {
+                        TourItem: this.Tour
+                    }
+                }).then(function(data){
+                    console.log("register TourItem complete");
+                });
+            },
         },
         data() {
             return {
-                recruit: {
-                    id: '',
+                Tour: {
                     title: '',
                     location: '',
-                    number:'',
-                    from_month: '',
-                    from_day: '',
-                    to_month: '',
-                    to_day: '',
-                    content: ''
+                    thema: '',
+                    price: '',
+                    maxNum: '',
+                    minNum: '',
+                    startDate: '',
+                    endDate: '',
+                    content: '',  
                 },
-                month: [
-                    { value: '1월', text: '1월' },
-                    { value: '2월', text: '2월' },
-                    { value: '3월', text: '3월' },
-                    { value: '4월', text: '4월' },
-                    { value: '5월', text: '5월' },
-                    { value: '6월', text: '6월' },
-                    { value: '7월', text: '7월' },
-                    { value: '8월', text: '8월' },
-                    { value: '9월', text: '9월' },
-                    { value: '10월', text: '10월' },
-                    { value: '11월', text: '11월' },
-                    { value: '12월', text: '12월' },
-                ],
-                day: [
-                    { value: '1일', text: '1일' },
-                    { value: '2일', text: '2일' },
-                    { value: '3일', text: '3일' },
-                    { value: '4일', text: '4일' },
-                    { value: '5일', text: '5일' },
-                    { value: '6일', text: '6일' },
-                    { value: '7일', text: '7일' },
-                    { value: '8일', text: '8일' },
-                    { value: '9일', text: '9일' },
-                    { value: '10일', text: '10일' },
-                    { value: '11일', text: '11일' },
-                    { value: '12일', text: '12일' },
-                    { value: '13일', text: '13일' },
-                    { value: '14일', text: '14일' },
-                    { value: '15일', text: '15일' },
-                    { value: '16일', text: '16일' },
-                    { value: '17일', text: '17일' },
-                    { value: '18일', text: '18일' },
-                    { value: '19일', text: '19일' },
-                    { value: '20일', text: '20일' },
-                    { value: '21일', text: '21일' },
-                    { value: '22일', text: '22일' },
-                    { value: '23일', text: '23일' },
-                    { value: '24일', text: '24일' },
-                    { value: '25일', text: '25일' },
-                    { value: '26일', text: '26일' },
-                    { value: '27일', text: '27일' },
-                    { value: '28일', text: '28일' },
-                    { value: '29일', text: '29일' },
-                    { value: '30일', text: '30일' },
-                    { value: '31일', text: '31일' }
-                ],
-                from_month: '',
-                from_day : '',
-                to_month :'',
-                to_day:''
             };
         }
     };

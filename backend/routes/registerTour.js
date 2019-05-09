@@ -3,6 +3,7 @@ const router = Router();
 const Tourcontent = require('../db/models/Tour');
 
 router.post('/', function (req, res, next) {
+    console.log(req.body)
     let saveTour = new Tourcontent();
     saveTour.UserID
     saveTour.TourImageURL = "아직구현안함";
