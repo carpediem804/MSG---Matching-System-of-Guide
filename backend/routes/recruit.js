@@ -10,9 +10,11 @@ router.post('/apply', function (req, res, next) {
     saveapply.TargetRecruit = "아직 안됫음";
     saveapply.SuggestImageURL = "아직 안됫음22";
     saveapply.SuggestLocation = req.body.params.applydata.location;
-    saveapply.SuggestTitle = req.body.params.applydata;
-    saveapply.SuggestContent = req.body.params.content;
-    saveapply.SuggestPrice = req.body.params.price;
+    saveapply.SuggestTitle = req.body.params.applydata.title;
+    saveapply.SuggestContent = req.body.params.applydata.content;
+
+    saveapply.SuggestPrice = req.body.params.applydata.price;
+
     saveapply.save(function(err,data){
         if(err){
             console.log(err);
@@ -43,16 +45,12 @@ router.post('/custom', function (req, res, next) {
             console.log("저장data "+data);
         }
     });
-
-
 });
 router.get('/custom', function (req, res, next) {
     guiderecruit.find(function(err,recruitdata){
         if(err) {
             console.log(err);
         }else{
-            // console.log(tourdata);
-
             res.json({recruitdata});
         }
     });
@@ -62,8 +60,6 @@ router.get('/apply', function (req, res, next) {
         if(err) {
             console.log(err);
         }else{
-            // console.log(tourdata);
-
             res.json({applydata});
         }
     });
