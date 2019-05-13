@@ -29,7 +29,8 @@
 
 <script>
 
-  import Menu_test from "./Menu_test.vue";
+  import Menu_test from "./Menu_test.vue"
+  import Myregister from "./Myregister.vue"
   import Mypage from "./Mypage.vue"
   import firebase from 'firebase'
 
@@ -120,7 +121,7 @@
             label: '프로필 수정'
           },
           {
-            component: Menu_test,
+            component: Myregister,
             label: '등록 상품'
           },
           {
