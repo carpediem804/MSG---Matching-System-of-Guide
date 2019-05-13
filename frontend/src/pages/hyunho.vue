@@ -2,12 +2,12 @@
 <v-ons-page>
     <div class="test2" align="center">
         <v-ons-search-input maxlength="20" placeholder="Search" v-model="search"></v-ons-search-input>
-
+        <div></div>
         <v-ons-select style="width: 80px" v-model ="selectedLocal " >
             <option v-for="loitem in localitems"  :value="loitem.value" >
                 {{ loitem.text }}
             </option>
-        </v-ons-select>
+        </v-ons-select> 
 
         <v-ons-select style="width: 80px" v-model="selectedThema" >
             <option v-for="thitem in themaitems"  :value="thitem.value" >
