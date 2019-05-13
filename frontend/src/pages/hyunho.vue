@@ -2,12 +2,12 @@
 <v-ons-page>
     <div class="test2" align="center">
         <v-ons-search-input maxlength="20" placeholder="Search" v-model="search"></v-ons-search-input>
-
+        <div></div>
         <v-ons-select style="width: 80px" v-model ="selectedLocal " >
             <option v-for="loitem in localitems"  :value="loitem.value" >
                 {{ loitem.text }}
             </option>
-        </v-ons-select>
+        </v-ons-select> 
 
         <v-ons-select style="width: 80px" v-model="selectedThema" >
             <option v-for="thitem in themaitems"  :value="thitem.value" >
@@ -39,8 +39,8 @@
 
         <!--</v-ons-card>-->
     <!--</v-ons-list-item>-->
-    <v-ons-list-item>
-        <v-ons-card v-for="todo in filtered"  >
+    <v-ons-list >
+        <v-ons-card v-for="todo in filtered">
             <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
             <div class="title2">
                 {{todo.TourTitle}}
@@ -60,7 +60,7 @@
             </div>
         </v-ons-card>
 
-    </v-ons-list-item>
+    </v-ons-list>
 
         <p align="right">
             <v-ons-button class="maketourbutton" v-if="session_existed()" icon='ion-edit'
