@@ -75,10 +75,13 @@
         },
         beforeCreate(){
             this.$http.post('http://localhost:8000/checkInfo/register', {
-                user: this.register_user
+                params: {
+                    email: this.register_user.email,
+                    type: this.register_user.type
+                }
             })
                 .then((response) => {  //로그인 성공;
-                        console.log(this.user.type);
+                        console.log(this.register_user.type);
                         // if(this.user.type === '여행객'){
                         //     this.traveler_register_data=response.data.recruitdata;
                         // }
