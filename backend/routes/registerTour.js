@@ -15,6 +15,8 @@ router.post('/', function (req, res, next) {
     saveTour.TourPrice = req.body.params.TourItem.price;
    // saveTour.TourApplyList
    // saveTour.TourNowPeopleNum
+    saveTour.TourDayandTime_start = req.body.params.TourItem.startDate;
+    saveTour.TourDayandTime_end = req.body.params.TourItem.endDate;
     saveTour.TourThema = req.body.params.TourItem.thema;
     saveTour.save(function(err,data){
         if(err){
