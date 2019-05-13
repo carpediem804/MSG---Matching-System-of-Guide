@@ -26,6 +26,22 @@ router.post('/signup', function(req, res,next){
         }
     });
 })
+router.post('/fix',function(req,res,next){
+    console.log(req.body);
+    userinfo.findOne({Email:req.body.user.email}).exec()
+        .then(changeuser=>{
+            changeuser.Name = req.body.user.name;
+            changeuser.PhoneNum = req.body.user.phonenum;
+            changeuser.kakaoID = req.body.user.kakaoid;
+            changeuser.save();
+        });
+
+    userinfo.findOne({Email:req.body.user.email}).exec()
+        .then(user_info=>{
+            console.log("바꾼 userinfo : "+user_info);
+            res.json({user_info});
+        })
+});
 router.post('/login',function(req,res,next){
     console.log(req.body);
     userinfo.findOne({Email:req.body.email}).exec()

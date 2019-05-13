@@ -94,11 +94,24 @@
           </v-ons-list-item>
 
       </v-ons-list>
-
-
-
-
-
+  <v-ons-list-item>
+    <v-ons-card v-for="todo in filtered_data">
+      <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
+      <div class="title2">
+        {{todo.RecruitTitle}}
+      </div>
+      <div class="test2" align="right">{{todo.RecruitPeopleNumber}}명</div>
+      <div class="content2">
+        <!--<div>-->
+          <!--<v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>-->
+          <!--<v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>-->
+        <!--</div>-->
+        <v-ons-list>
+          <v-ons-list-item ># {{todo.RecruitLocation}} </v-ons-list-item>
+        </v-ons-list>
+      </div>
+    </v-ons-card>
+  </v-ons-list-item>
   </v-ons-page>
 </template>
 
@@ -109,8 +122,15 @@
   import axios from 'axios'
 
   export default {
-
-
+    beforeCreate(){
+      this.$http.get('http://localhost:8000/recruit/custom').then(data => {
+        this.total_data=data.data.recruitdata;
+        this.filtered_data.pop();
+        for (var i = 0; i < this.total_data.length; i++) {
+          this.filtered_data.push(this.total_data[i]);
+        }
+      });
+    },
     data() {
       return {
 
@@ -134,6 +154,22 @@
 
 
             }
+        ],
+        filtered_data: [
+          {
+            ApplyRecruitID: "테스트",
+            From_time: "2019-05-08T13:47:49.925Z",
+            RecruitContent: " 수원수원",
+            RecruitLocation: "수원",
+            RecruitNum: 0,
+            RecruitPeopleNumber: 3,
+            RecruitTitle: "수원",
+            To_time: " 2019-05-08T13:47:49.925Z",
+            UserID: " swp0514@ajou.ac.kr",
+            WriteTime: "2019-05-08T13:47:49.925Z ",
+
+
+          }
         ],
 
 
@@ -183,38 +219,7 @@
 
       };
     },
-      methods: {
-
-          beforeCreate(){
-              this.$http.get('http://localhost:8000/recruit/custom').then(data => {
-
-                  console.log("sajfhewkjfhsdfhskjdaf")
-                  console.log(data);
-                  console.log(data.data.recruitdata)
-
-                  this.total_data=data.data.recruitdata;
-                  console.log(this.total_data)
-                  console.log("tempfkwlqjfjdsklafjlkasdf "+this.temp);
-
-              });
-
-
-
-
-              alert('제출되었습니다.');
-
-              // var title=this.recruit.title;
-              // var location=this.recruit.location;
-              //
-              // console.log(title);
-              // console.log(location);
-              //
-              //
-              // this.$store.commit('navigator/pop');
-
-              // location.reload();
-          },
-
+    methods: {
           test_func(){
               console.log(this.filtered.length);
               while(this.filtered.length !== 0){
@@ -280,7 +285,7 @@
 
 
 
-<style scoped>
+<style>
   .carousel-item {
     display: flex;
     justify-content: space-around;
