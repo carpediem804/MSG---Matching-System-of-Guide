@@ -79,21 +79,31 @@
 
 
 
-      <P align="center">
-          <button class="button_apply" @click="beforeCreate()">데이터확인!</button>
-      </p>
+      <!--<P align="center">-->
+          <!--<button class="button_apply" @click="beforeCreate()">데이터확인!</button>-->
+      <!--</p>-->
 
     <br>
     <br>
+
+
+<!--내가 만든 리스트형-->
 
       <v-ons-list>
           <v-ons-list-header>데이터</v-ons-list-header>
 
-          <v-ons-list-item v-for="item in total_data" >
+          <v-ons-list-item v-for="item in total_data"
+                           @click="push(page2.component, page2.label)">
               <div class="center" >{{ item.RecruitTitle }}</div>
           </v-ons-list-item>
 
       </v-ons-list>
+
+
+
+
+    <!--기훈이가 만든 카드 형-->
+
   <v-ons-list-item>
     <v-ons-card v-for="todo in filtered_data">
       <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
