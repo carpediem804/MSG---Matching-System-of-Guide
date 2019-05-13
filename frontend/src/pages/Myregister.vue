@@ -1,7 +1,6 @@
 <template>
     <v-ons-page>
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
-        {{register_user.email}} / {{register_user.type}}
         <v-ons-list-item>
             <v-ons-card v-for="todo in traveler_register_data">
                 <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
@@ -38,6 +37,30 @@
 
 <script>
     export default {
+        beforeCreate(){
+            this.$http.post('http://localhost:8000/checkInfo/register', {
+                params: {
+                    email: localStorage.getItem('newEmail'),
+                    type: localStorage.getItem('newType')
+                }
+            })
+                .then((response) => {  //로그인 성공;
+                        console.log('하희하희');
+                        // if(this.user.type === '여행객'){
+                        //     this.traveler_register_data=response.data.recruitdata;
+                        // }
+                        // else{
+                        //     this.guide_register_data=response.data.recruitdata;
+                        // }
+                    },
+                    (error) => { // error 를 보여줌
+                        alert(error.response.data.error)
+                    }
+                )
+                .catch(error => {
+                    alert(error)
+                })
+        },
         data() {
             return {
                 register_user: {
@@ -72,30 +95,6 @@
                     UserID: ""
                 }
             };
-        },
-        beforeCreate(){
-            this.$http.post('http://localhost:8000/checkInfo/register', {
-                params: {
-                    email: this.register_user.email,
-                    type: this.register_user.type
-                }
-            })
-                .then((response) => {  //로그인 성공;
-                        console.log(this.register_user.type);
-                        // if(this.user.type === '여행객'){
-                        //     this.traveler_register_data=response.data.recruitdata;
-                        // }
-                        // else{
-                        //     this.guide_register_data=response.data.recruitdata;
-                        // }
-                    },
-                    (error) => { // error 를 보여줌
-                        alert(error.response.data.error)
-                    }
-                )
-                .catch(error => {
-                    alert(error)
-                })
         },
         methods: {
             push(page, key) {
