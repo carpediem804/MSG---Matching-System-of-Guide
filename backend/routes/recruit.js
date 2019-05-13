@@ -20,6 +20,7 @@ router.post('/apply', function (req, res, next) {
         }
         else {
             console.log("저장data "+data);
+            res.send("저장됨");
         }
     });
 });
