@@ -1,37 +1,43 @@
 <template>
     <v-ons-page>
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
-        <v-ons-list-item>
-            <v-ons-card v-for="todo in traveler_register_data">
-                <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
-                <div class="title2">
-                    {{todo.RecruitTitle}}
-                </div>
-                <div class="test2" align="right">{{todo.RecruitPeopleNumber}}명</div>
-                <div class="content2">
-                    <v-ons-list>
-                        <v-ons-list-item ># {{todo.RecruitLocation}} </v-ons-list-item>
-                    </v-ons-list>
-                </div>
-            </v-ons-card>
-        </v-ons-list-item>
-        <v-ons-list-item>
-            <v-ons-card v-for="todo in guide_register_data">
-                <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
-                <div class="title2">
-                    {{todo.TourTitle}}
-                </div>
-                <v-ons-button class ="tourinfo"  :key="todo" @click="push(page2.component, page2.label)"> 투어상품</v-ons-button>
-                <div class="test2" align="right">{{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명</div>
-                <div class="content2">
-                    <v-ons-list>
-                        <v-ons-list-item ># {{todo.TourLocation}} # {{todo.TourThema}} </v-ons-list-item>
-                        <v-ons-list-item># {{todo.TourContent}}</v-ons-list-item>
-                        <v-ons-list-item># {{todo.TourPrice}}$  </v-ons-list-item>
-                    </v-ons-list>
-                </div>
-            </v-ons-card>
-        </v-ons-list-item>
+        <div class="traveler" v-if="session_type()">
+            <v-ons-list-header>가이드 모집글 : 총 {{traveler_register_data.length}}건</v-ons-list-header>
+            <v-ons-list>
+                <v-ons-card v-for="todo in traveler_register_data">
+                    <img src="../assets/background4.jpg" alt="Image File" style="width:310px; height:auto">
+                    <div class="title2">
+                        {{todo.RecruitTitle}}
+                    </div>
+                    <div class="test2" align="right">{{todo.RecruitPeopleNumber}}명</div>
+                    <div class="content2">
+                        <v-ons-list>
+                            <v-ons-list-item ># {{todo.RecruitLocation}} </v-ons-list-item>
+                        </v-ons-list>
+                    </div>
+                </v-ons-card>
+            </v-ons-list>
+        </div>
+        <div class="guide" v-if="!session_type()">
+            <v-ons-list-header>투어 등록상품 : 총 {{guide_register_data.length}}}건</v-ons-list-header>
+            <v-ons-list>
+                <v-ons-card v-for="todo in guide_register_data">
+                    <img src="../assets/background2.jpg" alt="Image File" style="width:310px; height:auto">
+                    <div class="title2">
+                        {{todo.TourTitle}}
+                    </div>
+                    <v-ons-button class ="tourinfo"  :key="todo" @click="push(page2.component, page2.label)"> 투어상품</v-ons-button>
+                    <div class="test2" align="right">{{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명</div>
+                    <div class="content2">
+                        <v-ons-list>
+                            <v-ons-list-item ># {{todo.TourLocation}} # {{todo.TourThema}} </v-ons-list-item>
+                            <v-ons-list-item># {{todo.TourContent}}</v-ons-list-item>
+                            <v-ons-list-item># {{todo.TourPrice}}$  </v-ons-list-item>
+                        </v-ons-list>
+                    </div>
+                </v-ons-card>
+            </v-ons-list>
+        </div>
     </v-ons-page>
 </template>
 
@@ -45,13 +51,12 @@
                 }
             })
                 .then((response) => {  //로그인 성공;
-                        console.log('하희하희');
-                        // if(this.user.type === '여행객'){
-                        //     this.traveler_register_data=response.data.recruitdata;
-                        // }
-                        // else{
-                        //     this.guide_register_data=response.data.recruitdata;
-                        // }
+                        if(localStorage.getItem('newType') === '여행객'){
+                            this.traveler_register_data=response.data.data;
+                        }
+                        else{
+                            this.guide_register_data=response.data.data;
+                        }
                     },
                     (error) => { // error 를 보여줌
                         alert(error.response.data.error)
@@ -63,11 +68,7 @@
         },
         data() {
             return {
-                register_user: {
-                    email: localStorage.getItem('newEmail'),
-                    type: localStorage.getItem('newType')
-                },
-                traveler_register_data:{
+                traveler_register_data:[{
                     ApplyRecruitID: "",
                     From_time: "",
                     RecruitContent: "",
@@ -78,8 +79,8 @@
                     To_time: "",
                     UserID: "",
                     WriteTime: ""
-                },
-                guide_register_data:{
+                }],
+                guide_register_data:[{
                     TourContent: "",
                     TourDayandTime: "",
                     TourImageURL: "",
@@ -93,10 +94,18 @@
                     TourTitle: "",
                     Tour_create_date: "",
                     UserID: ""
-                }
+                }]
             };
         },
         methods: {
+            session_type(){
+                if(localStorage.getItem('newType') === '여행객'){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            },
             push(page, key) {
                 this.$store.commit('navigator/push', {
                     extends: page,

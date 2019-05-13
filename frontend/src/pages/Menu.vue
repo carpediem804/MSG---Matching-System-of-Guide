@@ -21,6 +21,7 @@
         <button class="login_button" @click="push(page[2].component, page[2].label)">등록 상품</button>
         <button class="login_button" @click="push(page[3].component, page[3].label)">신청 상품</button>
         <button class="login_button" @click="push(page[4].component, page[4].label)">완료된 상품</button>
+        <button class="login_button" @click="push(page[5].component, page[5].label)">홍스홍스</button>
         <button class="login_button" @click="Logout()">로그아웃</button>
       </div>
     </div>
@@ -33,6 +34,7 @@
   import Myregister from "./Myregister.vue"
   import Mypage from "./Mypage.vue"
   import firebase from 'firebase'
+  import TaeTae from "./TaeTae.vue";
 
   export default {
     methods: {
@@ -131,7 +133,11 @@
           {
             component: Menu_test,
             label: '완료 상품'
-          }
+          },
+          {
+            component: TaeTae,
+            label: '퉤퉤'
+          },
         ],
         user: {
           email: '',
