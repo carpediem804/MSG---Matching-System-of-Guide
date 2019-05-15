@@ -93,7 +93,7 @@
           <v-ons-list-header>데이터</v-ons-list-header>
 
           <v-ons-list-item v-for="item in total_data"
-                           @click="push(page2.component, page2.label)">
+                           @click="push(page2.component, page2.label, item)">
               <div class="center" >{{ item.RecruitTitle }}</div>
           </v-ons-list-item>
 
@@ -177,11 +177,9 @@
             To_time: " 2019-05-08T13:47:49.925Z",
             UserID: " swp0514@ajou.ac.kr",
             WriteTime: "2019-05-08T13:47:49.925Z ",
-
-
           }
         ],
-
+          send_data: '',
 
         page1: {
           component: GuideRecruit,
@@ -263,12 +261,12 @@
                   }
               }
 
-              this.listitems=this.todos
+              this.listitems=this.todos;
               console.log(this.listitems)
 
           },
 
-          push(page, key) {
+          push(page, key, item) {
               this.$store.commit('navigator/push', {
                   extends: page,
                   data() {
@@ -276,7 +274,7 @@
                           toolbarInfo: {
                               backLabel: 'Home',
                               title: key
-                          }
+                          },
                       }
                   }
               });

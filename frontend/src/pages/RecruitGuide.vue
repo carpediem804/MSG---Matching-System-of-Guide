@@ -3,7 +3,6 @@
         <custom-toolbar v-bind="toolbarInfo">{{GuideRecruit.RecrutTitlevalue}}</custom-toolbar>
 
         <div class="ddd" style="text-align: center;">
-
             <v-ons-card>
                 지역: {{GuideRecruit.RecruitLocation}}
             </v-ons-card>
@@ -38,10 +37,10 @@
 
 <script>
     import GuideApply from './Test_Home.vue'
+    import Test from './Test_page.vue'
 
     export default {
         methods: {
-
             push(page, key) {
                 this.$store.commit('navigator/push', {
                     extends: page,
@@ -59,8 +58,9 @@
         },
         data() {
             return {
-
-
+                component:{
+                    Test
+                },
                 page: {
                     component: GuideApply,
                     label: '가이드 신청글'
