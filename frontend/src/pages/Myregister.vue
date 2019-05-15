@@ -4,7 +4,7 @@
         <div class="traveler" v-if="session_type()">
             <v-ons-list-header>가이드 모집글 : 총 {{traveler_register_data.length}}건</v-ons-list-header>
             <v-ons-list>
-                <v-ons-card v-for="todo in traveler_register_data">
+                <v-ons-card v-for="todo in traveler_register_data" @click="push(page.component, page.label, todo)">
                     <img src="../assets/background4.jpg" alt="Image File" style="width:310px; height:auto">
                     <div class="title2">
                         {{todo.RecruitTitle}}
@@ -21,12 +21,11 @@
         <div class="guide" v-if="!session_type()">
             <v-ons-list-header>투어 등록상품 : 총 {{guide_register_data.length}}}건</v-ons-list-header>
             <v-ons-list>
-                <v-ons-card v-for="todo in guide_register_data">
+                <v-ons-card v-for="todo in guide_register_data" @click="push(page.component, page.label, todo)">
                     <img src="../assets/background2.jpg" alt="Image File" style="width:310px; height:auto">
                     <div class="title2">
                         {{todo.TourTitle}}
                     </div>
-                    <v-ons-button class ="tourinfo"  :key="todo" @click="push(page2.component, page2.label)"> 투어상품</v-ons-button>
                     <div class="test2" align="right">{{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명</div>
                     <div class="content2">
                         <v-ons-list>
@@ -42,6 +41,8 @@
 </template>
 
 <script>
+    import Test from "./Test.vue";
+
     export default {
         beforeCreate(){
             this.$http.post('http://localhost:8000/checkInfo/register', {
@@ -68,6 +69,10 @@
         },
         data() {
             return {
+                page: {
+                    component: Test,
+                    label: '테스트'
+                },
                 traveler_register_data:[{
                     ApplyRecruitID: "",
                     From_time: "",
@@ -106,13 +111,15 @@
                     return false;
                 }
             },
-            push(page, key) {
+            push(page, key, todo) {
+                this.$store.state.item = todo;
+                console.log(this.$store.state.item);
                 this.$store.commit('navigator/push', {
                     extends: page,
                     data() {
                         return {
                             toolbarInfo: {
-                                backLabel: 'Home',
+                                backLabel: 'Back',
                                 title: key
                             }
                         }
