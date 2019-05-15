@@ -37,7 +37,6 @@
 
 <script>
     import GuideApply from './Test_Home.vue'
-    import Test from './Test_page.vue'
 
     export default {
         methods: {
@@ -58,9 +57,6 @@
         },
         data() {
             return {
-                component:{
-                    Test
-                },
                 page: {
                     component: GuideApply,
                     label: '가이드 신청글'
