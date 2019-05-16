@@ -36,37 +36,18 @@
 
         </v-ons-select>
 
-        <!--<div class="center">-->
-          <!--{{ selectedLocal }} is awesome!-->
-
-        <!--</div>-->
-
-        <!--<p>{{ name }}</p>-->
-
-
-
 
 
       </label>
 
-      <!--<v-ons-list>-->
-        <!--<v-ons-list-header>검색 결과</v-ons-list-header>-->
-
-        <!--<v-ons-list-item v-for="item in listitems" :key="item"-->
-                         <!--@click="push(page2.component, page2.label)">-->
-          <!--<div class="center" >{{ item }}</div>-->
-        <!--</v-ons-list-item>-->
-
-      <!--</v-ons-list>-->
-
-
 
       <v-ons-list>
+
         <v-ons-list-header>필터링</v-ons-list-header>
 
-        <v-ons-list-item v-for="item in filtered" :key="item"
-                         @click="push(page2.component, page2.label)" >
+        <v-ons-list-item v-for="item in filtered" :key="item" @click="push(page2.component, page2.label)" >
           <div class="center" >{{ item }}</div>
+
         </v-ons-list-item>
 
       </v-ons-list>
@@ -82,6 +63,7 @@
 <!--내가 만든 리스트형-->
 
       <v-ons-list>
+
           <v-ons-list-header>데이터</v-ons-list-header>
 
           <v-ons-list-item v-for="item in total_data" @click="push(page2.component, page2.label, item) ">
@@ -91,12 +73,7 @@
 
       </v-ons-list>
 
-      <!--transmit(item.RecruitNum)-->
 
-
-    <P align="center">
-      <button class="button_apply" @click="push(page1.component, page1.label)">가이드 모집하기</button>
-    </p>
 
 
     <!--기훈이가 만든 카드 형-->
@@ -119,6 +96,12 @@
       </div>
     </v-ons-card>
   </v-ons-list-item>
+
+
+    <P align="center">
+      <button class="button_apply" @click="push(page1.component, page1.label)">가이드 모집하기</button>
+    </p>
+
   </v-ons-page>
 </template>
 
@@ -138,6 +121,7 @@
         this.filtered_data.pop();
         for (var i = 0; i < this.total_data.length; i++) {
           this.filtered_data.push(this.total_data[i]);
+          this.filtered.push(this.total_data[i].RecruitTitle)
         }
       });
     },
@@ -145,7 +129,7 @@
     data() {
       return {
 
-        filtered: ["제주", "서울", "부산"],
+        filtered: [],
 
         temp :[],
         total_data: [
@@ -209,12 +193,7 @@
 
         selectedLocal: '',
 
-        listitems: [
-          '제주 제주', '제주 서귀포', '제주 우도', '서울 남대문',
-          '서울 서대문', '서울 경복궁', '경기 수원시', '경기 성남시',
-          '경기 화성시', '경기 오산시', '경기 광주시'
-
-        ],
+        listitems: this.filtered,
 
         todos:[],
 
@@ -232,6 +211,7 @@
 
           test_func(){
               console.log(this.filtered.length);
+
               while(this.filtered.length !== 0){
                   this.filtered.pop();
               }
