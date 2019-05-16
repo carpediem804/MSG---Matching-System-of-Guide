@@ -39,9 +39,10 @@
 
         <!--</v-ons-card>-->
     <!--</v-ons-list-item>-->
-    <v-ons-list >
-        <v-ons-card v-for="todo in filtered">
-            <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
+    <v-ons-list>
+        <v-ons-card v-for="todo in filtered" >
+            <img v-bind:src="'http://localhost:8000/uploads/'+todo.TourImageURL" alt="MSG" style="width: 100%">
+
             <div class="title2">
                 {{todo.TourTitle}}
             </div>
@@ -53,9 +54,9 @@
                     <v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
                 </div>
                 <v-ons-list>
-                    <v-ons-list-item ># {{todo.TourLocation}} # {{todo.TourThema}} </v-ons-list-item>
-                    <v-ons-list-item># {{todo.TourContent}}</v-ons-list-item>
                     <v-ons-list-item># {{todo.TourPrice}}$  </v-ons-list-item>
+                    <v-ons-list-item ># {{todo.TourLocation}} # {{todo.TourThema}} </v-ons-list-item>
+                    <v-ons-list-item class="conte"># {{todo.TourContent}}</v-ons-list-item>
                 </v-ons-list>
             </div>
         </v-ons-card>
@@ -106,13 +107,85 @@
                 }
                 console.log(this.filtered.length)
                 console.log(this.categories.length);
+                var a = true;
+                var b = true;
+                var c = true;
                 for (var i = 0; i < this.categories.length; i++) {
+                    if(this.search === "")
+                    {a = false;}
+                    if(this.selectedLocal === "미설정")
+                    {b= false;}
+                    if(this.selectedThema === "미설정")
+                    {c= false;}
+                    if(a){
+                        if(b){
+                            if(c){
+                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle === this.search ) && this.categories[i].includes(this.search)){
+                                    console.log('abc');
 
-                    if ((this.categories[i].TourLocation === this.selectedLocal) || (this.categories[i].TourTitle === this.search )) {
-                        console.log('seesees');
-                        this.filtered.push( this.categories[i]);
+                                    this.filtered.push( this.categories[i]);
+                                   // console.log(this.filtered.TourImageURL[i]);
+                                }
+                            } // abc
+                            else{
+                                if((this.categories[i].TourLocation === this.selectedLocal) &&
+                                    ((this.categories[i].TourTitle === this.search) || (this.categories[i].TourContent.includes(this.search)))){
+                                    console.log('ab');
+                                    this.filtered.push( this.categories[i]);
+                                }
+                            }//ab
+                        }
+                        else{
+                            if(c){
+                                if(((this.categories[i].TourTitle === this.search) || (this.categories[i].TourContent.includes(this.search))) &&
+                                    (this.categories[i].TourThema === this.selectedThema)){
+                                    console.log('ac');
+                                    this.filtered.push( this.categories[i]);
+                                }
+                            }//ac
+                            else{
+                                if((this.categories[i].TourTitle === this.search) || (this.categories[i].TourContent.includes(this.search))){
+                                    console.log('a');
+                                    this.filtered.push( this.categories[i]);
+                                }
+                            }//a
+                        }
+                    }//a true
+                    else{
+                        if(b){
+                            if(c){
+                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle === this.search )){
+                                    console.log('bc');
+                                    this.filtered.push( this.categories[i]);
+                                }
+                            }//bc
+                            else{
+                                if((this.categories[i].TourLocation === this.selectedLocal)){
+                                    console.log('b');
+                                    this.filtered.push( this.categories[i]);
+                                }
+                            }//b
+                        }
+                        else{
+                            if(c){
+                                if((this.categories[i].TourTitle === this.search )){
+                                    console.log('c');
+                                    this.filtered.push( this.categories[i]);
+                                }//c
+                            }
+                            else{
+                                console.log('zero');
+                                this.filtered.push( this.categories[i]);
+                            }// nothing
+                        }
                     }
-                }
+
+
+                        // if((this.categories[i].TourLocation === this.selectedLocal) || (this.categories[i].TourTitle === this.search )){
+                        //     console.log('seesees');
+                        //     this.filtered.push( this.categories[i]);
+                        // }
+                } //검색엔진
                 console.log(this.filtered)
                 if(this.filtered.length !== 0){
                     alert("Items Searched !! ");
@@ -121,11 +194,13 @@
                     alert("No items !! ");
                 }
 
-            }
+            },
+
         },
 
             data() {
                 return {
+                    viewimg:"http://localhost:8000/uploads/",
 
                     page: {
                         component: MakeTourItem,
@@ -140,7 +215,7 @@
                         {
                             TourContent: "",
                             TourDayandTime: "",
-                            TourImageURL: "",
+                            TourImageURL: "http://localhost:8000/",
                             TourLocation: "",
                             TourThema: '',
                             TourMaxNum: 10,
@@ -150,7 +225,8 @@
                             TourPrice: 150000,
                             TourTitle: "title",
                             Tour_create_date: "2019-05-06T07:10:20.163Z",
-                            UserID: "kki"
+                            UserID: "kki",
+
                         }
                     ],
                     categories: [
@@ -167,7 +243,8 @@
                             TourPrice: 150000,
                             TourTitle: "title",
                             Tour_create_date: "2019-05-06T07:10:20.163Z",
-                            UserID: "kki"
+                            UserID: "kki",
+
                         }
                     ],
 
@@ -201,13 +278,15 @@
                     this.filtered.pop( );
                     for (var i = 0; i < this.categories.length; i++) {
                             this.filtered.push( this.categories[i]);
+
                     }
                    // console.log(this.filtered)
                    console.log(this.categories)
-                    console.log(res)
+                    console.log(this.viewimg)
                 }).catch(res => {
                     console.log(res)
                 })
+
             },
 
 
@@ -218,4 +297,11 @@
     .button-margin {
         margin: 6px 0;
     }
+    .conte{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 300px;
+        }
+
 </style>
