@@ -282,6 +282,7 @@
 
           push(page, key, item) {
 
+
               this.$store.state.item=item
               console.log(this.$store.state.item)
               // this.Passed=RecruitNum
