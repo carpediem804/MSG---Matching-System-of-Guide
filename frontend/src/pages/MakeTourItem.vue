@@ -143,14 +143,21 @@
                 this.$store.commit('navigator/pop');
             },
             makeTour(){
-                console.log(this.Tour);
-                axios.post('http://localhost:8000/registerTour',{
+                this.$http.post('http://localhost:8000/registerTour',{
                     params: {
                         TourItem: this.Tour
                     }
                 }).then(function(data){
                     console.log("register TourItem complete");
                 });
+                this.$ons.notification.alert({ 
+                    message: "투어 상품이 등록 되었습니다.",
+                    title: "투어 상품 등록 성공",
+                    callback: function (index) {
+                    location.reload();
+                    },
+                })
+                // location.reload();
             },
         },
         data() {

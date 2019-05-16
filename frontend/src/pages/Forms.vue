@@ -279,6 +279,7 @@
               // Eventbus.$emit("use-eventbus", RecruitNum);
               // console.log("나는 문제가 없어")
 
+
               this.$store.commit('navigator/push', {
                   extends: page,
                   data() {
