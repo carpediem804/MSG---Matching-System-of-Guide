@@ -1,71 +1,60 @@
 <template>
     <v-ons-page modifier="white">
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
-        <div id="SignUp">
-            <div class="register_title" align="center">
-                제목<input v-model="recruit.title" placeholder="제목을 입력하세요.">
-            </div>
-
-            <div class="register_location" align="center">
-                지역<input v-model="recruit.location" placeholder="지역을 입력하세요.">
-            </div>
-
-            <div class="register_location" align="center">
-                가격<input v-model="recruit.price" placeholder="가격을 입력하세요.">
-            </div>
-
-            <div class="register_content" align="center">
-                <br>내용<br>
-                <textarea name="content" v-model="recruit.content" cols="100" rows="20" placeholder="내용을 입력하세요.">
-                </textarea>
-            </div>
-
-            <p align="center">
-                <button class="register_button" @click="signUp()">SignUp</button>
-            </p>
+        <div id="MakeTourItem">
+            <v-ons-list>
+                <v-ons-list-header>가이드 신청</v-ons-list-header>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        투어 가격
+                    </div>
+                    <label class="center">
+                        <v-ons-input maxlength="20"
+                                     placeholder="Tour Price"
+                                     v-model="recruit.price">
+                        </v-ons-input>
+                        원
+                    </label>
+                </v-ons-list-item>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        투어 내용
+                    </div>
+                </v-ons-list-item>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div>
+                        <textarea name="content" v-model="recruit.content" cols="52" rows="19" placeholder="투어 내용을 입력하세요."></textarea>
+                    </div>
+                </v-ons-list-item>
+                <p align="center">
+                    <button class="register_button" @click="signUp()">작성하기</button>
+                </p>
+            </v-ons-list>
         </div>
     </v-ons-page>
 </template>
 
 <script>
-
-    import firebase from 'firebase';
     import axios from 'axios'
 
     export default {
             methods: {
             signUp() {
-            //    this.recruit.id = localStorage.getItem('newEmail');
-
                 axios.post('http://localhost:8000/recruit/apply', {
-                params: {
-                    applydata: this.recruit
-
-                    }
+                params: {applydata: this.recruit}
                 }).then(function (data) {
-                    console.log("던졋다");
-                    this.submitted = true;
-                    console.log("submitted가 true 됨 ")
-
+                    alert('제출되었습니다.');
+                    location.reload();
                 });
             }
         },
         data() {
             return {
-
                 recruit: {
-                    title: '',
-                    location: '',
+                    target : this.$store.state.item.RecruitNum,
+                    id : localStorage.getItem('newEmail'),
                     price:'',
                     content: '',
-                    id : localStorage.getItem('newEmail')
-                },
-
-                user: {
-                    email: '',
-                    password: '',
-                    name: '',
-                    type: ''
                 }
             };
 
