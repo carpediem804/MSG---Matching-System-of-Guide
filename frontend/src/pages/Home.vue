@@ -21,7 +21,7 @@ import Carousel from './Carousel.vue';
 import InfiniteScroll from './InfiniteScroll.vue';
 import Progress from './Progress.vue';
 import Yong from './Yong.vue';
-import hyunho from './hyunho.vue';
+import hyunho from './Toursearch.vue';
 
 export default {
   data () {
