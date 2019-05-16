@@ -92,12 +92,8 @@
       <v-ons-list>
           <v-ons-list-header>데이터</v-ons-list-header>
 
-          <v-ons-list-item v-for="item in total_data"
-<<<<<<< HEAD
-                           @click="push(page2.component, page2.label, item) ">
-=======
-                           @click="push(page2.component, page2.label, item)">
->>>>>>> 4fe11058f24d377f7207c47d2a627fae34554813
+          <v-ons-list-item v-for="item in total_data">
+
               <div class="center" >{{ item.RecruitTitle }}</div>
           </v-ons-list-item>
 
@@ -285,7 +281,6 @@
           },
 
           push(page, key, item) {
-<<<<<<< HEAD
 
               this.$store.state.item=item
               console.log(this.$store.state.item)
@@ -294,8 +289,7 @@
               // Eventbus.$emit("use-eventbus", RecruitNum);
               // console.log("나는 문제가 없어")
 
-=======
->>>>>>> 4fe11058f24d377f7207c47d2a627fae34554813
+
               this.$store.commit('navigator/push', {
                   extends: page,
                   data() {
