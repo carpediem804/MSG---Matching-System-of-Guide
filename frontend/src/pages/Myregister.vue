@@ -19,7 +19,7 @@
             </v-ons-list>
         </div>
         <div class="guide" v-if="!session_type()">
-            <v-ons-list-header>투어 등록상품 : 총 {{guide_register_data.length}}}건</v-ons-list-header>
+            <v-ons-list-header>투어 등록상품 : 총 {{guide_register_data.length}}건</v-ons-list-header>
             <v-ons-list>
                 <v-ons-card v-for="todo in guide_register_data" @click="push(page.component, page.label, todo)">
                     <img src="../assets/background2.jpg" alt="Image File" style="width:310px; height:auto">
