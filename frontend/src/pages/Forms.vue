@@ -41,15 +41,30 @@
       </label>
 
 
+      <!--<v-ons-list>-->
+
+        <!--<v-ons-list-header>필터링</v-ons-list-header>-->
+
+        <!--<v-ons-list-item v-for="item in filtered" :key="item" @click="push(page2.component, page2.label,item)" >-->
+          <!--<div class="center" >{{ item.RecruitTitle }}</div>-->
+
+        <!--</v-ons-list-item>-->
+
+      <!--</v-ons-list>-->
+
       <v-ons-list>
-
-        <v-ons-list-header>필터링</v-ons-list-header>
-
-        <v-ons-list-item v-for="item in filtered" :key="item" @click="push(page2.component, page2.label)" >
-          <div class="center" >{{ item }}</div>
-
-        </v-ons-list-item>
-
+        <v-ons-card v-for="item in filtered" @click="push(page2.component, page2.label, item)">
+          <img src="../assets/background4.jpg" alt="Image File" style="width:310px; height:auto">
+          <div class="title2">
+            {{item.RecruitTitle}}
+          </div>
+          <div class="test2" align="right">{{item.RecruitPeopleNumber}}명</div>
+          <div class="content2">
+            <v-ons-list>
+              <v-ons-list-item ># {{item.RecruitLocation}} </v-ons-list-item>
+            </v-ons-list>
+          </div>
+        </v-ons-card>
       </v-ons-list>
 
 
@@ -58,44 +73,94 @@
 
     <br>
     <br>
+<!--ㄱㄷㄱㄷ-->
+
+
+
+    <!--<v-ons-page>-->
+      <!--<custom-toolbar v-bind="toolbarInfo"></custom-toolbar>-->
+      <!--<div class="traveler" v-if="session_type()">-->
+        <!--<v-ons-list-header>가이드 모집글 : 총 {{traveler_register_data.length}}건</v-ons-list-header>-->
+        <!--<v-ons-list>-->
+          <!--<v-ons-card v-for="todo in traveler_register_data" @click="push(page.component, page.label, todo)">-->
+            <!--<img src="../assets/background4.jpg" alt="Image File" style="width:310px; height:auto">-->
+            <!--<div class="title2">-->
+              <!--{{todo.RecruitTitle}}-->
+            <!--</div>-->
+            <!--<div class="test2" align="right">{{todo.RecruitPeopleNumber}}명</div>-->
+            <!--<div class="content2">-->
+              <!--<v-ons-list>-->
+                <!--<v-ons-list-item ># {{todo.RecruitLocation}} </v-ons-list-item>-->
+              <!--</v-ons-list>-->
+            <!--</div>-->
+          <!--</v-ons-card>-->
+        <!--</v-ons-list>-->
+      <!--</div>-->
+      <!--<div class="guide" v-if="!session_type()">-->
+        <!--<v-ons-list-header>투어 등록상품 : 총 {{guide_register_data.length}}건</v-ons-list-header>-->
+        <!--<v-ons-list>-->
+          <!--<v-ons-card v-for="todo in guide_register_data" @click="push(page.component, page.label, todo)">-->
+            <!--<img src="../assets/background2.jpg" alt="Image File" style="width:310px; height:auto">-->
+            <!--<div class="title2">-->
+              <!--{{todo.TourTitle}}-->
+            <!--</div>-->
+            <!--<div class="test2" align="right">{{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명</div>-->
+            <!--<div class="content2">-->
+              <!--<v-ons-list>-->
+                <!--<v-ons-list-item ># {{todo.TourLocation}} # {{todo.TourThema}} </v-ons-list-item>-->
+                <!--<v-ons-list-item># {{todo.TourContent}}</v-ons-list-item>-->
+                <!--<v-ons-list-item># {{todo.TourPrice}}$  </v-ons-list-item>-->
+              <!--</v-ons-list>-->
+            <!--</div>-->
+          <!--</v-ons-card>-->
+        <!--</v-ons-list>-->
+      <!--</div>-->
+    <!--</v-ons-page>-->
+
+
+
+<!--ㄱㄷㄱㄷ-->
+
+
+
 
 
 <!--내가 만든 리스트형-->
 
-      <v-ons-list>
+      <!--<v-ons-list>-->
 
-          <v-ons-list-header>데이터</v-ons-list-header>
+          <!--<v-ons-list-header>데이터</v-ons-list-header>-->
 
-          <v-ons-list-item v-for="item in total_data" @click="push(page2.component, page2.label, item) ">
+          <!--<v-ons-list-item v-for="item in total_data" @click="push(page2.component, page2.label, item) ">-->
 
-              <div class="center" >{{ item.RecruitTitle }}</div>
-          </v-ons-list-item>
+              <!--<div class="center" >{{ item.RecruitTitle }}</div>-->
+          <!--</v-ons-list-item>-->
 
-      </v-ons-list>
+      <!--</v-ons-list>-->
 
 
 
 
     <!--기훈이가 만든 카드 형-->
 
-  <v-ons-list-item>
-    <v-ons-card v-for="todo in filtered_data">
-      <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
-      <div class="title2">
-        {{todo.RecruitTitle}}
-      </div>
-      <div class="test2" align="right">{{todo.RecruitPeopleNumber}}명</div>
-      <div class="content2">
-        <!--<div>-->
-          <!--<v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>-->
-          <!--<v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>-->
-        <!--</div>-->
-        <v-ons-list>
-          <v-ons-list-item ># {{todo.RecruitLocation}} </v-ons-list-item>
-        </v-ons-list>
-      </div>
-    </v-ons-card>
-  </v-ons-list-item>
+  <!--<v-ons-list-item>-->
+    <!--<v-ons-card v-for="todo in filtered_data">-->
+      <!--<img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">-->
+      <!--<div class="title2">-->
+        <!--{{todo.RecruitTitle}}-->
+      <!--</div>-->
+      <!--<div class="test2" align="right">{{todo.RecruitPeopleNumber}}명</div>-->
+      <!--<div class="content2">-->
+        <!--&lt;!&ndash;<div>&ndash;&gt;-->
+          <!--&lt;!&ndash;<v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>&ndash;&gt;-->
+          <!--&lt;!&ndash;<v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--<v-ons-list>-->
+          <!--<v-ons-list-item ># {{todo.RecruitLocation}} </v-ons-list-item>-->
+        <!--</v-ons-list>-->
+      <!--</div>-->
+    <!--</v-ons-card>-->
+  <!--</v-ons-list-item>-->
 
 
     <P align="center">
@@ -121,8 +186,10 @@
         this.filtered_data.pop();
         for (var i = 0; i < this.total_data.length; i++) {
           this.filtered_data.push(this.total_data[i]);
-          this.filtered.push(this.total_data[i].RecruitTitle)
+          this.filtered.push(this.total_data[i])
+          this.listitems.push(this.total_data[i])
         }
+
       });
     },
 
@@ -193,7 +260,7 @@
 
         selectedLocal: '',
 
-        listitems: this.filtered,
+        listitems: [],
 
         todos:[],
 
@@ -216,11 +283,11 @@
                   this.filtered.pop();
               }
               for(var i=0; i<this.listitems.length; i++){
-                  if(this.listitems[i].includes(this.name)){
+                  if(this.listitems[i].RecruitTitle.includes(this.name)){
                       this.filtered.push(this.listitems[i])
                   }
               }
-              alert("보냈다!");
+              // alert("보냈다!");
           },
 
 

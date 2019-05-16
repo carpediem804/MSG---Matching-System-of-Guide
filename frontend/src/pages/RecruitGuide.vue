@@ -16,12 +16,13 @@
                 {{item.RecruitContent}}<br>
             </v-ons-card>
 
-            <v-ons-card>
-                지원자:<br><br>
-                {{item.RecruitId}}<br>
+            <!--<v-ons-card>-->
+                <!--지원자:<br><br>-->
+                <!--{{item.RecruitId}}<br>-->
 
-            </v-ons-card>
+            <!--</v-ons-card>-->
 
+        <!--{{item.RecruitNum}}-->
 
         </div>
 
