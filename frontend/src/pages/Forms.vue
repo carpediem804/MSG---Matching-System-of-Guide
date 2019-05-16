@@ -38,6 +38,7 @@
 
         <!--<div class="center">-->
           <!--{{ selectedLocal }} is awesome!-->
+
         <!--</div>-->
 
         <!--<p>{{ name }}</p>-->
@@ -73,15 +74,6 @@
 
     </div>
 
-    <P align="center">
-      <button class="button_apply" @click="push(page1.component, page1.label)">가이드 모집하기</button>
-    </p>
-
-
-
-      <!--<P align="center">-->
-          <!--<button class="button_apply" @click="beforeCreate()">데이터확인!</button>-->
-      <!--</p>-->
 
     <br>
     <br>
@@ -102,6 +94,9 @@
       <!--transmit(item.RecruitNum)-->
 
 
+    <P align="center">
+      <button class="button_apply" @click="push(page1.component, page1.label)">가이드 모집하기</button>
+    </p>
 
 
     <!--기훈이가 만든 카드 형-->
@@ -136,6 +131,7 @@
   import Vue from 'vue'
 
   export default {
+
     beforeCreate(){
       this.$http.get('http://localhost:8000/recruit/custom').then(data => {
         this.total_data=data.data.recruitdata;
@@ -145,13 +141,12 @@
         }
       });
     },
+
     data() {
       return {
 
-        filtered: ['제주 제주', '제주 서귀포', '제주 우도', '서울 남대문',
-          '서울 서대문', '서울 경복궁', '경기 수원시', '경기 성남시',
-          '경기 화성시', '경기 오산시', '경기 광주시'
-        ],
+        filtered: ["제주", "서울", "부산"],
+
         temp :[],
         total_data: [
             {
@@ -248,12 +243,6 @@
               alert("보냈다!");
           },
 
-        // transmit(RecruitNum){
-        //     this.RecruitNum=RecruitNum
-        //     console.log(RecruitNum)
-        //
-        //     Eventbus.$emit("use-eventbus", this.RecruitNum);
-        // },
 
           alert2 () {
               alert(this.name)
