@@ -75,7 +75,7 @@
                 });
             },
             session_existed() {
-                if (localStorage.getItem('newType') !== null) {
+                if (localStorage.getItem('newType') === '가이드') {
                     return true;
                 }
                 return false;
