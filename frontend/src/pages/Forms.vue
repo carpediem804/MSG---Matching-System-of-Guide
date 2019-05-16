@@ -92,7 +92,7 @@
       <v-ons-list>
           <v-ons-list-header>데이터</v-ons-list-header>
 
-          <v-ons-list-item v-for="item in total_data">
+          <v-ons-list-item v-for="item in total_data" @click="push(page2.component, page2.label, item) ">
 
               <div class="center" >{{ item.RecruitTitle }}</div>
           </v-ons-list-item>

@@ -51,7 +51,6 @@
             return {
                 item: this.$store.state.item,
 
-
                 methods: {
                     push(page, key) {
                         this.$store.commit('navigator/push', {
