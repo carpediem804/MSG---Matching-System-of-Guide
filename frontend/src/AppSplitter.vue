@@ -21,7 +21,6 @@
 <script>
   import AppTabbar from './AppTabbar.vue';
   import MenuPage from './pages/Menu.vue';
-  import Menu_test from './pages/Menu_test.vue';
 
   export default {
     computed: {
@@ -34,7 +33,7 @@
   }
   }
   },
-  components: {AppTabbar, MenuPage, Menu_test}
+  components: {AppTabbar, MenuPage}
   };
 </script>
 
