@@ -46,89 +46,88 @@
     // import AA from "./Forms.vue"
 
     export default {
-<<<<<<< HEAD
+
         data() {
             return {
-                item:this.$store.state.item,
+                item: this.$store.state.item,
 
-=======
-        methods: {
-            push(page, key) {
-                this.$store.commit('navigator/push', {
-                    extends: page,
-                    data() {
-                        return {
-                            toolbarInfo: {
-                                backLabel: 'Home',
-                                title: key
+                methods: {
+                    push(page, key) {
+                        this.$store.commit('navigator/push', {
+                            extends: page,
+                            data() {
+                                return {
+                                    toolbarInfo: {
+                                        backLabel: 'Home',
+                                        title: key
+                                    }
+                                }
                             }
-                        }
+                        });
                     }
-                });
-            }
 
-        },
-        data() {
-            return {
->>>>>>> 4fe11058f24d377f7207c47d2a627fae34554813
-                page: {
-                    component: GuideApply,
-                    label: '가이드 신청글'
+                },
+                data() {
+                    return {
+
+                        page: {
+                            component: GuideApply,
+                            label: '가이드 신청글'
+                        },
+
+                        name: '',
+                        comment: '',
+
+                        Passed_RecruitNum: 11,
+
+                        GuideRecruit: {
+                            RecruitId: 1,
+                            UserId: 1,
+                            RecrutTitlevalue: "제주 흑돼지 맛집 잘아시는분!",
+                            RecruitLocation: "제주시",
+                            // RecruitDayandTime: Date().format("2019-05-08"),
+                            RecruitPeopleNumber: 5,
+                            RecruitContent: "흑돼지 쌉맛있는 식당 찾습니다 바로가~",
+                            ApplyGuideList: "WorldClassGuide_인직"
+                        }
+
+                    };
                 },
 
-                name: '',
-                comment: '',
+                // components: {
+                //     AA
+                // },
 
-                Passed_RecruitNum: 11,
 
-                GuideRecruit:{
-                    RecruitId: 1,
-                    UserId: 1,
-                    RecrutTitlevalue: "제주 흑돼지 맛집 잘아시는분!",
-                    RecruitLocation: "제주시",
-                    // RecruitDayandTime: Date().format("2019-05-08"),
-                    RecruitPeopleNumber: 5,
-                    RecruitContent: "흑돼지 쌉맛있는 식당 찾습니다 바로가~",
-                    ApplyGuideList: "WorldClassGuide_인직"
+                // created() {
+                //     Eventbus.$on("use-eventbus", function(RecruitNum)  {
+                //         this.Passed_RecruitNum = RecruitNum;
+                //     });
+                // },
+
+
+                methods: {
+
+                    push(page, key) {
+                        this.$store.commit('navigator/push', {
+                            extends: page,
+                            data() {
+                                return {
+                                    toolbarInfo: {
+                                        backLabel: 'Home',
+                                        title: key
+                                    }
+                                }
+                            }
+                        });
+                    }
+
                 }
 
+
             };
-        },
-
-        // components: {
-        //     AA
-        // },
-
-
-        // created() {
-        //     Eventbus.$on("use-eventbus", function(RecruitNum)  {
-        //         this.Passed_RecruitNum = RecruitNum;
-        //     });
-        // },
-
-
-        methods: {
-
-            push(page, key) {
-                this.$store.commit('navigator/push', {
-                    extends: page,
-                    data() {
-                        return {
-                            toolbarInfo: {
-                                backLabel: 'Home',
-                                title: key
-                            }
-                        }
-                    }
-                });
-            }
-
         }
-
-
-
-
-    };
+    }
 </script>
 
 
