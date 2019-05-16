@@ -1,25 +1,25 @@
 <template>
     <v-ons-page>
-        <custom-toolbar v-bind="toolbarInfo">{{GuideRecruit.RecrutTitlevalue}}</custom-toolbar>
+        <custom-toolbar v-bind="toolbarInfo">{{item.RecruitTitle}}</custom-toolbar>
 
         <div class="ddd" style="text-align: center;">
 
             <v-ons-card>
-                지역: {{GuideRecruit.RecruitLocation}}
+                지역: {{item.RecruitLocation}}
             </v-ons-card>
 
             <v-ons-card>
-                인원: {{GuideRecruit.RecruitPeopleNumber}}<br>
+                인원: {{item.RecruitPeopleNumber}}<br>
             </v-ons-card>
 
             <v-ons-card>
                 내용:<br><br>
-                {{GuideRecruit.RecruitContent}}<br>
+                {{item.RecruitContent}}<br>
             </v-ons-card>
 
             <v-ons-card>
                 지원자:<br><br>
-                {{GuideRecruit.ApplyGuideList}}<br>
+                {{item.RecruitId}}<br>
 
             </v-ons-card>
 
@@ -30,7 +30,11 @@
             <button class="button_apply" @click="push(page.component, page.label)">가이드 신청하기</button>
         </p>
 
+
+
     </v-ons-page>
+
+
 
 
 
@@ -38,8 +42,51 @@
 
 <script>
     import GuideApply from './Test_Home.vue'
+    // import  Eventbus  from "../assets/event-bus"
+    import Vue from 'vue';
+    // import AA from "./Forms.vue"
 
     export default {
+        data() {
+            return {
+                item:this.$store.state.item,
+
+                page: {
+                    component: GuideApply,
+                    label: '가이드 신청글'
+                },
+
+                name: '',
+                comment: '',
+
+                Passed_RecruitNum: 11,
+
+                GuideRecruit:{
+                    RecruitId: 1,
+                    UserId: 1,
+                    RecrutTitlevalue: "제주 흑돼지 맛집 잘아시는분!",
+                    RecruitLocation: "제주시",
+                    // RecruitDayandTime: Date().format("2019-05-08"),
+                    RecruitPeopleNumber: 5,
+                    RecruitContent: "흑돼지 쌉맛있는 식당 찾습니다 바로가~",
+                    ApplyGuideList: "WorldClassGuide_인직"
+                }
+
+            };
+        },
+
+        // components: {
+        //     AA
+        // },
+
+
+        // created() {
+        //     Eventbus.$on("use-eventbus", function(RecruitNum)  {
+        //         this.Passed_RecruitNum = RecruitNum;
+        //     });
+        // },
+
+
         methods: {
 
             push(page, key) {
@@ -56,32 +103,11 @@
                 });
             }
 
-        },
-        data() {
-            return {
-
-
-                page: {
-                    component: GuideApply,
-                    label: '가이드 신청글'
-                },
-
-                name: '',
-                comment: '',
-
-                GuideRecruit:{
-                    RecruitId: 1,
-                    UserId: 1,
-                    RecrutTitlevalue: "제주 흑돼지 맛집 잘아시는분!",
-                    RecruitLocation: "제주시",
-                    // RecruitDayandTime: Date().format("2019-05-08"),
-                    RecruitPeopleNumber: 5,
-                    RecruitContent: "흑돼지 쌉맛있는 식당 찾습니다 바로가~",
-                    ApplyGuideList: "WorldClassGuide_인직"
-                }
-
-            };
         }
+
+
+
+
     };
 </script>
 

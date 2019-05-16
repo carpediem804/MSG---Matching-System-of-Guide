@@ -93,11 +93,13 @@
           <v-ons-list-header>데이터</v-ons-list-header>
 
           <v-ons-list-item v-for="item in total_data"
-                           @click="push(page2.component, page2.label)">
+                           @click="push(page2.component, page2.label, item) ">
               <div class="center" >{{ item.RecruitTitle }}</div>
           </v-ons-list-item>
 
       </v-ons-list>
+
+      <!--transmit(item.RecruitNum)-->
 
 
 
@@ -130,6 +132,8 @@
   import GuideApply from './RecruitGuide.vue'
   import GuideRecruit from './KH.vue'
   import axios from 'axios'
+
+  import Vue from 'vue'
 
   export default {
     beforeCreate(){
@@ -226,10 +230,13 @@
 
         ratio: 0,
 
+          Passed:[],
+
 
       };
     },
     methods: {
+
           test_func(){
               console.log(this.filtered.length);
               while(this.filtered.length !== 0){
@@ -242,6 +249,13 @@
               }
               alert("보냈다!");
           },
+
+        // transmit(RecruitNum){
+        //     this.RecruitNum=RecruitNum
+        //     console.log(RecruitNum)
+        //
+        //     Eventbus.$emit("use-eventbus", this.RecruitNum);
+        // },
 
           alert2 () {
               alert(this.name)
@@ -268,7 +282,15 @@
 
           },
 
-          push(page, key) {
+          push(page, key, item) {
+
+              this.$store.state.item=item
+              console.log(this.$store.state.item)
+              // this.Passed=RecruitNum
+              // console.log(RecruitNum)
+              // Eventbus.$emit("use-eventbus", RecruitNum);
+              // console.log("나는 문제가 없어")
+
               this.$store.commit('navigator/push', {
                   extends: page,
                   data() {
@@ -280,6 +302,8 @@
                       }
                   }
               });
+
+              console.log("나는 문제가 없어2")
           }
 
 
