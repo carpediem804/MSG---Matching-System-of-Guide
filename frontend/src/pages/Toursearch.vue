@@ -24,13 +24,12 @@
     </p>
 
     <v-ons-list>
-        <v-ons-card v-for="todo in filtered" >
+        <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)" >
             <img v-bind:src="'http://localhost:8000/uploads/'+todo.TourImageURL" alt="MSG" style="width: 100%">
 
             <div class="title2">
                 {{todo.TourTitle}}
             </div>
-            <v-ons-button class ="tourinfo"  :key="todo" @click="push(page2.component, page2.label, todo)"> 투어상품</v-ons-button>
             <div class="test2" align="right">{{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명</div>
             <div class="content2">
                 <div>

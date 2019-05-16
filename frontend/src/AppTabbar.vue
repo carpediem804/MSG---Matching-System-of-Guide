@@ -33,7 +33,7 @@
 
   import test_3 from './pages/Forms.vue';
   import test_4 from './pages/Animations.vue';
-  import hyunho from "./pages/hyunho.vue";
+  import Toursearch from "./pages/Toursearch.vue";
 
   // Just a linear interpolation formula
   const lerp = (x0, x1, t) => parseInt((1 - t) * x0 + t * x1, 10);
@@ -62,7 +62,7 @@
           {
             label: '투어상품 검색',
             icon: this.md ? null : 'ion-film-marker',
-            page: hyunho,
+            page: Toursearch,
             theme: red
           },
           {

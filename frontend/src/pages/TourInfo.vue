@@ -5,9 +5,9 @@
     <div class="ddd" style="text-align: center;">
 
         <v-ons-card>
-            지역: {{tour.TourLocation}}
-            날짜: {{tour.TourDayandTime}}
-            테마: {{tour.TourThema}}
+            지역: {{tour.TourLocation}}<br>
+            날짜: {{tour.TourDayandTime}}<br>
+            테마: {{tour.TourThema}}<br>
         </v-ons-card>
 
         <v-ons-card>
