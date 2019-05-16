@@ -32,7 +32,7 @@
 <script>
 
   import test_3 from './pages/Forms.vue';
-  import test_4 from './pages/Animations.vue';
+  import test_4 from './pages/Home.vue';
   import Toursearch from "./pages/Toursearch.vue";
 
   // Just a linear interpolation formula
