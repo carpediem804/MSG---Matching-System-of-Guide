@@ -93,7 +93,11 @@
           <v-ons-list-header>데이터</v-ons-list-header>
 
           <v-ons-list-item v-for="item in total_data"
+<<<<<<< HEAD
                            @click="push(page2.component, page2.label, item) ">
+=======
+                           @click="push(page2.component, page2.label, item)">
+>>>>>>> 4fe11058f24d377f7207c47d2a627fae34554813
               <div class="center" >{{ item.RecruitTitle }}</div>
           </v-ons-list-item>
 
@@ -181,11 +185,9 @@
             To_time: " 2019-05-08T13:47:49.925Z",
             UserID: " swp0514@ajou.ac.kr",
             WriteTime: "2019-05-08T13:47:49.925Z ",
-
-
           }
         ],
-
+          send_data: '',
 
         page1: {
           component: GuideRecruit,
@@ -277,12 +279,13 @@
                   }
               }
 
-              this.listitems=this.todos
+              this.listitems=this.todos;
               console.log(this.listitems)
 
           },
 
           push(page, key, item) {
+<<<<<<< HEAD
 
               this.$store.state.item=item
               console.log(this.$store.state.item)
@@ -291,6 +294,8 @@
               // Eventbus.$emit("use-eventbus", RecruitNum);
               // console.log("나는 문제가 없어")
 
+=======
+>>>>>>> 4fe11058f24d377f7207c47d2a627fae34554813
               this.$store.commit('navigator/push', {
                   extends: page,
                   data() {
@@ -298,7 +303,7 @@
                           toolbarInfo: {
                               backLabel: 'Home',
                               title: key
-                          }
+                          },
                       }
                   }
               });

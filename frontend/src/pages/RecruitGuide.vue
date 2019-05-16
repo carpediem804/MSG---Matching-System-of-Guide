@@ -3,7 +3,6 @@
         <custom-toolbar v-bind="toolbarInfo">{{item.RecruitTitle}}</custom-toolbar>
 
         <div class="ddd" style="text-align: center;">
-
             <v-ons-card>
                 지역: {{item.RecruitLocation}}
             </v-ons-card>
@@ -47,10 +46,31 @@
     // import AA from "./Forms.vue"
 
     export default {
+<<<<<<< HEAD
         data() {
             return {
                 item:this.$store.state.item,
 
+=======
+        methods: {
+            push(page, key) {
+                this.$store.commit('navigator/push', {
+                    extends: page,
+                    data() {
+                        return {
+                            toolbarInfo: {
+                                backLabel: 'Home',
+                                title: key
+                            }
+                        }
+                    }
+                });
+            }
+
+        },
+        data() {
+            return {
+>>>>>>> 4fe11058f24d377f7207c47d2a627fae34554813
                 page: {
                     component: GuideApply,
                     label: '가이드 신청글'

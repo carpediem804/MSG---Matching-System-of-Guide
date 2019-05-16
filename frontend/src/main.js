@@ -26,6 +26,8 @@ Vue.prototype.$http = axios;
 
 Vue.config.productionTip = false;
 
+
+
 var config = {
   apiKey: "AIzaSyDPJxh92Ju7jjBapbm1fNSE0pYAktZ8ERw",
   authDomain: "matching-system-of-guide.firebaseapp.com",
