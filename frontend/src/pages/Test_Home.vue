@@ -1,7 +1,7 @@
 <template>
     <v-ons-page modifier="white">
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
-        <div id="MakeTourItem">
+        <div id="MakeGuideApply">
             <v-ons-list>
                 <v-ons-list-header>가이드 신청</v-ons-list-header>
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">
