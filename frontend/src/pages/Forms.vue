@@ -282,13 +282,13 @@
 
           push(page, key, item) {
 
-
               this.$store.state.item=item
               console.log(this.$store.state.item)
               // this.Passed=RecruitNum
               // console.log(RecruitNum)
               // Eventbus.$emit("use-eventbus", RecruitNum);
               // console.log("나는 문제가 없어")
+
 
               this.$store.commit('navigator/push', {
                   extends: page,
