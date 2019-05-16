@@ -1,25 +1,31 @@
 <template>
 <v-ons-page>
-    <custom-toolbar v-bind="toolbarInfo">{{GuideRecruit.RecrutTitlevalue}}</custom-toolbar>
+    <custom-toolbar v-bind="toolbarInfo">{{tour.TourTitle}}</custom-toolbar>
 
     <div class="ddd" style="text-align: center;">
 
         <v-ons-card>
-            지역: {{GuideRecruit.RecruitLocation}}
+            지역: {{tour.TourLocation}}
+            날짜: {{tour.TourDayandTime}}
+            테마: {{tour.TourThema}}
         </v-ons-card>
 
         <v-ons-card>
-            Max 인원: {{GuideRecruit.RecruitPeopleNumber}}<br>
+            신청 인원: {{tour.TourNowPeopleNum}}/{{tour.TourMaxNum}}<br>
+            최소 인원: {{tour.TourMinNum}}<br>
+        </v-ons-card>
+        <v-ons-card>
+            가격: {{tour.TourPrice}}<br>
         </v-ons-card>
 
         <v-ons-card>
             내용:<br><br>
-            {{GuideRecruit.RecruitContent}}<br>
+            {{tour.TourContent}}<br>
         </v-ons-card>
 
         <v-ons-card>
             가이드:<br><br>
-            {{GuideRecruit.ApplyGuideList}}<br>
+            {{tour.UserID}}<br>
 
         </v-ons-card>
 
@@ -59,26 +65,13 @@
         },
         data() {
             return {
-
+                tour: this.$store.state.tour,
 
                 page: {
                     component: GuideApply,
                     label: '투어상품'
                 },
 
-                name: '',
-                comment: '',
-
-                GuideRecruit:{
-                    RecruitId: 1,
-                    UserId: 1,
-                    RecrutTitlevalue: "버거킹 가즈아",
-                    RecruitLocation: "대전",
-                    // RecruitDayandTime: Date().format("2019-05-08"),
-                    RecruitPeopleNumber: 15,
-                    RecruitContent: "버거킹 버억~",
-                    ApplyGuideList: "WorldClassGuide_인직"
-                }
 
             };
         }
