@@ -31,8 +31,8 @@
 
 <script>
 
-  import test_3 from './pages/Forms.vue';
-  import test_4 from './pages/Home.vue';
+  import RecruitGuideSearch from './pages/Forms.vue';
+  import Home from './pages/Home.vue';
   import Toursearch from "./pages/Toursearch.vue";
 
   // Just a linear interpolation formula
@@ -68,13 +68,13 @@
           {
             label: 'Home',
             icon: this.md ? null : 'ion-home',
-            page: test_4,
+            page: Home,
             theme: blue
           },
           {
             label: '가이드 모집',
             icon: this.md ? null : 'ion-edit',
-            page: test_3,
+            page: RecruitGuideSearch,
             theme: purple
           }
         ]
