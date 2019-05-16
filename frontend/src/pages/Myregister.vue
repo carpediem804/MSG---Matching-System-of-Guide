@@ -53,10 +53,10 @@
             })
                 .then((response) => {  //로그인 성공;
                         if(localStorage.getItem('newType') === '여행객'){
-                            this.traveler_register_data=response.data.data;
+                            this.traveler_register_data=response.data.applyguidedata;
                         }
                         else{
-                            this.guide_register_data=response.data.data;
+                            this.guide_register_data=response.data.Tourdata;
                         }
                     },
                     (error) => { // error 를 보여줌
