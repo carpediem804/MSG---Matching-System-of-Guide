@@ -192,14 +192,13 @@
             makeTour(){
                 const fd = new FormData();
                 fd.append('image',this.selectedFile, this.selectedFile.name);
-                this.$http.post('http://localhost:8000/registerTour',{
+                this.$http.post('http://localhost:8000/registerTour',fd,{
                     params: {
                         TourItem: this.Tour,
-                        imgfile: fd,
                     }
                 }).then(function(data){
                     console.log("register TourItem complete");
-                    console.log(this.params.imgfile);
+
                 });
                 this.$ons.notification.alert({ 
                     message: "투어 상품이 등록 되었습니다.",
