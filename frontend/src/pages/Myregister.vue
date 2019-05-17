@@ -41,7 +41,7 @@
 </template>
 
 <script>
-    import Test from "./Test.vue";
+    import Test from "./Register_Info.vue";
 
     export default {
         beforeCreate(){
@@ -71,7 +71,7 @@
             return {
                 page: {
                     component: Test,
-                    label: '테스트'
+                    label: '세부 정보'
                 },
                 traveler_register_data:[{
                     ApplyRecruitID: "",
