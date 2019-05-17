@@ -13,7 +13,7 @@ var GuideRecruitSchema = new mongoose.Schema({
     To_time : {type:Date, default:Date.now },
     RecruitPeopleNumber : Number,
     RecruitContent : String,
-    ApplyRecruitID :String,
+    ApplyGuideID :[],
 });
 GuideRecruitSchema.plugin(autoIncrement, {
     model: 'GuideRecruit',

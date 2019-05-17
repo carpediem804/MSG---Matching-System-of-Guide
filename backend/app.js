@@ -7,6 +7,7 @@ const registerTour = require('./routes/registerTour')
 const recruit = require('./routes/recruit')
 const signup = require('./routes/signup')
 const checkinfo = require('./routes/checkinfo')
+const applytour = require('./routes/applytour')
 const app = express()
 
 app.use((req, res, next) =>{
@@ -24,5 +25,6 @@ app.use('/registerTour', registerTour);
 app.use('/registUserInfo',signup);
 app.use('/recruit',recruit);
 app.use('/checkInfo',checkinfo);
+app.use('/applyTour',applytour);
 
-module.exports = app
+module.exports = app;

@@ -13,8 +13,7 @@ router.post('/', function (req, res, next) {
     saveTour.TourMinNum = req.body.params.TourItem.minNum;
     saveTour.TourContent = req.body.params.TourItem.content;
     saveTour.TourPrice = req.body.params.TourItem.price;
-   // saveTour.TourApplyList
-   // saveTour.TourNowPeopleNum
+
     saveTour.TourDayandTime_start = req.body.params.TourItem.startDate;
     saveTour.TourDayandTime_end = req.body.params.TourItem.endDate;
     saveTour.TourThema = req.body.params.TourItem.thema;

@@ -8,8 +8,7 @@ router.post('/apply', function (req, res, next) {
    // const apply_post_num = req.body.params.target;
     let saveapply = new applyrecruit();
     saveapply.RecruitApplier = req.body.params.applydata.id;
-    saveapply.apply_post_num = req.body.params.target;
-
+    saveapply.apply_post_num = req.body.params.applydata.target;
     saveapply.SuggestContent = req.body.params.applydata.content;
     saveapply.SuggestPrice = req.body.params.applydata.price;
 
@@ -19,12 +18,19 @@ router.post('/apply', function (req, res, next) {
         }
         else {
             console.log("가이드가 신청한 데이터 저장 "+data);
-            res.send("저장됨");
+            //res.send("저장됨");
+            const apply_post_num = req.body.params.applydata.target;
+            guiderecruit.findOneAndUpdate({RecruitNum : apply_post_num},{$push:{ApplyGuideID :req.body.params.applydata.id }},{new: true},function(err,data){
+                if(err){
+                    console.log(err);
+                }
+                console.log(data);
+            })
+            res.send("처리완료");
         }
     });
+    console.log("==========================\n");
     //이제 가이드 요청 글에 신청한 사람 id 넣어야 댄다~
-    const apply_post_num = req.body.params.target;
-    guiderecruit.find({})
 
 });
 router.post('/custom', function (req, res, next) {
@@ -39,7 +45,7 @@ router.post('/custom', function (req, res, next) {
     savecustom.RecruitContent = req.body.params.recruitdata.content;
     savecustom.From_time = Date.now();
     savecustom.To_time = Date.now();
-    savecustom.ApplyRecruitID = "아직 안정햇다`";
+  //  savecustom.ApplyRecruitID = "아직 안정햇다`";
     savecustom.save(function(err,data){
         if(err){
             console.log(err);
@@ -48,6 +54,7 @@ router.post('/custom', function (req, res, next) {
             console.log("저장data "+data);
         }
     });
+    res.send("저장완료");
 });
 router.get('/custom', function (req, res, next) {
     guiderecruit.find(function(err,recruitdata){

@@ -6,13 +6,9 @@ var ApplyRecruitSchema = new mongoose.Schema({
         unique: true
     },
     apply_post_num : {type :Number, unique:true},
-    RecruitApplier: String,
-
-    SuggestImageURL: String,
-    SuggestLocation: String,
-    SuggestTitle : String,
     SuggestContent: String,
     SuggestPrice : Number,
+    RecruitApplier :String
 });
 ApplyRecruitSchema.plugin(autoIncrement, {
     model: 'applyrecruit',
