@@ -192,7 +192,7 @@
             makeTour(){
                 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
                 let formData = new FormData();
-                formData.append('image',this.selectedFile);
+                formData.append('file',this.selectedFile);
                 axios.post('http://localhost:8000/registerTour',formData,{
                     params: {
                         TourItem: this.Tour,

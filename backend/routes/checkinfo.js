@@ -30,6 +30,17 @@ router.post('/register', function(req, res,next){
         })
     }
 });
-
+router.post('/delete', function(req, res,next) {
+    console.log("delete로 들어옴")
+    console.log(req.body.params);
+    if(req.body.params.type=='여행객') {
+        applyguide.findOneAndRemove({RecruitNum:req.body.params.item.RecruitNum},function(err,data){
+            if(err){
+                console.log(err);
+            }
+            res.send("삭제완료");
+        })
+    }
+})
 
 module.exports = router;
