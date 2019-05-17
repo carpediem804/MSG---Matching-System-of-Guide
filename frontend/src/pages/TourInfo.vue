@@ -3,7 +3,7 @@
     <custom-toolbar v-bind="toolbarInfo">{{tour.TourTitle}}</custom-toolbar>
 
     <div class="ddd" style="text-align: center;">
-
+        <img v-bind:src="'http://localhost:8000/'+tour.TourImageURL" alt="MSG" width="275" height="230">
         <v-ons-card>
             지역: {{tour.TourLocation}}<br>
             날짜: {{tour.TourDayandTime}}<br>
