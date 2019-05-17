@@ -43,9 +43,8 @@
   const lerp = (x0, x1, t) => parseInt((1 - t) * x0 + t * x1, 10);
   // RGB colors
   const red = [153, 102, 255];
-  const blue = [102, 51, 255];
+  const blue = [153, 204, 255];
   const purple = [204, 153, 255];
-
   export default {
     data () {
       return {
