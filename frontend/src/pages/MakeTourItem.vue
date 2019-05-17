@@ -190,21 +190,21 @@
                 this.$store.commit('navigator/pop');
             },
             makeTour(){
-                const fd = new FormData();
-                fd.append('image',this.selectedFile, this.selectedFile.name);
-                this.$http.post('http://localhost:8000/registerTour',fd,{
+                axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+                let formData = new FormData();
+                formData.append('image',this.selectedFile);
+                axios.post('http://localhost:8000/registerTour',formData,{
                     params: {
                         TourItem: this.Tour,
                     }
                 }).then(function(data){
                     console.log("register TourItem complete");
-
                 });
                 this.$ons.notification.alert({ 
                     message: "투어 상품이 등록 되었습니다.",
                     title: "투어 상품 등록 성공",
                     callback: function (index) {
-                    location.reload();
+                  //  location.reload();
                     },
                 })
                 // location.reload();
