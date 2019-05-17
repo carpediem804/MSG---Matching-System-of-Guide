@@ -5,12 +5,11 @@ const guiderecruit = require('../db/models/GuideRecruit');
 router.post('/apply', function (req, res, next) {
     console.log("post apply임");
     console.log(req.body.params);
+   // const apply_post_num = req.body.params.target;
     let saveapply = new applyrecruit();
     saveapply.RecruitApplier = req.body.params.applydata.id;
-    saveapply.TargetRecruit = "아직 안됫음";
-    saveapply.SuggestImageURL = "아직 안됫음22";
-    saveapply.SuggestLocation = req.body.params.applydata.location;
-    saveapply.SuggestTitle = req.body.params.applydata.title;
+    saveapply.apply_post_num = req.body.params.target;
+
     saveapply.SuggestContent = req.body.params.applydata.content;
     saveapply.SuggestPrice = req.body.params.applydata.price;
 
@@ -19,10 +18,14 @@ router.post('/apply', function (req, res, next) {
             console.log(err);
         }
         else {
-            console.log("저장data "+data);
+            console.log("가이드가 신청한 데이터 저장 "+data);
             res.send("저장됨");
         }
     });
+    //이제 가이드 요청 글에 신청한 사람 id 넣어야 댄다~
+    const apply_post_num = req.body.params.target;
+    guiderecruit.find({})
+
 });
 router.post('/custom', function (req, res, next) {
     //console.log(req);

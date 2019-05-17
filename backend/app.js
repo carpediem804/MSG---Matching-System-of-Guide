@@ -24,4 +24,5 @@ app.use('/registerTour', registerTour);
 app.use('/registUserInfo',signup);
 app.use('/recruit',recruit);
 app.use('/checkInfo',checkinfo);
+
 module.exports = app
