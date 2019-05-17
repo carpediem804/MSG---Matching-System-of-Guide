@@ -192,10 +192,20 @@
             makeTour(){
                 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
                 let formData = new FormData();
-                formData.append('image',this.selectedFile);
+                formData.append('file',this.selectedFile);
                 axios.post('http://localhost:8000/registerTour',formData,{
                     params: {
-                        TourItem: this.Tour,
+                        userID: this.Tour.userId,
+                        title: this.Tour.title,
+                        location: this.Tour.location,
+                        thema: this.Tour.thema,
+                        price: this.Tour.price,
+                        maxNum: this.Tour.maxNum,
+                        minNum: this.Tour.minNum,
+                        startDate: this.Tour.startDate,
+                        endDate: this.Tour.endDate,
+                        content: this.Tour.content,
+
                     }
                 }).then(function(data){
                     console.log("register TourItem complete");
@@ -204,7 +214,7 @@
                     message: "투어 상품이 등록 되었습니다.",
                     title: "투어 상품 등록 성공",
                     callback: function (index) {
-                  //  location.reload();
+                   location.reload();
                     },
                 })
                 // location.reload();
