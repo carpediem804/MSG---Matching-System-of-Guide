@@ -113,7 +113,7 @@
             },
             push(page, key, todo) {
                 this.$store.state.item = todo;
-                console.log(this.$store.state.item);
+                // console.log(this.$store.state.item);
                 this.$store.commit('navigator/push', {
                     extends: page,
                     data() {
