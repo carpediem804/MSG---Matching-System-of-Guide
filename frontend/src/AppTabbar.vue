@@ -2,6 +2,7 @@
   <v-ons-page :style="swipePosition">
     <custom-toolbar :style="swipeTheme" modifier="white-content" v-if="title=='Home'||'투어상품 검색'||'가이드 모집'">
       <div class="home_name" align="left">
+        <ons-icon icon="fa-plane-departure"></ons-icon>
         MSG
       </div>
       <!--<img slot="logo" src="./assets/logo4.png" height="44px" width="171px">-->
