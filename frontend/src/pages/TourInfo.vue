@@ -33,7 +33,7 @@
     </div>
 
     <P align="center">
-        <button class="button_apply" @click="push(page.component, page.label)">투어상품 신청하기</button>
+        <button class="button_apply" @click="applyTour()">투어상품 신청하기</button>
     </p>
 
 </v-ons-page>
@@ -47,7 +47,6 @@
 
     export default {
         methods: {
-
             push(page, key) {
                 this.$store.commit('navigator/push', {
                     extends: page,
@@ -60,7 +59,40 @@
                         }
                     }
                 });
+            },
+
+            applyTour(){
+                console.log(this)
+                this.$ons.notification.prompt({
+                    message: '신청 인원',
+                    title: '투어 신청',
+                    buttonLabels: '신청하기',
+                    placeholder: '숫자만 입력해주세요',
+                    inputType: 'tel',
+                    cancelable: 'true',
+                    _self: this,
+                    callback: function (num) {
+                        console.log(this._self)
+                        console.log(this._self.tour)
+                        console.log(localStorage.getItem('newEmail'))
+                        this._self.$http.post('http://localhost:8000/applyTour',{
+                            params: {
+                                Number: num,
+                                userInfo: this._self.tour,
+                                TourInfo: localStorage.getItem('newEmail'),
+                            }
+                        })
+                        this._self.$ons.notification.alert({ 
+                            message: "신청이 완료되었습니다.",
+                            title: "신청 완료",
+                            callback: function (index) {
+                                location.reload();
+                            },
+                        })
+                    },
+                })
             }
+
 
         },
         data() {
