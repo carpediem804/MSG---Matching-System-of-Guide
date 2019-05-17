@@ -25,21 +25,20 @@
 
     <v-ons-list>
         <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)" >
-            <img v-bind:src="'http://localhost:8000/uploads/'+todo.TourImageURL" alt="MSG" style="width: 100%">
-
+            <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
+            <v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>
+            <v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
+            <div>&nbsp;</div>
             <div class="title2">
-                {{todo.TourTitle}}
+                <strong>  {{todo.TourTitle}} </strong>
             </div>
             <div class="test2" align="right">{{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명</div>
             <div class="content2">
-                <div>
-                    <v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>
-                    <v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
-                </div>
+
                 <v-ons-list>
-                    <v-ons-list-item># {{todo.TourPrice}}$  </v-ons-list-item>
+                    <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
                     <v-ons-list-item ># {{todo.TourLocation}} # {{todo.TourThema}} </v-ons-list-item>
-                    <v-ons-list-item class="conte"># {{todo.TourContent}}</v-ons-list-item>
+                    <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
                 </v-ons-list>
             </div>
         </v-ons-card>
