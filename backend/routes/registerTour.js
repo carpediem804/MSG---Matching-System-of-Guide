@@ -5,9 +5,8 @@ const upload = require('../multer/storage');
 router.post('/', function (req, res, next) {
     console.log("등록등록");
     console.log("req.file");
-    console.log(req.query.TourItem);
-    console.log(req.query.TourItem)
-    console.log(req.query.TourItem.userId);
+
+    console.log(req.query.userID);
     upload(req, res, function (err) {
         if(req.file == null || req.file == undefined || req.file == ""){
             res.json('No Image Set');
@@ -18,18 +17,18 @@ router.post('/', function (req, res, next) {
             }
             else{
                 let saveTour = new Tourcontent();
-                saveTour.UserID = req.query.TourItem.userId;
+                saveTour.UserID = req.query.userID;
                 saveTour.TourImageURL = req.file.filename;
-                saveTour.TourTitle = req.query.TourItem.title;
-                saveTour.TourLocation = req.query.TourItem.location;
-                saveTour.TourMaxNum = req.query.TourItem.maxNum;
-                saveTour.TourMinNum = req.query.TourItem.minNum;
-                saveTour.TourContent = req.query.TourItem.content;
-                saveTour.TourPrice = req.query.TourItem.price;
+                saveTour.TourTitle = req.query.title;
+                saveTour.TourLocation = req.query.location;
+                saveTour.TourMaxNum = req.query.maxNum;
+                saveTour.TourMinNum = req.query.minNum;
+                saveTour.TourContent = req.query.content;
+                saveTour.TourPrice = req.query.price;
 
-                saveTour.TourDayandTime_start = req.query.TourItem.startDate;
-                saveTour.TourDayandTime_end = req.query.TourItem.endDate;
-                saveTour.TourThema = req.query.TourItem.thema;
+                saveTour.TourDayandTime_start = req.query.startDate;
+                saveTour.TourDayandTime_end = req.query.endDate;
+                saveTour.TourThema = req.query.thema;
                 saveTour.save(function(err,data){
                     if(err){
                         console.log(err);
