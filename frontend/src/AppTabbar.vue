@@ -1,7 +1,10 @@
 <template>
   <v-ons-page :style="swipePosition">
     <custom-toolbar :style="swipeTheme" modifier="white-content" v-if="title=='Home'||'투어상품 검색'||'가이드 모집'">
-      <img slot="logo" src="./assets/logo6.png">
+      <div class="home_name" align="left">
+        MSG
+      </div>
+      <!--<img slot="logo" src="./assets/logo4.png" height="44px" width="171px">-->
       <v-ons-toolbar-button slot="right" modifier="white-content"
                             @click="$store.commit('splitter/toggle')"
       >
@@ -38,9 +41,9 @@
   // Just a linear interpolation formula
   const lerp = (x0, x1, t) => parseInt((1 - t) * x0 + t * x1, 10);
   // RGB colors
-  const red = [244, 67, 54];
-  const blue = [30, 136, 229];
-  const purple = [103, 58, 183];
+  const red = [153, 102, 255];
+  const blue = [102, 51, 255];
+  const purple = [204, 153, 255];
 
   export default {
     data () {
@@ -51,14 +54,6 @@
         animationOptions: {},
         topPosition: 0,
         tabs: [
-          // {
-          //   label: 'Test1',
-          //   icon: 'ion-camera, material:md-camera',
-          //   page: test_1,
-          //   theme: red,
-          //   style: this.md ? { maxWidth: '60px' } : {},
-          //   top: -105 // Toolbar + Tabbar heights
-          // },
           {
             label: '투어상품 검색',
             icon: this.md ? null : 'ion-film-marker',
@@ -136,7 +131,10 @@
 
 <style>
   /* Custom 'white-content' modifier */
-
+  .home_name{
+    font-size: 40px;
+    font-family: 바탕
+  }
   .page--material .toolbar--white-content__center,
   .page--material .toolbar-button--white-content,
   .page--material :checked + .tabbar--white-content__button {
