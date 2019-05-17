@@ -48,7 +48,10 @@
             },
             delete_info(){
                 this.$http.post('http://localhost:8000/checkInfo/delete', {
-                    item: this.item
+                    params: {
+                        item: this.item,
+                        type: localStorage.getItem('newType')
+                    }
                 })
                     .then(response => {  //로그인 성공
                             alert("삭제되었습니다.");
