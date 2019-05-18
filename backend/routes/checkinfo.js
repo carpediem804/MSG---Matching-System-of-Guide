@@ -41,6 +41,14 @@ router.post('/delete', function(req, res,next) {
             res.send("삭제완료");
         })
     }
+    else{
+        Tourinfo.findOneAndRemove({TourNum:req.body.params.item.TourNum},function (err,data) {
+            if(err){
+                console.log(err);
+            }
+            res.send("삭제완료");
+        })
+    }
 })
 
 module.exports = router;
