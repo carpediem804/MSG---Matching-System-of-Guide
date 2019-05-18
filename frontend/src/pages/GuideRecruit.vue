@@ -39,9 +39,7 @@
 
 <script>
     import GuideApply from './ApplyRecruit.vue'
-    // import  Eventbus  from "../assets/event-bus"
-    import Vue from 'vue';
-    // import AA from "./GuideRecruitList.vue"
+
 
     export default {
 
