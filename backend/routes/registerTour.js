@@ -9,17 +9,15 @@ router.post('/', function (req, res, next) {
     console.log(req.query.userID);
     upload(req, res, function (err) {
         if(req.file == null || req.file == undefined || req.file == ""){
-            res.json('No Image Set');
+            //res.json('No Image Set');
+            temp = 1;
             console.log("이미지없음")
-        }else{
-            if(err){
-            console.log(err);
-            }
-            else{
+        }
                 let saveTour = new Tourcontent();
                 saveTour.UserID = req.query.userID;
-                saveTour.TourImageURL = req.file.filename;
-                saveTour.TourTitle = req.query.title;
+                if(temp!=1) {
+                    saveTour.TourImageURL = req.file.filename;
+                }saveTour.TourTitle = req.query.title;
                 saveTour.TourLocation = req.query.location;
                 saveTour.TourMaxNum = req.query.maxNum;
                 saveTour.TourMinNum = req.query.minNum;
@@ -38,8 +36,6 @@ router.post('/', function (req, res, next) {
                     }
                 });
                 res.send("된다");
-            }
-        }
     });
 
 

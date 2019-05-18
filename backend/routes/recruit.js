@@ -2,36 +2,51 @@ const { Router } = require('express');
 const router = Router();
 const applyrecruit = require('../db/models/ApplyRecruit');
 const guiderecruit = require('../db/models/GuideRecruit');
+const upload = require('../multer/storage');
+
 router.post('/apply', function (req, res, next) {
     console.log("post apply임");
-    console.log(req.body.params);
-   // const apply_post_num = req.body.params.target;
-    let saveapply = new applyrecruit();
-    saveapply.RecruitApplier = req.body.params.applydata.id;
-    saveapply.apply_post_num = req.body.params.applydata.target;
-    saveapply.SuggestContent = req.body.params.applydata.content;
-    saveapply.SuggestPrice = req.body.params.applydata.price;
+    console.log(req.query.id);
+    console.log(req.query.target);
+    console.log(req.query.content);
+    console.log(req.query.price);
+    // const apply_post_num = req.body.params.target;
+    var temp2 =0;
+    upload(req, res, function (err) {
+        if (req.file == null || req.file == undefined || req.file == "") {
+           // res.json('No Image Set');
+            temp2 =1;
+            console.log("이미지없음")
+        }
+        let saveapply = new applyrecruit();
+        if(temp2==0) {
+            saveapply.apply_Image_URL = req.file.filename;
+        }
+                saveapply.RecruitApplier = req.query.id;
+                saveapply.apply_post_num = req.query.target;
+                saveapply.SuggestContent = req.query.content;
+                saveapply.SuggestPrice = req.query.price;
 
-    saveapply.save(function(err,data){
-        if(err){
-            console.log(err);
-        }
-        else {
-            console.log("가이드가 신청한 데이터 저장 "+data);
-            //res.send("저장됨");
-            const apply_post_num = req.body.params.applydata.target;
-            guiderecruit.findOneAndUpdate({RecruitNum : apply_post_num},{$push:{ApplyGuideID :req.body.params.applydata.id }},{new: true},function(err,data){
-                if(err){
-                    console.log(err);
-                }
-                console.log(data);
-            })
-            res.send("처리완료");
-        }
+                saveapply.save(function (err, data) {
+                    if (err) {
+                        console.log(err);
+                        console.log("\n already라고 보냇당 \n")
+                       res.send("already");
+                    } else {
+                        console.log("가이드가 신청한 데이터 저장 " + data);
+                        //res.send("저장됨");
+                        const apply_post_num = req.query.target;
+                        guiderecruit.findOneAndUpdate({RecruitNum: apply_post_num}, {$push: {ApplyGuideID: req.query.id}}, {new: true}, function (err, data) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            console.log(data);
+                        });
+                        res.send("done");
+                    }
+                });
+
     });
-    console.log("==========================\n");
-    //이제 가이드 요청 글에 신청한 사람 id 넣어야 댄다~
-
 });
 router.post('/custom', function (req, res, next) {
     //console.log(req);
