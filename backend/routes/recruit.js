@@ -36,6 +36,7 @@ router.post('/apply', function (req, res, next) {
                         console.log("가이드가 신청한 데이터 저장 " + data);
                         //res.send("저장됨");
                         const apply_post_num = req.query.target;
+                        //중복방지 해야되는데 일단 내비두자
                         guiderecruit.findOneAndUpdate({RecruitNum: apply_post_num}, {$push: {ApplyGuideID: req.query.id}}, {new: true}, function (err, data) {
                             if (err) {
                                 console.log(err);
