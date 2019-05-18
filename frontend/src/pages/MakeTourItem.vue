@@ -67,6 +67,7 @@
                     명
                     </label>
                 </v-ons-list-item>
+
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">
                     <div class="left">
                             최소 모집 인원
@@ -80,6 +81,7 @@
                     명
                     </label>
                 </v-ons-list-item>
+
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">
                     <div class="left">
                             투어 시작일
@@ -91,6 +93,7 @@
                         </v-ons-input>
                     </label>
                 </v-ons-list-item>
+
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">
                     <div class="left">
                             투어 종료일
@@ -100,6 +103,7 @@
                             v-model="Tour.endDate"
                         >
                         </v-ons-input>
+
                     </label>
                 </v-ons-list-item>
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">

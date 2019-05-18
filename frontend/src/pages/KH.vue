@@ -46,46 +46,74 @@
                     </label>
                 </v-ons-list-item>
 
+                <!--<v-ons-list-item :modifier="md ? 'nodivider' : ''">-->
+                    <!--<div class="left">-->
+                        <!--투어 시작일-->
+                    <!--</div>-->
+                    <!--<label class="center">-->
+                        <!--<v-ons-select style="width: 30%" v-model ="recruit.from_month">-->
+                            <!--<option disabled value="">월</option>-->
+                            <!--<option v-for="item in month"  :value="item.value" >-->
+                                <!--{{ item.text }}-->
+                            <!--</option>-->
+                        <!--</v-ons-select>-->
+                        <!--<pre>       </pre>-->
+                        <!--<v-ons-select style="width: 30%" v-model ="recruit.from_day">-->
+                            <!--<option disabled value="">일</option>-->
+                            <!--<option v-for="item in day"  :value="item.value" >-->
+                                <!--{{ item.text }}-->
+                            <!--</option>-->
+                        <!--</v-ons-select>-->
+                    <!--</label>-->
+                <!--</v-ons-list-item>-->
+
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">
                     <div class="left">
-                        투어 시작일
+                        투어 시작
                     </div>
                     <label class="center">
-                        <v-ons-select style="width: 30%" v-model ="recruit.from_month">
-                            <option disabled value="">월</option>
-                            <option v-for="item in month"  :value="item.value" >
-                                {{ item.text }}
-                            </option>
-                        </v-ons-select>
-                        <pre>       </pre>
-                        <v-ons-select style="width: 30%" v-model ="recruit.from_day">
-                            <option disabled value="">일</option>
-                            <option v-for="item in day"  :value="item.value" >
-                                {{ item.text }}
-                            </option>
-                        </v-ons-select>
+                        <v-ons-input type=datetime-local
+                                     v-model="recruit.from_day"
+                        >
+                        </v-ons-input>
                     </label>
                 </v-ons-list-item>
+
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">
                     <div class="left">
-                        투어 종료일
+                        투어 종료
                     </div>
                     <label class="center">
-                        <v-ons-select style="width: 30%" v-model ="recruit.to_month">
-                            <option disabled value="">월</option>
-                            <option v-for="item in month"  :value="item.value" >
-                                {{ item.text }}
-                            </option>
-                        </v-ons-select>
-                        <pre>       </pre>
-                        <v-ons-select style="width: 30%" v-model ="recruit.to_day">
-                            <option disabled value="">일</option>
-                            <option v-for="item in day"  :value="item.value" >
-                                {{ item.text }}
-                            </option>
-                        </v-ons-select>
+                        <v-ons-input type=datetime-local
+                                     v-model="recruit.to_day"
+                        >
+                        </v-ons-input>
                     </label>
                 </v-ons-list-item>
+
+
+                <!--<v-ons-list-item :modifier="md ? 'nodivider' : ''">-->
+                    <!--<div class="left">-->
+                        <!--투어 종료일-->
+                    <!--</div>-->
+                    <!--<label class="center">-->
+                        <!--<v-ons-select style="width: 30%" v-model ="recruit.to_month">-->
+                            <!--<option disabled value="">월</option>-->
+                            <!--<option v-for="item in month"  :value="item.value" >-->
+                                <!--{{ item.text }}-->
+                            <!--</option>-->
+                        <!--</v-ons-select>-->
+                        <!--<pre>       </pre>-->
+                        <!--<v-ons-select style="width: 30%" v-model ="recruit.to_day">-->
+                            <!--<option disabled value="">일</option>-->
+                            <!--<option v-for="item in day"  :value="item.value" >-->
+                                <!--{{ item.text }}-->
+                            <!--</option>-->
+                        <!--</v-ons-select>-->
+                    <!--</label>-->
+                <!--</v-ons-list-item>-->
+
+
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">
                     <div class="left">
                         투어 내용
@@ -101,6 +129,7 @@
                 </p>
             </v-ons-list>
         </div>
+
         <!--<div id="SignUp">-->
             <!--<div class="register_title" align="center">-->
                 <!--제목<input v-model="recruit.title" placeholder="제목을 입력하세요.">-->
@@ -151,7 +180,10 @@
             <!--</p>-->
         <!--</div>-->
     </v-ons-page>
+
 </template>
+
+
 
 <script>
     import axios from 'axios'
