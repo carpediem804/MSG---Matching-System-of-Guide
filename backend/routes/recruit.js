@@ -11,24 +11,26 @@ router.post('/apply', function (req, res, next) {
     console.log(req.query.content);
     console.log(req.query.price);
     // const apply_post_num = req.body.params.target;
+    var temp =0;
     upload(req, res, function (err) {
         if (req.file == null || req.file == undefined || req.file == "") {
-            res.json('No Image Set');
+           // res.json('No Image Set');
+            temp =1;
             console.log("이미지없음")
-        } else {
-            if (err) {
-                console.log(err);
-            } else {
+        }
                 let saveapply = new applyrecruit();
-                saveapply.apply_Image_URL = req.file.filename;
+        if(temp==0) {
+            saveapply.apply_Image_URL = req.file.filename;
+        }
                 saveapply.RecruitApplier = req.query.id;
                 saveapply.apply_post_num = req.query.target;
                 saveapply.SuggestContent = req.query.content;
                 saveapply.SuggestPrice = req.query.price;
-                console.log('여기까지는 될거야');
+
                 saveapply.save(function (err, data) {
                     if (err) {
                         console.log(err);
+                       res.send("already");
                     } else {
                         console.log("가이드가 신청한 데이터 저장 " + data);
                         //res.send("저장됨");
@@ -39,12 +41,10 @@ router.post('/apply', function (req, res, next) {
                             }
                             console.log(data);
                         });
-                        res.send("처리완료");
+                        res.send("done");
                     }
                 });
-            }
-        }
-        //이제 가이드 요청 글에 신청한 사람 id 넣어야 댄다~
+
     });
 });
 router.post('/custom', function (req, res, next) {
