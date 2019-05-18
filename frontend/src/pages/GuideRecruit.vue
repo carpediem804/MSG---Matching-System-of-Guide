@@ -15,16 +15,18 @@
                 내용:<br><br>
                 {{item.RecruitContent}}<br>
             </v-ons-card>
-            <v-ons-card v-for="todo in item.ApplyGuideID">
-                   지원자: {{todo}}
-            </v-ons-card>
+            <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>
+            <v-ons-list>
+                <v-ons-card v-for="todo in item.ApplyGuideID">
+                    지원자: {{todo}}
+                </v-ons-card>
+            </v-ons-list>
         <!--{{item.RecruitNum}}-->
         </div>
 
         <P align="center">
             <button class="button_apply" @click="push1(page.component,page.label)">가이드 신청하기</button>
         </p>
-
 
 
     </v-ons-page>

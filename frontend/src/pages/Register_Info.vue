@@ -7,6 +7,8 @@
                               @click="delete_info()"> 삭제하기
                 </v-ons-button>
             </p>
+            <v-ons-list-header>세부 정보</v-ons-list-header>
+            <v-ons-list>
             <v-ons-card>작성자 : {{item.UserID }}</v-ons-card>
             <v-ons-card>제목 : {{item.RecruitTitle}}</v-ons-card>
             <v-ons-card>지역 : {{item.RecruitLocation}}</v-ons-card>
@@ -14,6 +16,13 @@
             <v-ons-card>날짜 : {{item.From_time}} 부터 {{item.To_time}} 까지</v-ons-card>
             <v-ons-card>인원 : {{item.RecruitPeopleNumber}}</v-ons-card>
             <v-ons-card>작성시간 : {{item.WriteTime}}</v-ons-card>
+            </v-ons-list>
+            <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>
+            <v-ons-list>
+                <v-ons-card v-for="todo in item.ApplyGuideID">
+                    지원자: {{todo}}
+                </v-ons-card>
+            </v-ons-list>
         </div>
         <div class="travler" v-if="!session_type()">
             <p align="right">
@@ -39,6 +48,7 @@
     export default {
         methods: {
             session_type(){
+                console.log(this.item);
                 if(localStorage.getItem('newType') === '여행객'){
                     return true;
                 }
