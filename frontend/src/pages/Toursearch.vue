@@ -1,7 +1,7 @@
 <template>
 <v-ons-page>
     <div class="test2" align="center">
-        <v-ons-search-input maxlength="20" placeholder="Search" v-model="search"></v-ons-search-input>
+        <v-ons-search-input maxlength="100" placeholder="Keywords" v-model="search"></v-ons-search-input>
         <div></div>
         <v-ons-select style="width: 80px" v-model ="selectedLocal " >
             <option v-for="loitem in localitems"  :value="loitem.value" >
@@ -180,7 +180,7 @@
             data() {
                 return {
                     viewimg:"http://localhost:8000/uploads/",
-
+                    fakeimg: "file-1544454352258.png",
                     page: {
                         component: MakeTourItem,
                         label: '투어상품 등록'
@@ -254,9 +254,13 @@
                 this.$http.get('http://localhost:8000/getTourList/custom').then(res => {
                     console.log("보냇다 보냇다~ ")
                     this.categories = res.data.tourdata;
+
                     this.filtered.pop( );
                     for (var i = 0; i < this.categories.length; i++) {
-                            this.filtered.push( this.categories[i]);
+                        if(this.categories[i].TourImageURL ==="아직구현안함")
+                        {this.categories[i].TourImageURL = this.fakeimg;}
+                        this.filtered.push( this.categories[i]);
+
 
                     }
                    // console.log(this.filtered)
