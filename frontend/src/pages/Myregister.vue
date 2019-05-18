@@ -5,7 +5,6 @@
             <v-ons-list-header>가이드 모집글 : 총 {{traveler_register_data.length}}건</v-ons-list-header>
             <v-ons-list>
                 <v-ons-card v-for="todo in traveler_register_data" @click="push(page.component, page.label, todo)">
-                    <img src="../assets/background4.jpg" alt="Image File" style="width:310px; height:auto">
                     <div class="title2">
                         {{todo.RecruitTitle}}
                     </div>
@@ -22,7 +21,7 @@
             <v-ons-list-header>투어 등록상품 : 총 {{guide_register_data.length}}건</v-ons-list-header>
             <v-ons-list>
                 <v-ons-card v-for="todo in guide_register_data" @click="push(page.component, page.label, todo)">
-                    <img src="../assets/background2.jpg" alt="Image File" style="width:310px; height:auto">
+                    <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
                     <div class="title2">
                         {{todo.TourTitle}}
                     </div>
@@ -31,7 +30,7 @@
                         <v-ons-list>
                             <v-ons-list-item ># {{todo.TourLocation}} # {{todo.TourThema}} </v-ons-list-item>
                             <v-ons-list-item># {{todo.TourContent}}</v-ons-list-item>
-                            <v-ons-list-item># {{todo.TourPrice}}$  </v-ons-list-item>
+                            <v-ons-list-item># {{todo.TourPrice}}원  </v-ons-list-item>
                         </v-ons-list>
                     </div>
                 </v-ons-card>

@@ -3,10 +3,9 @@ const router = Router();
 const Tourcontent = require('../db/models/Tour');
 const upload = require('../multer/storage');
 router.post('/', function (req, res, next) {
-    console.log("등록등록");
-    console.log("req.file");
-
-    console.log(req.query.userID);
+    // console.log("등록등록");
+    // console.log("req.file");
+    // console.log(req.query.userID);
     upload(req, res, function (err) {
         if(req.file == null || req.file == undefined || req.file == ""){
             res.json('No Image Set');
@@ -41,7 +40,5 @@ router.post('/', function (req, res, next) {
             }
         }
     });
-
-
 });
 module.exports = router;
