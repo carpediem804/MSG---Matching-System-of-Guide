@@ -5,8 +5,8 @@ const upload = require('../multer/storage');
 router.post('/', function (req, res, next) {
     console.log("등록등록");
     console.log("req.file");
-
     console.log(req.query.userID);
+    var temp = 0;
     upload(req, res, function (err) {
         if(req.file == null || req.file == undefined || req.file == ""){
             //res.json('No Image Set');
