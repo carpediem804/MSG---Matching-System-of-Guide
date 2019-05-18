@@ -35,7 +35,7 @@
 
 <script>
 
-  import RecruitGuideSearch from './pages/Forms.vue';
+  import RecruitGuideSearch from './pages/GuideRecruitList.vue';
   import Home from './pages/Home.vue';
   import Toursearch from "./pages/Toursearch.vue";
 

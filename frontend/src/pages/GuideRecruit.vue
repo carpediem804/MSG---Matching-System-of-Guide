@@ -41,10 +41,10 @@
 </template>
 
 <script>
-    import GuideApply from './Test_Home.vue'
+    import GuideApply from './ApplyRecruit.vue'
     // import  Eventbus  from "../assets/event-bus"
     import Vue from 'vue';
-    // import AA from "./Forms.vue"
+    // import AA from "./GuideRecruitList.vue"
 
     export default {
 

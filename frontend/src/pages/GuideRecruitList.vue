@@ -172,8 +172,8 @@
 
 <script>
 
-  import GuideApply from './RecruitGuide.vue'
-  import GuideRecruit from './KH.vue'
+  import GuideApply from './GuideRecruit.vue'
+  import GuideRecruit from './MakeRecruitGuide.vue'
   import axios from 'axios'
 
   import Vue from 'vue'

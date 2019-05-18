@@ -43,7 +43,7 @@
 </template>
 
 <script>
-    import GuideApply from './Test_Home.vue'
+    import GuideApply from './ApplyRecruit.vue'
 
     export default {
         methods: {
