@@ -32,14 +32,19 @@
             </p>
             <v-ons-card>작성자 : {{item.UserID }}</v-ons-card>
             <v-ons-card>제목 : {{item.TourTitle}}</v-ons-card>
+            <v-ons-card>가격 : {{item.TourPrice}}</v-ons-card>
             <v-ons-card>지역 : {{item.TourLocation}}</v-ons-card>
             <v-ons-card>테마 : {{item.TourThema}}</v-ons-card>
             <v-ons-card>내용 : {{item.TourContent}}</v-ons-card>
             <v-ons-card>날짜 : {{item.TourDayandTime_start}} 부터 {{item.TourDayandTime_end}} 까지</v-ons-card>
             <v-ons-card>최소인원 : {{item.TourMinNum}}</v-ons-card>
             <v-ons-card>최대인원 : {{item.TourMaxNum}}</v-ons-card>
-            <v-ons-card>가격 : {{item.TourPrice}}</v-ons-card>
-            <v-ons-card>작성시간 : {{item.Tour_create_date}}</v-ons-card>
+            <v-ons-list-header>신청인원 : {{item.TourNowPeopleNum}}명 / {{item.TourApplyList.length}} 단체 </v-ons-list-header>
+            <v-ons-list>
+                <v-ons-card v-for="todo in item.TourApplyList">
+                    단체대표 : {{todo}}
+                </v-ons-card>
+            </v-ons-list>
         </div>
     </v-ons-page>
 </template>

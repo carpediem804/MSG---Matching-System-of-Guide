@@ -57,7 +57,7 @@ router.post('/show', function(req, res,next) { //자신이 등록한 게시글�
         //가이드 정보 던지는거
         guideinfo.find({apply_post_num : req.body.params.target,RecruitApplier:req.body.params.user},function(err,data){
             if(err){
-                console.log(err);
+                    console.log(err);
             }
             else {
                 console.log("찾아서 보내는 data : "+data);
