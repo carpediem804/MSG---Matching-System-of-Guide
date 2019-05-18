@@ -4,6 +4,8 @@ export default {
       strict: true,
       namespaced: true,
       state: {
+        user:'',
+        target:'',
         tour:[],
         item: [],
         stack: [],

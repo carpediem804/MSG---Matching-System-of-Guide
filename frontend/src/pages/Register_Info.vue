@@ -19,7 +19,7 @@
             </v-ons-list>
             <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>
             <v-ons-list>
-                <v-ons-card v-for="todo in item.ApplyGuideID">
+                <v-ons-card v-for="todo in item.ApplyGuideID" @click="push1(page.component, page.label, todo)">
                     지원자: {{todo}}
                 </v-ons-card>
             </v-ons-list>
@@ -45,16 +45,32 @@
 </template>
 
 <script>
+    import Check_Apply_Info from "./Check_Apply_Info.vue";
+
     export default {
         methods: {
             session_type(){
-                console.log(this.item);
                 if(localStorage.getItem('newType') === '여행객'){
                     return true;
                 }
                 else{
                     return false;
                 }
+            },
+            push1(page, key, todo) {
+                this.$store.state.user = todo;
+                this.$store.state.target = this.item.RecruitNum;
+                this.$store.commit('navigator/push', {
+                    extends: page,
+                    data() {
+                        return {
+                            toolbarInfo: {
+                                backLabel: 'Back',
+                                title: key
+                            }
+                        }
+                    }
+                });
             },
             delete_info(){
                 this.$http.post('http://localhost:8000/checkInfo/delete', {
@@ -78,6 +94,10 @@
         },
         data() {
             return {
+                page: {
+                    component: Check_Apply_Info,
+                    label: '신청 가이드 정보'
+                },
                 item : this.$store.state.item
             };
         }
