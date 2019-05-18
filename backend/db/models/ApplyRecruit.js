@@ -5,7 +5,7 @@ var ApplyRecruitSchema = new mongoose.Schema({
         type: Number,
         unique: true
     },
-    apply_Image_URL: String,
+    apply_Image_URL: {type:String, default : "noimage.png"},
     apply_post_num : {type :Number, unique:true},
     SuggestContent: String,
     SuggestPrice : Number,
