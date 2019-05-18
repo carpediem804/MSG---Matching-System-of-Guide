@@ -78,6 +78,7 @@
                 removeImage: function (e) {
                     this.userImage = ''
                 },
+
             ApplyGuide() {
                 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
                 let formData = new FormData();
@@ -96,6 +97,7 @@
                 })
             }
         },
+
         data() {
             return {
                 userImage: '',
