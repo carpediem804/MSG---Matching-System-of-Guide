@@ -54,7 +54,7 @@
 
       <v-ons-list>
         <v-ons-card v-for="item in filtered" @click="push(page2.component, page2.label, item)">
-          <img src="../assets/background4.jpg" alt="Image File" style="width:310px; height:auto">
+          <!--<img src="../assets/background4.jpg" alt="Image File" style="width:310px; height:auto">-->
           <div class="title2">
             {{item.RecruitTitle}}
           </div>
