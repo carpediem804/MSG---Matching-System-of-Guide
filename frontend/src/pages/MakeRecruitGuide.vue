@@ -229,9 +229,9 @@
                     title: '',
                     location: '',
                     number:'',
-                    from_month: '',
+                    // from_month: '',
                     from_day: '',
-                    to_month: '',
+                    // to_month: '',
                     to_day: '',
                     content: ''
                 },
@@ -282,9 +282,9 @@
                     { value: '30일', text: '30일' },
                     { value: '31일', text: '31일' }
                 ],
-                from_month: '',
+                // from_month: '',
                 from_day : '',
-                to_month :'',
+                // to_month :'',
                 to_day:''
             };
         }
