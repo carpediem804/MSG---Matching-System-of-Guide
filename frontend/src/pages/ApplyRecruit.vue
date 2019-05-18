@@ -26,8 +26,19 @@
                         <textarea name="content" v-model="recruit.content" cols="52" rows="19" placeholder="투어 내용을 입력하세요."></textarea>
                     </div>
                 </v-ons-list-item>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 text-center app">
+                        <img class="profile-image" :src="userImage" width="275" height="230"/>
+                        <div v-if="!userImage">
+                            <input type="file" round class="change-profile-image" @change="onFileChange" />
+                        </div>
+                        <div v-else>
+                            <button class="delete-profile-image" color="secondary" icon="delete" @click="removeImage">Delete</button>
+                        </div>
+                    </div>
+                </v-ons-list-item>
                 <p align="center">
-                    <button class="register_button" @click="signUp()">작성하기</button>
+                    <button class="register_button" @click="ApplyGuide()">작성하기</button>
                 </p>
             </v-ons-list>
         </div>
@@ -39,17 +50,55 @@
 
     export default {
             methods: {
-            signUp() {
-                axios.post('http://localhost:8000/recruit/apply', {
+                onFileChange(e) {
+                    var files = e.target.files || e.dataTransfer.files
+                    this.selectedFile = e.target.files[0];
+                    if (!files.length) {
+                        return
+                    }
+                    this.createImage(files[0])
+                    console.log('이미지올림');
+                    console.log(files[0].name);
+                    console.log(this.selectedFile.name);
+
+
+                },
+
+                createImage(file) {
+                    var reader = new FileReader()
+                    var vm = this
+
+                    reader.onload = (e) => {
+                        vm.userImage = e.target.result
+
+                    }
+                    reader.readAsDataURL(file)
+
+                },
+                removeImage: function (e) {
+                    this.userImage = ''
+                },
+            ApplyGuide() {
+                axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+                let formData = new FormData();
+                formData.append('file',this.selectedFile);
+                axios.post('http://localhost:8000/recruit/apply',formData, {
                 params: {applydata: this.recruit}
                 }).then(function (data) {
-                    alert('제출되었습니다.');
-                    location.reload();
+                    console.log("Apply Guide complete");
                 });
+                this.$ons.notification.alert({
+                    message: "가이드 신청 되었습니다.",
+                    title: "가이드 신청 성공",
+                    callback: function (index) {
+                        location.reload();
+                    },
+                })
             }
         },
         data() {
             return {
+                userImage: '',
                 recruit: {
                     target : this.$store.state.item.RecruitNum,
                     id : localStorage.getItem('newEmail'),
