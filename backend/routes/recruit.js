@@ -11,15 +11,15 @@ router.post('/apply', function (req, res, next) {
     console.log(req.query.content);
     console.log(req.query.price);
     // const apply_post_num = req.body.params.target;
-    var temp =0;
+    var temp2 =0;
     upload(req, res, function (err) {
         if (req.file == null || req.file == undefined || req.file == "") {
            // res.json('No Image Set');
-            temp =1;
+            temp2 =1;
             console.log("이미지없음")
         }
-                let saveapply = new applyrecruit();
-        if(temp==0) {
+        let saveapply = new applyrecruit();
+        if(temp2==0) {
             saveapply.apply_Image_URL = req.file.filename;
         }
                 saveapply.RecruitApplier = req.query.id;
@@ -30,6 +30,7 @@ router.post('/apply', function (req, res, next) {
                 saveapply.save(function (err, data) {
                     if (err) {
                         console.log(err);
+                        console.log("\n already라고 보냇당 \n")
                        res.send("already");
                     } else {
                         console.log("가이드가 신청한 데이터 저장 " + data);
