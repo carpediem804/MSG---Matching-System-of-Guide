@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const router = Router();
-//const Image = require('../db/models/Images');
+
 const Tourinfo = require('../db/models/Tour');
 const applyguide = require('../db/models/GuideRecruit')
+const guideinfo = require('../db/models/ApplyRecruit')
 router.post('/register', function(req, res,next){
     console.log("checkinfo/register로 들어옴");
     //console.log(req.body);
@@ -50,5 +51,23 @@ router.post('/delete', function(req, res,next) {
         })
     }
 })
+router.post('/show', function(req, res,next) { //자신이 등록한 게시글에 신청한 사람정보 찾아서 보내기
+    console.log(req.body.params);
+    if(req.body.params.type == '여행객') {
+        //가이드 정보 던지는거
+        guideinfo.find({apply_post_num : req.body.params.target,RecruitApplier:req.body.params.user},function(err,data){
+            if(err){
+                console.log(err);
+            }
+            else {
+                console.log("찾아서 보내는 data : "+data);
+                res.json({data});
+            }
+        })
+    }
+    else if (req.body.params.type == '가이드'){
+        //여행자 정보 던지는거
 
+    }
+});
 module.exports = router;
