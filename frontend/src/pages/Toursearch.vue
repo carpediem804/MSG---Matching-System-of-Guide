@@ -257,8 +257,8 @@
 
                     this.filtered.pop( );
                     for (var i = 0; i < this.categories.length; i++) {
-                        if(this.categories[i].TourImageURL ==="아직구현안함")
-                        {this.categories[i].TourImageURL = this.fakeimg;}
+                        // if(this.categories[i].TourImageURL ==="아직구현안함")
+                        // {this.categories[i].TourImageURL = this.fakeimg;}
                         this.filtered.push( this.categories[i]);
 
 

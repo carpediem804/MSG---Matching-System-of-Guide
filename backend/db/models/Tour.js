@@ -6,7 +6,7 @@ var Tour_Schema = new mongoose.Schema({
         unique: true
     },
     UserID: String,
-    TourImageURL: String,
+    TourImageURL: {type:String,default : "default_image.jpg"},
     TourTitle: String,
     TourLocation: String,
     TourDayandTime_start : { type:Date },
