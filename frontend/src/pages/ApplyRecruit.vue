@@ -83,7 +83,12 @@
                 let formData = new FormData();
                 formData.append('file',this.selectedFile);
                 axios.post('http://localhost:8000/recruit/apply',formData, {
-                params: {applydata: this.recruit}
+                params: {
+                    target : this.recruit.target,
+                    id : this.recruit.id,
+                    price: this.recruit.price,
+                    content: this.recruit.content,
+                }
                 }).then(function (data) {
                     console.log("Apply Guide complete");
                 });
@@ -91,7 +96,7 @@
                     message: "가이드 신청 되었습니다.",
                     title: "가이드 신청 성공",
                     callback: function (index) {
-                        location.reload();
+                        // location.reload();
                     },
                 })
             }

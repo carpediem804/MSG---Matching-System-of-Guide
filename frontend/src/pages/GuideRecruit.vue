@@ -15,15 +15,10 @@
                 내용:<br><br>
                 {{item.RecruitContent}}<br>
             </v-ons-card>
-
-            <!--<v-ons-card>-->
-                <!--지원자:<br><br>-->
-                <!--{{item.RecruitId}}<br>-->
-
-            <!--</v-ons-card>-->
-
+            <v-ons-card v-for="todo in item.ApplyGuideID">
+                   지원자: {{todo}}
+            </v-ons-card>
         <!--{{item.RecruitNum}}-->
-
         </div>
 
         <P align="center">
@@ -72,7 +67,7 @@
                     // RecruitDayandTime: Date().format("2019-05-08"),
                     RecruitPeopleNumber: 5,
                     RecruitContent: "흑돼지 쌉맛있는 식당 찾습니다 바로가~",
-                    ApplyGuideList: "WorldClassGuide_인직"
+                    ApplyGuideID: "WorldClassGuide_인직"
                 },
 
             };

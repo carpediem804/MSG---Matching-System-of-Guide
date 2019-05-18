@@ -7,7 +7,6 @@ router.post('/', function (req, res, next) {
     console.log("req.file");
 
     console.log(req.query.userID);
-    var temp =0;
     upload(req, res, function (err) {
         if(req.file == null || req.file == undefined || req.file == ""){
             //res.json('No Image Set');
