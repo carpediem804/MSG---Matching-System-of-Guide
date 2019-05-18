@@ -31,6 +31,32 @@ router.post('/register', function(req, res,next){
         })
     }
 });
+router.post('/apply', function(req, res,next){
+    console.log("checkinfo/apply로 들어옴");
+    console.log(req.body.params);
+    if(req.body.params.type === "여행객") {
+        console.log("여행객");
+        Tourinfo.find({TourApplyList: req.body.params.email},function (err,data){
+            if(err){
+                console.log(err);
+            }else{
+                console.log(data);
+                res.json({data});
+            }
+        })
+    }
+    else if(req.body.params.type === "가이드"){
+        console.log("가이드");
+        applyguide.find({ApplyGuideID: req.body.params.email},function (err,data){
+            if(err){
+                console.log(err);
+            }else{
+                console.log(data);
+                res.json({data});
+            }
+        })
+    }
+});
 router.post('/delete', function(req, res,next) {
     console.log("delete로 들어옴")
     console.log(req.body.params);
@@ -57,7 +83,7 @@ router.post('/show', function(req, res,next) { //자신이 등록한 게시글�
         //가이드 정보 던지는거
         guideinfo.find({apply_post_num : req.body.params.target,RecruitApplier:req.body.params.user},function(err,data){
             if(err){
-                    console.log(err);
+                console.log(err);
             }
             else {
                 console.log("찾아서 보내는 data : "+data);
@@ -66,6 +92,25 @@ router.post('/show', function(req, res,next) { //자신이 등록한 게시글�
         })
     }
     else if (req.body.params.type == '가이드'){
+        //여행자 정보 던지는거
+
+    }
+});
+router.post('/show2', function(req, res,next) { //자신이 등록한 게시글에 신청한 사람정보 찾아서 보내기
+    console.log(req.body.params);
+    if(req.body.params.type == '가이드') {
+        //가이드 정보 던지는거
+        guideinfo.find({apply_post_num : req.body.params.target,RecruitApplier:req.body.params.user},function(err,data){
+            if(err){
+                console.log(err);
+            }
+            else {
+                console.log("찾아서 보내는 data : "+data);
+                res.json({data});
+            }
+        })
+    }
+    else if (req.body.params.type == '여행객'){
         //여행자 정보 던지는거
 
     }

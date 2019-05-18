@@ -35,6 +35,7 @@
   import Mypage from "./Mypage.vue"
   import firebase from 'firebase'
   import TaeTae from "./TaeTae.vue";
+  import Myapply from "./Myapply.vue";
 
   export default {
     methods: {
@@ -127,7 +128,7 @@
             label: '등록 상품'
           },
           {
-            component: Menu_test,
+            component: Myapply,
             label: '신청 상품'
           },
           {
