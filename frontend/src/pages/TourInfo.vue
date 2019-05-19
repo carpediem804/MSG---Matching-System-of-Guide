@@ -62,7 +62,6 @@
             },
 
             applyTour(){
-                console.log(this)
                 this.$ons.notification.prompt({
                     message: '신청 인원',
                     title: '투어 신청',
@@ -72,23 +71,50 @@
                     cancelable: 'true',
                     _self: this,
                     callback: function (num) {
-                        console.log(this._self)
-                        console.log(this._self.tour)
-                        console.log(localStorage.getItem('newEmail'))
-                        this._self.$http.post('http://localhost:8000/applyTour',{
-                            params: {
-                                Number: num,
-                                userInfo: this._self.tour,
-                                TourInfo: localStorage.getItem('newEmail'),
+                        console.log(num);
+                        console.log(this._self.tour.TourNowPeopleNum);
+                        console.log(this._self.tour.TourMaxNum);
+                        
+                        if(num>0){
+                            if((parseInt(this._self.tour.TourNowPeopleNum) + parseInt(num)) > parseInt(this._self.tour.TourMaxNum)){
+                                this._self.$ons.notification.alert({ 
+                                    message: "투어 최대 인원을 초과하였습니다.",
+                                    title: "신청 실패",
+                                })
                             }
-                        })
-                        this._self.$ons.notification.alert({ 
-                            message: "신청이 완료되었습니다.",
-                            title: "신청 완료",
-                            callback: function (index) {
+                            else{
+                                this._self.$http.post('http://localhost:8000/applyTour',{
+                                params: {
+                                    Number: num,
+                                    userInfo: this._self.tour,
+                                    TourInfo: localStorage.getItem('newEmail'),
+                                }
+                                })
+                                this._self.$ons.notification.alert({ 
+                                    message: "신청이 정상적으로 완료 되었습니다.",
+                                    title: "신청 완료",
+                                })
                                 location.reload();
-                            },
-                        })
+                            }
+                        }
+                        else if(num==0){
+                            this._self.$ons.notification.alert({ 
+                                    message: "1명 이상만 신청 가능합니다.",
+                                    title: "신청 실패",
+                            })
+                        }
+                        else if(num==null){
+                            this._self.$ons.notification.alert({ 
+                                    message: "취소되었습니다.",
+                                    title: "신청 취소",
+                            })
+                        }
+                        else{
+                            this._self.$ons.notification.alert({ 
+                                    message: "다시 시도해주세요.",
+                                    title: "신청 실패",
+                            })
+                        }
                     },
                 })
             }
