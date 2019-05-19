@@ -130,7 +130,7 @@
                     if(a){
                         if(b){
                             if(c){
-                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle === this.search ) && this.categories[i].includes(this.search)){
+                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle.includes(this.search) ) && this.categories[i].includes(this.search)){
                                     console.log('abc');
 
                                     this.filtered.push( this.categories[i]);
@@ -139,7 +139,7 @@
                             } // abc
                             else{
                                 if((this.categories[i].TourLocation === this.selectedLocal) &&
-                                    ((this.categories[i].TourTitle === this.search) || (this.categories[i].TourContent.includes(this.search)))){
+                                    ((this.categories[i].TourTitle.includes(this.search)) || (this.categories[i].TourContent.includes(this.search)))){
                                     console.log('ab');
                                     this.filtered.push( this.categories[i]);
                                 }
@@ -147,14 +147,14 @@
                         }
                         else{
                             if(c){
-                                if(((this.categories[i].TourTitle === this.search) || (this.categories[i].TourContent.includes(this.search))) &&
+                                if(((this.categories[i].TourTitle.includes(this.search)) || (this.categories[i].TourContent.includes(this.search))) &&
                                     (this.categories[i].TourThema === this.selectedThema)){
                                     console.log('ac');
                                     this.filtered.push( this.categories[i]);
                                 }
                             }//ac
                             else{
-                                if((this.categories[i].TourTitle === this.search) || (this.categories[i].TourContent.includes(this.search))){
+                                if((this.categories[i].TourTitle.includes(this.search) ) || (this.categories[i].TourContent.includes(this.search))){
                                     console.log('a');
                                     this.filtered.push( this.categories[i]);
                                 }
@@ -164,7 +164,7 @@
                     else{
                         if(b){
                             if(c){
-                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle === this.search )){
+                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle.includes(this.search) )){
                                     console.log('bc');
                                     this.filtered.push( this.categories[i]);
                                 }
@@ -178,7 +178,7 @@
                         }
                         else{
                             if(c){
-                                if((this.categories[i].TourTitle === this.search )){
+                                if((this.categories[i].TourTitle.includes(this.search) )){
                                     console.log('c');
                                     this.filtered.push( this.categories[i]);
                                 }//c
