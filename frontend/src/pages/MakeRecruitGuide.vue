@@ -56,6 +56,7 @@
                                      v-model="recruit.from_day"
                         >
                         </v-ons-input>
+
                     </label>
                 </v-ons-list-item>
 

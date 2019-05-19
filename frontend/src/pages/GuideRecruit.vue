@@ -23,6 +23,12 @@
                 내용:<br><br>
                 {{item.RecruitContent}}<br>
             </v-ons-card>
+
+            <v-ons-card>
+                기간:<br>
+                {{item.From_time.substring(0,21)}} ~ <br>{{item.To_time.substring(0,21)}}<br>
+            </v-ons-card>
+
             <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>
             <v-ons-list>
                 <v-ons-card v-for="todo in item.ApplyGuideID">
@@ -58,7 +64,7 @@
 
 
         <!--<P align="center">-->
-            <!--<button class="button_apply" @click="pay()">결제 테스트</button>-->
+        <!--<button class="button_apply" @click="pay()">결제 테스트</button>-->
         <!--</p>-->
 
 
@@ -74,14 +80,16 @@
     import GuideApply from './ApplyRecruit.vue'
     import Login from './Menu.vue'
 
-    // src="https://code.jquery.com/jquery-1.12.4.min.js"
-    // src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"
-    //
-    //
 
 
 
 export default {
+        head: {
+            script: [
+                { src: "https://code.jquery.com/jquery-1.12.4.min.js" },
+                // { src: "https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" },
+            ]
+        },
 
         data() {
             return {

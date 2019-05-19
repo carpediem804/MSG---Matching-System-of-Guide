@@ -6,8 +6,9 @@
         <img v-bind:src="'http://localhost:8000/'+tour.TourImageURL" alt="MSG" width="275" height="230">
         <v-ons-card>
             지역: {{tour.TourLocation}}<br>
-            날짜: {{tour.TourDayandTime_start}}<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~{{tour.TourDayandTime_end}}<br>
+            날짜: <br>
+            {{tour.TourDayandTime_start.substring(0,21)}} ~ <br>
+            {{tour.TourDayandTime_end.substring(0,21)}}<br>
             테마: {{tour.TourThema}}<br>
         </v-ons-card>
 
@@ -33,10 +34,15 @@
 
     </div>
 
-    <P align="center">
-        <button class="button_notapply" disabled="true" v-if="tour.TourNowPeopleNum>= tour.TourMaxNum" @click="applyTour()">투어상품 신청하기</button>
-        <button class="button_apply" v-else @click="applyTour()">투어상품 신청하기</button>
-    </p>
+    <div v-if="session_existed()===2"></div>
+
+
+    <div v-else>
+        <P align="center">
+            <button class="button_notapply" disabled="true" v-if="tour.TourNowPeopleNum>= tour.TourMaxNum" @click="applyTour()">투어상품 신청하기</button>
+            <button class="button_apply" v-else @click="applyTour()">투어상품 신청하기</button>
+        </p>
+    </div>
 
 </v-ons-page>
 
@@ -49,6 +55,19 @@
 
     export default {
         methods: {
+            session_existed() {
+
+                if (localStorage.getItem('newType') === '여행객') {
+                    return 1;
+                }
+
+                else if (localStorage.getItem('newType') === '가이드'){
+                    return 2;
+                }
+
+                else
+                    return 3;
+            },
 
             Toggle(page) {
                 this.$store.commit('splitter/toggle', {
