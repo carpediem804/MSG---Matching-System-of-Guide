@@ -33,7 +33,8 @@
     </div>
 
     <P align="center">
-        <button class="button_apply" @click="applyTour()">투어상품 신청하기</button>
+        <button class="button_notapply" disabled="true" v-if="tour.TourNowPeopleNum>= tour.TourMaxNum" @click="applyTour()">투어상품 신청하기</button>
+        <button class="button_apply" v-else @click="applyTour()">투어상품 신청하기</button>
     </p>
 
 </v-ons-page>
@@ -84,7 +85,6 @@
                     this.Toggle(this.page.component);
                 }
                 else {
-                    console.log(this)
                     this.$ons.notification.prompt({
                         message: '신청 인원',
                         title: '투어 신청',
@@ -94,29 +94,51 @@
                         cancelable: 'true',
                         _self: this,
                         callback: function (num) {
-                            console.log(this._self)
-                            console.log(this._self.tour)
-                            console.log(localStorage.getItem('newEmail'))
-                            this._self.$http.post('http://localhost:8000/applyTour', {
-                                params: {
-                                    Number: num,
-                                    userInfo: this._self.tour,
-                                    TourInfo: localStorage.getItem('newEmail'),
+                            if(num>0){
+                                if((parseInt(this._self.tour.TourNowPeopleNum) + parseInt(num)) > parseInt(this._self.tour.TourMaxNum)){
+                                    this._self.$ons.notification.alert({ 
+                                        message: "투어 최대 인원을 초과하였습니다.",
+                                        title: "신청 실패",
+                                    })
                                 }
-                            })
-                            this._self.$ons.notification.alert({
-                                message: "신청이 완료되었습니다.",
-                                title: "신청 완료",
-                                callback: function (index) {
-                                    location.reload();
-                                },
-                            })
-                        },
+                                else{
+                                    this._self.$http.post('http://localhost:8000/applyTour',{
+                                    params: {
+                                        Number: num,
+                                        userInfo: this._self.tour,
+                                        TourInfo: localStorage.getItem('newEmail'),
+                                    }
+                                    })
+                                    this._self.$ons.notification.alert({ 
+                                        message: "신청이 정상적으로 완료 되었습니다.",
+                                        title: "신청 완료",
+                                    }).then(res => {
+                                        location.reload();                                       
+                                    })
+                                }
+                            }
+                            else if(num==0){
+                                this._self.$ons.notification.alert({ 
+                                        message: "1명 이상만 신청 가능합니다.",
+                                        title: "신청 실패",
+                                })
+                            }
+                            else if(num==null){
+                                this._self.$ons.notification.alert({ 
+                                        message: "취소되었습니다.",
+                                        title: "신청 취소",
+                                })
+                            }
+                            else{
+                                this._self.$ons.notification.alert({ 
+                                        message: "다시 시도해주세요.",
+                                        title: "신청 실패",
+                                })
+                            }
+                        }
                     })
                 }
-            }
-
-
+            },
         },
         data() {
             return {
@@ -170,6 +192,23 @@
     }
 
     .button_apply{
+        display: block;
+        top: auto;
+        bottom: auto;
+        right: auto;
+        min-width: 69px;
+        height: 43px;
+        background: #00c73c;
+        border: 1px solid rgba(0,0,0,0.1);
+        font-size: 15px;
+        line-height: 100%;
+        font-weight: bold;
+        text-align: center;
+        color: #fff;
+        z-index: 10;
+    }
+    .button_notapply{
+        opacity: 0.3;
         display: block;
         top: auto;
         bottom: auto;
