@@ -24,9 +24,25 @@
         <!--{{item.RecruitNum}}-->
         </div>
 
-        <P align="center">
-            <button class="button_apply" @click="push1(page.component,page.label)">가이드 신청하기</button>
-        </p>
+        <!--{{session_existed()}}-->
+
+        <div v-if="session_existed()===2">
+            <P align="center">
+                <button class="button_apply" @click="push1(page.component,page.label)">가이드 신청하기</button>
+            </p>
+        </div>
+
+        <div v-else-if="session_existed()===1">
+
+        </div>
+
+        <div v-else>
+            <P align="center">
+                <button class="button_apply" @click="go_to_login()">가이드 신청하기</button>
+            </p>
+        </div>
+
+
 
 
     </v-ons-page>
@@ -75,6 +91,30 @@
 
 
                 methods: {
+                    go_to_login(){
+                        this._self.$ons.notification.alert({
+                            message: "로그인이 필요한 서비스 입니다.",
+                            title: "로그인 필요!",
+                            callback: function (index) {
+                                // location.reload();
+                            },
+                        })
+                    },
+
+
+                    session_existed() {
+
+                        if (localStorage.getItem('newType') === '여행객') {
+                            return 1;
+                        }
+
+                        else if (localStorage.getItem('newType') === '가이드'){
+                            return 2;
+                        }
+
+                        else
+                            return 3;
+                    },
 
                     push1(page, key) {
                         this.$store.commit('navigator/push', {

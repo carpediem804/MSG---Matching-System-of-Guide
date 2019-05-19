@@ -97,9 +97,10 @@
                     message: "가이드 신청 되었습니다.",
                     title: "가이드 신청 성공",
                     callback: function (index) {
-                        // location.reload();
+                        location.reload();
                     },
                 })
+                // location.reload();
             }
         },
 

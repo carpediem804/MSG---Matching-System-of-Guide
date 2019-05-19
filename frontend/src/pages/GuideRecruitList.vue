@@ -14,7 +14,7 @@
           </v-ons-input>
 
           <v-ons-button style="text-align: center"
-                        @click="test_func()">찾기
+                        @click="test_func()">Search
           </v-ons-button>
 
         </form>
@@ -66,7 +66,7 @@
 
 
     <P align="center">
-      <button class="button_apply" @click="push(page1.component, page1.label)">가이드 모집하기</button>
+      <button class="button_apply" v-if="session_existed()" @click="push(page1.component, page1.label)">가이드 모집하기</button>
     </p>
 
   </v-ons-page>
@@ -178,6 +178,13 @@
     },
     methods: {
 
+      session_existed() {
+        if (localStorage.getItem('newType') === '여행객') {
+          return true;
+        }
+        return false;
+      },
+
           test_func(){
               console.log(this.filtered.length);
 
@@ -279,6 +286,24 @@
     bottom: 40px;
     left: 0;
     right: 0;
+  }
+
+
+  .button_apply{
+    display: block;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    min-width: 69px;
+    height: 43px;
+    background: #00c73c;
+    border: 1px solid rgba(0,0,0,0.1);
+    font-size: 15px;
+    line-height: 100%;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    z-index: 10;
   }
 
   .dots > span {
