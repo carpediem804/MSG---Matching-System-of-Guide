@@ -6,7 +6,8 @@
         <img v-bind:src="'http://localhost:8000/'+tour.TourImageURL" alt="MSG" width="275" height="230">
         <v-ons-card>
             지역: {{tour.TourLocation}}<br>
-            날짜: {{tour.TourDayandTime}}<br>
+            날짜: {{tour.TourDayandTime_start}}<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~{{tour.TourDayandTime_end}}<br>
             테마: {{tour.TourThema}}<br>
         </v-ons-card>
 
@@ -143,7 +144,6 @@
         data() {
             return {
                 tour: this.$store.state.tour,
-
                 page: {
                     component: login,
                     label: '로그인'
