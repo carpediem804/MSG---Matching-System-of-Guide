@@ -43,13 +43,15 @@
 </template>
 
 <script>
-    import GuideApply from './ApplyRecruit.vue'
+    import login from './Menu.vue'
 
     export default {
         methods: {
-            push(page, key) {
-                this.$store.commit('navigator/push', {
+
+            Toggle(page) {
+                this.$store.commit('splitter/toggle', {
                     extends: page,
+                    // this.$store.navigator.mutations.pop(page);
                     data() {
                         return {
                             toolbarInfo: {
@@ -60,16 +62,27 @@
                     }
                 });
             },
+            Pop() {
+                this.$store.commit('navigator/pop', {
+
+                });
+            },
+
 
             applyTour(){
                 if (localStorage.getItem('newType') === null){
+
                 this._self.$ons.notification.alert({
                     message: "로그인이 필요한 서비스 입니다.",
                     title: "로그인 필요!",
+
                     callback: function (index) {
                         // location.reload();
                     },
-                });}
+                });
+                    this.Pop();
+                    this.Toggle(this.page.component);
+                }
                 else {
                     this.$ons.notification.prompt({
                         message: '신청 인원',
@@ -131,8 +144,8 @@
                 tour: this.$store.state.tour,
 
                 page: {
-                    component: GuideApply,
-                    label: '투어상품'
+                    component: login,
+                    label: '로그인'
                 },
 
 
