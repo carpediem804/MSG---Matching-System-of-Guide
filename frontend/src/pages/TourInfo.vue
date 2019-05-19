@@ -33,7 +33,8 @@
     </div>
 
     <P align="center">
-        <button class="button_apply" @click="applyTour()">투어상품 신청하기</button>
+        <button class="button_notapply" disabled="true" v-if="tour.TourNowPeopleNum>= tour.TourMaxNum" @click="applyTour()">투어상품 신청하기</button>
+        <button class="button_apply" v-else @click="applyTour()">투어상품 신청하기</button>
     </p>
 
 </v-ons-page>
@@ -191,6 +192,23 @@
     }
 
     .button_apply{
+        display: block;
+        top: auto;
+        bottom: auto;
+        right: auto;
+        min-width: 69px;
+        height: 43px;
+        background: #00c73c;
+        border: 1px solid rgba(0,0,0,0.1);
+        font-size: 15px;
+        line-height: 100%;
+        font-weight: bold;
+        text-align: center;
+        color: #fff;
+        z-index: 10;
+    }
+    .button_notapply{
+        opacity: 0.3;
         display: block;
         top: auto;
         bottom: auto;
