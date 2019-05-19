@@ -23,8 +23,39 @@
         </v-ons-button>
     </p>
 
-    <v-ons-list>
-        <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)" >
+    <!--//보기 정렬-->
+    <div class="button-group">
+        <div class="buttons" align="right">
+            <span>view</span>
+            <button v-for="b in buttons.view" v-bind:title="b.title"
+                    v-bind:class="viewType == b.class?'selected':''"
+                    v-on:click="toggleList('view',b.class)">
+                <i class="fas" v-bind:class="'fa-'+b.class"></i>
+            </button>
+            <span>sort</span>
+            <button v-for="b in buttons.sort" v-bind:title="b.title"
+                    v-bind:class="sortType == b.class?'selected':''"
+                    v-on:click="toggleList('sort',b.class)">
+                <i class="fas" v-bind:class="'fa-'+b.class"></i>
+            </button>
+        </div>
+    </div>
+
+    <v-ons-list v-if="viewType ==='list'">
+
+        <v-ons-list-item v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
+            <div class="title2">
+                <strong>  {{todo.TourTitle}} </strong><br>
+            </div>
+            # {{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명
+            &nbsp;# {{todo.TourPrice}}\ <br>
+            # {{todo.TourLocation}}    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}}
+        </v-ons-list-item>
+
+    </v-ons-list>
+
+    <v-ons-list v-else>
+        <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
             <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
             <v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>
             <v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
@@ -37,7 +68,7 @@
 
                 <v-ons-list>
                     <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
-                    <v-ons-list-item ># {{todo.TourLocation}} # {{todo.TourThema}} </v-ons-list-item>
+                    <v-ons-list-item ># {{todo.TourLocation}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}} </v-ons-list-item>
                     <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
                 </v-ons-list>
             </div>
@@ -158,12 +189,6 @@
                             }// nothing
                         }
                     }
-
-
-                        // if((this.categories[i].TourLocation === this.selectedLocal) || (this.categories[i].TourTitle === this.search )){
-                        //     console.log('seesees');
-                        //     this.filtered.push( this.categories[i]);
-                        // }
                 } //검색엔진
                 console.log(this.filtered)
                 if(this.filtered.length !== 0){
@@ -173,12 +198,32 @@
                     alert("No items !! ");
                 }
 
-            },
+            },//test_func()
+            toggleList: function (type, className) {
+                switch (type) {
+                    case 'view':
+                        this.viewType = className;
+                        break;
+                    case 'sort':
+                        this.sortType = className;
+
+                        if(className === 'sort-alpha-down')
+                            this.filtered.sort(function(a,b){return a['deadline']>b['deadline']});
+                        else if(className === 'sort-numeric-down')
+                            this.filtered.sort(function (a,b){return a['price']<b['price']});
+                        else if(className === 'star')
+                            this.filtered.sort(function (a,b){return a['TourPrice']<b['TourPrice']});
+
+
+
+                }
+            }
 
         },
 
             data() {
                 return {
+                    nowDate: Date.now(),
                     viewimg:"http://localhost:8000/uploads/",
                     fakeimg: "file-1544454352258.png",
                     page: {
@@ -247,7 +292,22 @@
                         {value: '관광', text: '관광'},
                         {value: '맛집', text: '맛집'}
                     ],
-                    selectedThema: '미설정'
+                    //보기, 정렬
+                    selectedThema: '미설정',
+                    viewType:'th-large',
+                    sortType:'sort-numeric-up',
+                    buttons:{
+                        'view':[
+                            {'class': 'list', 'title':'view in list', selected:false},
+                            {'class': 'th-large', 'title':'view in thumbnail', selected:true}
+                        ],
+                        'sort':[
+                            {'class':'sort-alpha-down','title':'sort by deadline',selected:true},
+                            {'class':'sort-numeric-down','title':'sort by price', selected:false},
+                            {'class':'star','title':'sort by star',selected:false},
+                        ]
+                    }
+
                 };
             },
             beforeCreate() {
