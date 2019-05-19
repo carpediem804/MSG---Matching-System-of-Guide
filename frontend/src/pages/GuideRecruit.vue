@@ -118,10 +118,12 @@
                             callback: function (index) {
                                 // location.reload();
                                 // this.Toggle(this.page1.component)
+                                // this.Pop()
+                                // this.Toggle(this.page1.component)
                             },
                         })
 
-
+                        this.Pop()
                         this.Toggle(this.page1.component)
 
                     },
@@ -155,17 +157,9 @@
                         });
                     },
 
-                    Replace(page) {
-                        this.$store.commit('navigator/replace', {
-                            extends: page,
-                            // data() {
-                            //     return {
-                            //         toolbarInfo: {
-                            //             backLabel: 'Home',
-                            //             // title: key
-                            //         }
-                            //     }
-                            // }
+                    Pop() {
+                        this.$store.commit('navigator/pop', {
+
                         });
                     },
 
@@ -173,7 +167,7 @@
                     Toggle(page) {
                         this.$store.commit('splitter/toggle', {
                             extends: page,
-                            // this.$store.navigator.mutations.pop(page);
+
                             data() {
                                 return {
                                     toolbarInfo: {
