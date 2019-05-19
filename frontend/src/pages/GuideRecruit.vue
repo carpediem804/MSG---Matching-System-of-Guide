@@ -42,6 +42,20 @@
             </p>
         </div>
 
+        <!--<div v-else>-->
+            <!--<P align="center">-->
+                <!--<button class="button_apply" @click="Replace(page1.component)">가이드 신청하기</button>-->
+            <!--</p>-->
+        <!--</div>-->
+
+        <!--<div v-else>-->
+            <!--<P align="center">-->
+                <!--<button class="button_apply" @click="Toggle(page1.component)">가이드 신청하기</button>-->
+            <!--</p>-->
+        <!--</div>-->
+
+        <!--{{this.$store.mutations.replace(this.$store.state, this.$store.replace())}}-->
+
 
 
 
@@ -55,6 +69,7 @@
 
 <script>
     import GuideApply from './ApplyRecruit.vue'
+    import Login from './Menu.vue'
 
 
     export default {
@@ -67,6 +82,11 @@
 
                 page: {
                     component: GuideApply,
+                    label: '가이드 신청글'
+                },
+
+                page1: {
+                    component: Login,
                     label: '가이드 신청글'
                 },
 
@@ -97,8 +117,13 @@
                             title: "로그인 필요!",
                             callback: function (index) {
                                 // location.reload();
+                                // this.Toggle(this.page1.component)
                             },
                         })
+
+
+                        this.Toggle(this.page1.component)
+
                     },
 
 
@@ -128,7 +153,39 @@
                                 }
                             }
                         });
-                    }
+                    },
+
+                    Replace(page) {
+                        this.$store.commit('navigator/replace', {
+                            extends: page,
+                            // data() {
+                            //     return {
+                            //         toolbarInfo: {
+                            //             backLabel: 'Home',
+                            //             // title: key
+                            //         }
+                            //     }
+                            // }
+                        });
+                    },
+
+
+                    Toggle(page) {
+                        this.$store.commit('splitter/toggle', {
+                            extends: page,
+                            // this.$store.navigator.mutations.pop(page);
+                            data() {
+                                return {
+                                    toolbarInfo: {
+                                        backLabel: 'Home',
+                                        title: key
+                                    }
+                                }
+                            }
+                        });
+                    },
+
+
 
                 },
 
