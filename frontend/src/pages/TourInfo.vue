@@ -62,35 +62,45 @@
             },
 
             applyTour(){
-                console.log(this)
-                this.$ons.notification.prompt({
-                    message: '신청 인원',
-                    title: '투어 신청',
-                    buttonLabels: '신청하기',
-                    placeholder: '숫자만 입력해주세요',
-                    inputType: 'tel',
-                    cancelable: 'true',
-                    _self: this,
-                    callback: function (num) {
-                        console.log(this._self)
-                        console.log(this._self.tour)
-                        console.log(localStorage.getItem('newEmail'))
-                        this._self.$http.post('http://localhost:8000/applyTour',{
-                            params: {
-                                Number: num,
-                                userInfo: this._self.tour,
-                                TourInfo: localStorage.getItem('newEmail'),
-                            }
-                        })
-                        this._self.$ons.notification.alert({ 
-                            message: "신청이 완료되었습니다.",
-                            title: "신청 완료",
-                            callback: function (index) {
-                                location.reload();
-                            },
-                        })
+                if (localStorage.getItem('newType') === null){
+                this._self.$ons.notification.alert({
+                    message: "로그인이 필요한 서비스 입니다.",
+                    title: "로그인 필요!",
+                    callback: function (index) {
+                        // location.reload();
                     },
-                })
+                });}
+                else {
+                    console.log(this)
+                    this.$ons.notification.prompt({
+                        message: '신청 인원',
+                        title: '투어 신청',
+                        buttonLabels: '신청하기',
+                        placeholder: '숫자만 입력해주세요',
+                        inputType: 'tel',
+                        cancelable: 'true',
+                        _self: this,
+                        callback: function (num) {
+                            console.log(this._self)
+                            console.log(this._self.tour)
+                            console.log(localStorage.getItem('newEmail'))
+                            this._self.$http.post('http://localhost:8000/applyTour', {
+                                params: {
+                                    Number: num,
+                                    userInfo: this._self.tour,
+                                    TourInfo: localStorage.getItem('newEmail'),
+                                }
+                            })
+                            this._self.$ons.notification.alert({
+                                message: "신청이 완료되었습니다.",
+                                title: "신청 완료",
+                                callback: function (index) {
+                                    location.reload();
+                                },
+                            })
+                        },
+                    })
+                }
             }
 
 
