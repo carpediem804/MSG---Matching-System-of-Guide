@@ -17,14 +17,14 @@
             <v-ons-card>날짜 : {{item.TourDayandTime_start}} 부터 {{item.TourDayandTime_end}} 까지</v-ons-card>
             <v-ons-card>최소인원 : {{item.TourMinNum}}</v-ons-card>
             <v-ons-card>최대인원 : {{item.TourMaxNum}}</v-ons-card>
-            <v-ons-list-header>신청인원 : {{item.TourNowPeopleNum}}명 / {{item.TourApplyList.length}} 단체 </v-ons-list-header>
+            <v-ons-list-header>신청인원 : {{item.TourNowPeopleNum}}명 / {{item.TourApplyList2.length}} 단체 </v-ons-list-header>
             <v-ons-list>
-                <v-ons-card v-for="todo in item.TourApplyList">
-                    <div class="me" v-if="check_me(todo)" style="font-family: 궁서">
-                        단체대표 : {{todo}} (ME)
+                <v-ons-card v-for="todo in item.TourApplyList2">
+                    <div class="me" v-if="check_me(todo.user_apply_id)" style="font-family: 궁서">
+                        단체대표 : {{todo.user_apply_id}} {{todo.user_num}}명 (ME)
                     </div>
-                    <div class="other" v-if="!check_me(todo)">
-                        단체대표 : {{todo}}
+                    <div class="other" v-if="!check_me(todo.user_apply_id)">
+                        단체대표 : {{todo.user_apply_id}} {{todo.user_num}}명
                     </div>
                 </v-ons-card>
             </v-ons-list>
@@ -97,24 +97,52 @@
                 });
             },
             cancel_info(){
-                console.log("아직 미구현");
-                // this.$http.post('http://localhost:8000/checkInfo/delete', {
-                //     params: {
-                //         item: this.item,
-                //         type: localStorage.getItem('newType')
-                //     }
-                // })
-                //     .then(response => {  //로그인 성공
-                //             alert("삭제되었습니다.");
-                //             location.reload();
-                //         },
-                //         (error) => { // error 를 보여줌
-                //             alert(error.response.data.error)
-                //         }
-                //     )
-                //     .catch(error => {
-                //         alert(error)
-                //     })
+                if(localStorage.getItem('newType') === '여행객' ){
+                    for(var i=0; i<this.item.TourApplyList2.length; i++){
+                        if(this.item.TourApplyList2[i].user_apply_id === localStorage.getItem('newEmail')){
+                            this.temp_people_num = this.item.TourApplyList2[i].user_num;
+                        }
+                    }
+                        this.$http.post('http://localhost:8000/checkInfo/apply/delete', {
+                            params: {
+                                email: localStorage.getItem('newEmail'),
+                                item: this.item,
+                                People_num : this.temp_people_num,
+                                type: localStorage.getItem('newType')
+                            }
+                        })
+                            .then(response => {  //로그인 성공
+                                    alert("삭제되었습니다.");
+                                    location.reload();
+                                },
+                                (error) => { // error 를 보여줌
+                                    alert(error.response.data.error)
+                                }
+                            )
+                            .catch(error => {
+                                alert(error)
+                            })
+                }
+                else{
+                    this.$http.post('http://localhost:8000/checkInfo/apply/delete', {
+                        params: {
+                            email: localStorage.getItem('newEmail'),
+                            item: this.item,
+                            type: localStorage.getItem('newType')
+                        }
+                    })
+                        .then(response => {  //로그인 성공
+                                alert("삭제되었습니다.");
+                                location.reload();
+                            },
+                            (error) => { // error 를 보여줌
+                                alert(error.response.data.error)
+                            }
+                        )
+                        .catch(error => {
+                            alert(error)
+                        })
+                }
             }
         },
         data() {
@@ -123,6 +151,7 @@
                     component:Check_Apply_Info2,
                     label: '신청 가이드 정보'
                 },
+                temp_people_num: 0,
                 item : this.$store.state.item
             };
         }

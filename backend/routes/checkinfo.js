@@ -2,8 +2,10 @@ const { Router } = require('express');
 const router = Router();
 
 const Tourinfo = require('../db/models/Tour');
-const applyguide = require('../db/models/GuideRecruit')
-const guideinfo = require('../db/models/ApplyRecruit')
+const applyguide = require('../db/models/GuideRecruit');
+const guideinfo = require('../db/models/ApplyRecruit');
+const applyrecruit = require('../db/models/ApplyRecruit');
+
 router.post('/register', function(req, res,next){
     console.log("checkinfo/register로 들어옴");
     //console.log(req.body);
@@ -36,7 +38,7 @@ router.post('/apply', function(req, res,next){
     console.log(req.body.params);
     if(req.body.params.type === "여행객") {
         console.log("여행객");
-        Tourinfo.find({TourApplyList: req.body.params.email},function (err,data){
+        Tourinfo.find({TourApplyList2:{$elemMatch:{user_apply_id:req.body.params.email}}},function (err,data){
             if(err){
                 console.log(err);
             }else{
@@ -76,7 +78,34 @@ router.post('/delete', function(req, res,next) {
             res.send("삭제완료");
         })
     }
-})
+});
+router.post('/apply/delete', function(req, res,next) {
+    console.log("apply/delete로 들어옴")
+    if(req.body.params.type=='여행객') {
+        const peoplenum  = req.body.params.item.TourNowPeopleNum - (req.body.params.People_num*1);
+        Tourinfo.findOneAndUpdate({TourNum:req.body.params.item.TourNum},{$pull:{TourApplyList2:{user_apply_id: req.body.params.email}},$set:{TourNowPeopleNum: peoplenum} },function(err,data){
+            if(err){
+                console.log(err);
+            }
+                console.log(data);
+                res.send("삭제완료");
+        })
+    }
+    else{
+        applyguide.findOneAndUpdate({RecruitNum:req.body.params.item.RecruitNum},{$pull:{ApplyGuideID:req.body.params.email}},function (err,data) {
+            if(err){
+                console.log(err);
+            }
+            applyrecruit.findOneAndRemove({RecruitApplier:req.body.params.email, apply_post_num:req.body.params.item.RecruitNum},function(err,data){
+                if(err){
+                    console.log(err);
+                }
+                console.log(data);
+                res.send("삭제완료");
+            })
+        })
+    }
+});
 router.post('/show', function(req, res,next) { //자신이 등록한 게시글에 신청한 사람정보 찾아서 보내기
     console.log(req.body.params);
     if(req.body.params.type == '여행객') {
