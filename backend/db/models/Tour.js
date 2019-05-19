@@ -16,6 +16,7 @@ var Tour_Schema = new mongoose.Schema({
     TourContent : String,
     TourPrice : Number,
     TourApplyList : [],
+    TourNumList : [{type:Number}],
     Tour_create_date: { type:Date, default:Date.now },
     TourNowPeopleNum : {type:Number, default:0},
     TourThema : String
