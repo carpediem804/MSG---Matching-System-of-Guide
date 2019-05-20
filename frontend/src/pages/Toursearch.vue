@@ -280,7 +280,8 @@
                         {value: '인천', text: '인천'},
                         {value: '대전', text: '대전'},
                         {value: '대구', text: '대구'},
-                        {value: '부산', text: '부산'}
+                        {value: '부산', text: '부산'},
+                        {value: '수원', text: '수원'},
                     ],
                     selectedLocal: '미설정',
 
@@ -288,9 +289,10 @@
                         {value: '미설정', text: 'Thema'},
                         {value: '힐링', text: '힐링'},
                         {value: '쇼핑', text: '쇼핑'},
-                        {value: '효도', text: '효도'},
+                        {value: '운동', text: '운동'},
                         {value: '관광', text: '관광'},
-                        {value: '맛집', text: '맛집'}
+                        {value: '맛집', text: '맛집'},
+                        {value: '교육', text: '교육'},
                     ],
                     //보기, 정렬
                     selectedThema: '미설정',
