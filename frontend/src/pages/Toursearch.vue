@@ -57,8 +57,6 @@
     <v-ons-list v-else>
         <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
             <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
-            <v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>
-            <v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
             <div>&nbsp;</div>
             <div class="title2">
                 <strong>  {{todo.TourTitle}} </strong>
