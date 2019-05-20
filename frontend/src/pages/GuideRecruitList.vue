@@ -20,21 +20,21 @@
         </form>
 
 
-        <v-ons-select style="width: 120px" v-model ="selectedLocal " >
+        <!--<v-ons-select style="width: 120px" v-model ="selectedLocal " >-->
 
-          <option v-for="item in localitems"  :value="item.value" >
-            {{ item.text }}
-          </option>
+          <!--<option v-for="item in localitems"  :value="item.value" >-->
+            <!--{{ item.text }}-->
+          <!--</option>-->
 
-        </v-ons-select>
+        <!--</v-ons-select>-->
 
-        <v-ons-select style="width: 120px" v-model ="selectedLocal " >
+        <!--<v-ons-select style="width: 120px" v-model ="selectedLocal " >-->
 
-          <option v-for="item in localitems"  :value="item.value" >
-            {{ item.text }}
-          </option>
+          <!--<option v-for="item in localitems"  :value="item.value" >-->
+            <!--{{ item.text }}-->
+          <!--</option>-->
 
-        </v-ons-select>
+        <!--</v-ons-select>-->
 
 
 

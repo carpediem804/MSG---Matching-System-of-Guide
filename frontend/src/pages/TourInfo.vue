@@ -6,16 +6,23 @@
         <img v-bind:src="'http://localhost:8000/'+tour.TourImageURL" alt="MSG" width="275" height="230">
         <v-ons-card>
             지역: {{tour.TourLocation}}<br>
+        </v-ons-card>
+
+        <v-ons-card>
+            테마: {{tour.TourThema}}<br>
+        </v-ons-card>
+
+        <v-ons-card>
             날짜: <br>
             {{tour.TourDayandTime_start.substring(0,21)}} ~ <br>
             {{tour.TourDayandTime_end.substring(0,21)}}<br>
-            테마: {{tour.TourThema}}<br>
         </v-ons-card>
 
         <v-ons-card>
             신청 인원: {{tour.TourNowPeopleNum}}/{{tour.TourMaxNum}}<br>
             최소 인원: {{tour.TourMinNum}}<br>
         </v-ons-card>
+
         <v-ons-card>
             가격: {{tour.TourPrice}}<br>
         </v-ons-card>
