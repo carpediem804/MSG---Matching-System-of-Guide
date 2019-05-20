@@ -48,7 +48,7 @@
                 <strong>  {{todo.TourTitle}} </strong><br>
             </div>
             # {{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명
-            &nbsp;# {{todo.TourPrice}}\ <br>
+            &nbsp;# {{todo.TourPrice}}원 <br>
             # {{todo.TourLocation}}    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}}
         </v-ons-list-item>
 

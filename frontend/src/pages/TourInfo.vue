@@ -24,7 +24,7 @@
         </v-ons-card>
 
         <v-ons-card>
-            가격: {{tour.TourPrice}}<br>
+            가격: {{tour.TourPrice}}원<br>
         </v-ons-card>
 
         <v-ons-card>
