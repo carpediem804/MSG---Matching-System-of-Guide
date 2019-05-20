@@ -5,8 +5,8 @@
         <div class="traveler" v-if="session_type()">
             <v-ons-card v-for="todo in guide_apply_data">
                 <img v-bind:src="'http://localhost:8000/'+todo.apply_Image_URL" alt="MSG" width="275" height="230">
-            <v-ons-card>가격 : {{todo.SuggestPrice}}</v-ons-card>
-            <v-ons-card>내용 : {{todo.SuggestContent}}</v-ons-card>
+                <v-ons-card>가격 : {{todo.SuggestPrice}}</v-ons-card>
+                <v-ons-card>내용 : {{todo.SuggestContent}}</v-ons-card>
             </v-ons-card>
             <p align="center">
                 <v-ons-button class="ConfirmGuide" icon='fa-check'
