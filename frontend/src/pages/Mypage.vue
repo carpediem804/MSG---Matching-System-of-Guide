@@ -1,6 +1,9 @@
 <template>
     <v-ons-page modifier="white">
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
+        <v-ons-card>
+            <img v-bind:src="'http://localhost:8000/'+UserImage" alt="MSG" width="275" height="230">
+        </v-ons-card>
         <v-ons-card>이메일 : {{present_user.email}}</v-ons-card>
         <v-ons-card>타입 : {{present_user.type}}</v-ons-card>
         <v-ons-list-item :modifier="md ? 'nodivider' : ''">
@@ -76,7 +79,8 @@
                     phonenum: localStorage.getItem('newPhoneNum'),
                     kakaoid: localStorage.getItem('newkakaoID'),
                     type: localStorage.getItem('newType')
-                }
+                },
+                UserImage: localStorage.getItem('newImagePath')
             };
         }
     };

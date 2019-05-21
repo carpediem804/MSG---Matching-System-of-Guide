@@ -23,6 +23,9 @@ const UserSchema = new mongoose.Schema({
     Type : {
         type : String
     },
+    Auth : {
+        type : Number
+    },
     GuideGrade :{
         type : Number
     },

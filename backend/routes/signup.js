@@ -3,27 +3,43 @@ const { Router } = require('express');
 const router = Router();
 //const Image = require('../db/models/Images');
 const userinfo = require('../db/models/Userinfo');
-//const upload = require('../multer/storage');
+const upload = require('../multer/storage');
 
 router.post('/signup', function(req, res,next){
     //console.log(req);
-
-    console.log(req.body)
-     let saveuser = new userinfo();
-    saveuser.Email = req.body.user.email;
-    saveuser.Name = req.body.user.name;
-    saveuser.PWD =req.body.user.password;
-    saveuser.PhoneNum =req.body.user.phoneNum;
-    saveuser.kakaoID = req.body.user.kakaoId;
-    saveuser.Type = req.body.user.type;
-
-    saveuser.save(function(err,data){
-        if(err){
-            console.log(err);
+    console.log("req.file");
+    console.log(req.query.Name);
+    var temp = 0;
+    upload(req, res, function (err) {
+        if(req.file == null || req.file == undefined || req.file == ""){
+            //res.json('No Image Set');
+            temp = 1;
+            console.log("이미지없음")
         }
-        else {
-            console.log("저장data "+data);
+
+        let saveuser = new userinfo();
+        if(temp === 0) {
+            saveuser.User_ImageURL = req.file.filename;
         }
+        saveuser.Email = req.query.Email;
+        saveuser.Name = req.query.Name;
+        saveuser.PWD =req.query.PWD;
+        saveuser.PhoneNum =req.query.PhoneNum;
+        saveuser.kakaoID = req.query.kakaoID;
+        saveuser.Type = req.query.Type;
+        saveuser.Auth = req.query.Auth;
+        saveuser.GuideGrade = 0;
+        saveuser.Total_Tour = 0;
+        saveuser.Total_Review = 0;
+        saveuser.save(function(err,data){
+            if(err){
+                console.log(err);
+            }
+            else {
+                console.log("저장data "+data);
+                res.send("된다");
+            }
+        });
     });
 });
 router.post('/fix',function(req,res,next){

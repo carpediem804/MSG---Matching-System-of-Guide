@@ -76,6 +76,7 @@
             email: this.user.email
           })
                   .then((response) => {  //로그인 성공;
+                            localStorage.setItem('newImagePath', response.data.user_info.User_ImageURL);
                             localStorage.setItem('newEmail', response.data.user_info.Email)
                             localStorage.setItem('newPWD',response.data.user_info.PWD)
                             localStorage.setItem('newName', response.data.user_info.Name)
