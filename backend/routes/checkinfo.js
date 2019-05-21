@@ -5,6 +5,7 @@ const Tourinfo = require('../db/models/Tour');
 const applyguide = require('../db/models/GuideRecruit');
 const guideinfo = require('../db/models/ApplyRecruit');
 const applyrecruit = require('../db/models/ApplyRecruit');
+const userinfo = require('../db/models/Userinfo');
 
 router.post('/register', function(req, res,next){
     console.log("checkinfo/register로 들어옴");
@@ -143,5 +144,17 @@ router.post('/show2', function(req, res,next) { //자신이 등록한 게시글�
         //여행자 정보 던지는거
 
     }
+});
+router.post('/guide', function(req, res,next) { //자신이 등록한 게시글에 신청한 사람정보 찾아서 보내기
+    console.log(req.body.params);
+    userinfo.find({Email: req.body.params.user},function(err,data){
+        if(err){
+            console.log(err);
+        }
+        else {
+            console.log("찾아서 보내는 data : "+data);
+            res.json({data});
+        }
+    })
 });
 module.exports = router;

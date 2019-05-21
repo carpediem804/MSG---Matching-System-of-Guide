@@ -3,6 +3,25 @@
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
         <v-ons-list-header>{{user}} 의 글</v-ons-list-header>
         <div class="traveler" v-if="session_type()">
+            <v-ons-card>
+                가이드 프로필
+                <p align="right">
+                    <v-ons-button class="show_info" v-show="show_info === false" icon='fa-angle-down'
+                                  @click="show_guide_info(user)"> 보기
+                    </v-ons-button>
+                    <v-ons-button class="hide_info" v-show="show_info === true" icon='fa-angle-up'
+                                  @click="show_guide_info(user)"> 숨기기
+                    </v-ons-button>
+                </p>
+            </v-ons-card>
+            <div class="guide_info" v-show="show_info === true">
+                <v-ons-card v-for="item in guide_info">
+                    <v-ons-card>이메일 : {{item.Email}}</v-ons-card>
+                    <v-ons-card>이름 : {{item.Name}}</v-ons-card>
+                    <v-ons-card>핸드폰 번호 : {{item.PhoneNum}}</v-ons-card>
+                    <v-ons-card>카카오 ID : {{item.kakaoID}}</v-ons-card>
+                </v-ons-card>
+            </div>
             <v-ons-card v-for="todo in guide_apply_data">
                 <img v-bind:src="'http://localhost:8000/'+todo.apply_Image_URL" alt="MSG" width="275" height="230">
                 <v-ons-card>가격 : {{todo.SuggestPrice}}</v-ons-card>
@@ -14,9 +33,9 @@
                 </v-ons-button>
             </p>
         </div>
-        <div class="traveler" v-if="!session_type()">
-            아직 미구현입니다.
-        </div>
+        <!--<div class="traveler" v-if="!session_type()">-->
+        <!--아직 미구현입니다.-->
+        <!--</div>-->
     </v-ons-page>
 </template>
 
@@ -47,6 +66,28 @@
                 })
         },
         methods:{
+            show_guide_info(key1){
+                if(this.show_info === false){
+                    this.show_info=true;
+                    this.$http.post('http://localhost:8000/checkInfo/guide', {
+                        params: {user: key1}
+                    })
+                        .then((response) => {  //로그인 성공;
+                                this.guide_info = response.data.data;
+                                console.log(this.guide_info);
+                            },
+                            (error) => { // error 를 보여줌
+                                alert(error.response.data.error)
+                            }
+                        )
+                        .catch(error => {
+                            alert(error)
+                        })
+                }
+                else{
+                    this.show_info = false;
+                }
+            },
             session_type(){
                 if(localStorage.getItem('newType') === '여행객'){
                     return true;
@@ -72,7 +113,9 @@
                     SuggestPrice: 0,
                     apply_Image_URL: "",
                     apply_post_num: 0,
-                }]
+                }],
+                guide_info:[],
+                show_info: false
             };
         }
     }
