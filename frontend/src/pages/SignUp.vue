@@ -19,6 +19,34 @@
                 <option>여행객</option>
                 <option>가이드</option>
             </select>
+                <div class="guide_info" v-if="user.type === '가이드'">
+                    <br>
+                    <h1 style="font-size: 25px" align="center">가이드 인증 번호 만들기</h1>
+                    <input class="register_form" v-model="user.auth_make" placeholder="Make Guide registration number">
+                    <p align="center">
+                        <button class="check_button" @click="Make_Guide_Auth(user.auth_make)">만들기!</button>
+                    </p>
+                    <h1 style="font-size: 25px" align="center">가이드 인증 번호</h1>
+                    <input class="register_form" v-model="user.auth" placeholder="Guide registration number">
+                    <p align="center">
+                        <button class="check_button" @click="Check_Guide(user.auth)">인증 번호 확인</button>
+                    </p>
+                    <h1 style="font-size: 25px" align="center">프로필 사진 등록</h1>
+                    <v-ons-list :modifier="md ? 'nodivider' : ''">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 text-center app">
+
+                            <img class="profile-image" :src="userImage" width="100%" height="230px"/>
+
+                            <div v-if="!userImage">
+                                <input type="file" round class="change-profile-image" @change="onFileChange" />
+                            </div>
+                            <div v-else>
+                                <button class="delete-profile-image" color="secondary" icon="delete" @click="removeImage">Delete</button>
+                            </div>
+
+                        </div>
+                    </v-ons-list>
+                </div>
             <p align="center">
                 <button class="register_button" @click="signUp()">SignUp</button>
             </p>
@@ -32,28 +60,72 @@
 
     export default {
         methods: {
-            signUp(){
-                firebase.auth().createUserWithEmailAndPassword(this.user.email, this.user.password)
-                    .then((res) => {
-                        this.$http.post('http://localhost:8000/registUserInfo/signup', {
-                            user: this.user
-                        })
-                            .then((response) => {  //로그인 성공
-                                },
-                                (error) => { // error 를 보여줌
-                                    alert(error.response.data.error)
-                                }
-                            )
-                            .catch(error => {
-                                alert(error)
-                            })
-                        alert('제출되었습니다.');
-                        this.$store.commit('navigator/pop');
-                    })
-                    .catch((error) => {
-                        console.log(error)
+            Make_Guide_Auth(guide_auth){
+                this.$http.post('http://localhost:8000/checkInfo/guideAuth/make', {
+                    params: {Auth_Number : guide_auth}
+                })
+                    .then(response => {  //로그인 성공
+                            console.log(response.data.data);
+                            alert("등록번호 생성 완료!");
+                        },
+                        (error) => { // error 를 보여줌
+                            alert(error.response.data.error)
+                        }
+                    )
+                    .catch(error => {
                         alert(error)
                     })
+            },
+            Check_Guide(guide_auth){
+                this.$http.post('http://localhost:8000/checkInfo/guideAuth/check', {
+                    params: {Auth_Number : guide_auth}
+                })
+                    .then(response => {  //로그인 성공
+                            console.log(response.data.data);
+                            if(response.data.data.length === 0){
+                                alert("인증하지 못했습니다. 번호를 확인하세요.");
+                                this.guide_auth = 0;
+                            }
+                            else{
+                                alert("인증완료!");
+                                this.guide_auth = 1;
+                            }
+                        },
+                        (error) => { // error 를 보여줌
+                            alert(error.response.data.error)
+                        }
+                    )
+                    .catch(error => {
+                        alert(error)
+                    })
+            },
+            signUp(){
+                if(this.user.type === '가이드' && this.guide_auth === 0){
+                    alert('가이드 인증을 하지 않았습니다. 가이드 인증을 해주세요.');
+                }
+                else{
+                    firebase.auth().createUserWithEmailAndPassword(this.user.email, this.user.password)
+                        .then((res) => {
+                            this.$http.post('http://localhost:8000/registUserInfo/signup', {
+                                user: this.user
+                            })
+                                .then((response) => {  //로그인 성공
+                                    },
+                                    (error) => { // error 를 보여줌
+                                        alert(error.response.data.error)
+                                    }
+                                )
+                                .catch(error => {
+                                    alert(error)
+                                })
+                            alert('제출되었습니다.');
+                            this.$store.commit('navigator/pop');
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            alert(error)
+                        })
+                }
             }
         },
         data() {
@@ -64,8 +136,11 @@
                     name: '',
                     phoneNum: '',
                     kakaoId: '',
+                    auth: '',
+                    auth_make: '',
                     type: ''
                 },
+                guide_auth: 0,
             };
         }
     };

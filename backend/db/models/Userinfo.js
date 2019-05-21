@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         unique: true
     },
+    User_ImageURL: {type:String,default : "default_image.jpg"},
     PWD:{type:String},
     Name:{
         type:String
@@ -23,6 +24,12 @@ const UserSchema = new mongoose.Schema({
         type : String
     },
     GuideGrade :{
+        type : Number
+    },
+    Total_Tour:{
+        type : Number
+    },
+    Total_Review:{
         type : Number
     }
 });

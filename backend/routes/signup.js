@@ -25,7 +25,7 @@ router.post('/signup', function(req, res,next){
             console.log("저장data "+data);
         }
     });
-})
+});
 router.post('/fix',function(req,res,next){
     console.log(req.body);
     userinfo.findOne({Email:req.body.user.email}).exec()
