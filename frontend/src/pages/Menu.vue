@@ -13,9 +13,13 @@
         </v-ons-button>
         <v-ons-button class="login_button" @click="push(page[0].component, page[0].label)">회원가입
         </v-ons-button>
+        <v-ons-button class="login_button" @click="push(page[5].component, page[5].label)">관리자용
+        </v-ons-button>
         <br><br>
       </div>
       <div id="login_after" v-if="!test2()">
+        <br>
+        <img  v-if="session_existed()" v-bind:src="'http://localhost:8000/'+UserImage" alt="MSG" width="40" height="40"> 평점자리<br>
         <br>{{ present_user.name }}님 / {{ present_user.type }}<br>
         <button class="login_button" @click="push(page[1].component, page[1].label)">프로필 수정</button>
         <button class="login_button" @click="push(page[2].component, page[2].label)">등록 상품</button>
@@ -39,6 +43,12 @@
 
   export default {
     methods: {
+      session_existed() {
+        if (localStorage.getItem('newType') === '가이드') {
+          return true;
+        }
+        return false;
+      },
       test2(){
         if(localStorage.getItem('newEmail')==null){
           return true;
@@ -83,6 +93,9 @@
                             localStorage.setItem('newPhoneNum', response.data.user_info.PhoneNum)
                             localStorage.setItem('newkakaoID', response.data.user_info.kakaoID)
                             localStorage.setItem('newType', response.data.user_info.Type)
+                            localStorage.setItem('newGuide_Grade', response.data.user_info.GuideGrade);
+                            localStorage.setItem('newGuide_Total_Tour', response.data.user_info.Total_Tour);
+                            localStorage.setItem('newGuide_Total_Review', response.data.user_info.Total_Review);
                             alert("로그인 성공!")
                             location.reload();
                           },
@@ -107,6 +120,7 @@
     },
     data() {
       return {
+        UserImage: localStorage.getItem('newImagePath'),
         present_user :{
           email: localStorage.getItem('newEmail'),
           password: localStorage.getItem('newPWD'),

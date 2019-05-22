@@ -9,6 +9,6 @@ router.post('/', function (req, res, next) {
     //guide가 신청한 글의 상태를 확정이라고 바꾸어야 댄당
     //그리고 알람을 줘야되는데 (확정되자마자)
 
-    //그 가이드 모집글의 상태를 바꿔줘야댄다
+    //그 가이드 모집글의 상태를 바꿔줘야댄다 이거 바꼇다~
 });
 module.exports = router;

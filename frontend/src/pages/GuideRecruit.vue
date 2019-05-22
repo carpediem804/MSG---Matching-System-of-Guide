@@ -9,7 +9,7 @@
 
 
         <custom-toolbar v-bind="toolbarInfo">{{item.RecruitTitle}}</custom-toolbar>
-
+        <v-ons-list-header>{{item.UserID}} 의 글</v-ons-list-header>
         <div class="ddd" style="text-align: center;">
             <v-ons-card>
                 지역: {{item.RecruitLocation}}

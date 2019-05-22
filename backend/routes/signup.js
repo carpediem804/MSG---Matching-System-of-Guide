@@ -43,20 +43,33 @@ router.post('/signup', function(req, res,next){
     });
 });
 router.post('/fix',function(req,res,next){
-    console.log(req.body);
-    userinfo.findOne({Email:req.body.user.email}).exec()
-        .then(changeuser=>{
-            changeuser.Name = req.body.user.name;
-            changeuser.PhoneNum = req.body.user.phonenum;
-            changeuser.kakaoID = req.body.user.kakaoid;
-            changeuser.save();
-        });
+    console.log("req.file");
+    console.log(req.file);
+    console.log(req.query.Name);
+    var temp2 = 0;
+    upload(req, res, function (err) {
+        if(req.file == null || req.file == undefined || req.file == ""){
+            //res.json('No Image Set');
+            temp2 = 1;
+            console.log("이미지없음")
+        }
+        userinfo.findOne({Email:req.query.useremail}).exec()
+            .then(changeuser=>{
+                if(temp2 === 0) {
+                    changeuser.User_ImageURL = req.file.filename;
+                }
+                changeuser.Name = req.query.username;
+                changeuser.PhoneNum = req.query.userphonenum;
+                changeuser.kakaoID = req.query.userkakaoid;
+                changeuser.save();
+            });
 
-    userinfo.findOne({Email:req.body.user.email}).exec()
-        .then(user_info=>{
-            console.log("바꾼 userinfo : "+user_info);
-            res.json({user_info});
-        })
+        userinfo.findOne({Email:req.query.useremail}).exec()
+            .then(user_info=>{
+                console.log("바꾼 userinfo : "+user_info);
+                res.json({user_info});
+            })
+    });
 });
 router.post('/login',function(req,res,next){
     console.log(req.body);
@@ -65,6 +78,15 @@ router.post('/login',function(req,res,next){
             console.log("userinfo : "+user_info);
             res.json({user_info});
         })
-})
+});
+router.post('/delete',function(req,res,next){
+    console.log("삭제 시작합니다.");
+    console.log(req.body.params);
+    userinfo.findOneAndRemove({Email:req.body.params.user}).exec()
+        .then(data=>{
+            console.log("userinfo : "+ data);
+            res.json({data});
+        })
+});
 
 module.exports = router;
