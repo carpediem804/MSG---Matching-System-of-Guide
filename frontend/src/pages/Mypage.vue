@@ -97,16 +97,17 @@
                 formData.append('file',this.selectedFile);
 
                 axios.post('http://localhost:8000/registUserInfo/fix',formData, {
-
-                    useremail: this.present_user.email,
-                    userpassword: this.present_user.password,
-                    username: this.present_user.name,
-                    userphonenum: this.present_user.phonenum,
-                    userkakaoid: this.present_user.kakaoid,
-                    usertype: this.present_user.type,
-                    usergrade: this.present_user.grade,
-                    usertotal_tour : this.present_user.total_tour,
-                    usertotal_review : this.present_user.total_review,
+                    params: {
+                        useremail: this.present_user.email,
+                        userpassword: this.present_user.password,
+                        username: this.present_user.name,
+                        userphonenum: this.present_user.phonenum,
+                        userkakaoid: this.present_user.kakaoid,
+                        usertype: this.present_user.type,
+                        usergrade: this.present_user.grade,
+                        usertotal_tour: this.present_user.total_tour,
+                        usertotal_review: this.present_user.total_review,
+                    }
                 })
                     .then(response => {  //로그인 성공
                             localStorage.clear();
