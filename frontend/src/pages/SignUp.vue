@@ -21,11 +21,11 @@
             </select>
                 <div class="guide_info" v-if="user.type === '가이드'">
                     <br>
-                    <h1 style="font-size: 25px" align="center">가이드 인증 번호 만들기</h1>
-                    <input class="register_form" v-model="auth_make" placeholder="Make Guide registration number">
-                    <p align="center">
-                        <button class="check_button" @click="Make_Guide_Auth(auth_make)">만들기!</button>
-                    </p>
+                    <!--<h1 style="font-size: 25px" align="center">가이드 인증 번호 만들기</h1>-->
+                    <!--<input class="register_form" v-model="auth_make" placeholder="Make Guide registration number">-->
+                    <!--<p align="center">-->
+                        <!--<button class="check_button" @click="Make_Guide_Auth(auth_make)">만들기!</button>-->
+                    <!--</p>-->
                     <h1 style="font-size: 25px" align="center">가이드 인증 번호</h1>
                     <input class="register_form" v-model="user.auth" placeholder="Guide registration number">
                     <p align="center">
@@ -88,22 +88,22 @@
             removeImage: function (e) {
                 this.userImage = ''
             },
-            Make_Guide_Auth(guide_auth) {
-                this.$http.post('http://localhost:8000/checkInfo/guideAuth/make', {
-                    params: {Auth_Number: guide_auth}
-                })
-                    .then(response => {  //로그인 성공
-                            console.log(response.data.data);
-                            alert("등록번호 생성 완료!");
-                        },
-                        (error) => { // error 를 보여줌
-                            alert(error.response.data.error)
-                        }
-                    )
-                    .catch(error => {
-                        alert(error)
-                    })
-            },
+            // Make_Guide_Auth(guide_auth) {
+            //     this.$http.post('http://localhost:8000/checkInfo/guideAuth/make', {
+            //         params: {Auth_Number: guide_auth}
+            //     })
+            //         .then(response => {  //로그인 성공
+            //                 console.log(response.data.data);
+            //                 alert("등록번호 생성 완료!");
+            //             },
+            //             (error) => { // error 를 보여줌
+            //                 alert(error.response.data.error)
+            //             }
+            //         )
+            //         .catch(error => {
+            //             alert(error)
+            //         })
+            // },
             Check_Guide(guide_auth) {
                 this.$http.post('http://localhost:8000/checkInfo/guideAuth/check', {
                     params: {Auth_Number: guide_auth}
@@ -157,7 +157,7 @@
                             })
                         })
                 }
-            },
+            }
         },
             data() {
                 return {

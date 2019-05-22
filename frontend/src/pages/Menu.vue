@@ -13,6 +13,8 @@
         </v-ons-button>
         <v-ons-button class="login_button" @click="push(page[0].component, page[0].label)">회원가입
         </v-ons-button>
+        <v-ons-button class="login_button" @click="push(page[5].component, page[5].label)">관리자용
+        </v-ons-button>
         <br><br>
       </div>
       <div id="login_after" v-if="!test2()">
@@ -83,6 +85,9 @@
                             localStorage.setItem('newPhoneNum', response.data.user_info.PhoneNum)
                             localStorage.setItem('newkakaoID', response.data.user_info.kakaoID)
                             localStorage.setItem('newType', response.data.user_info.Type)
+                            localStorage.setItem('newGuide_Grade', response.data.user_info.GuideGrade);
+                            localStorage.setItem('newGuide_Total_Tour', response.data.user_info.Total_Tour);
+                            localStorage.setItem('newGuide_Total_Review', response.data.user_info.Total_Review);
                             alert("로그인 성공!")
                             location.reload();
                           },

@@ -1,9 +1,13 @@
 <template>
     <v-ons-page modifier="white">
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
-        <v-ons-card>
-            <img v-bind:src="'http://localhost:8000/'+UserImage" alt="MSG" width="275" height="230">
-        </v-ons-card>
+        <div class="check_guide" v-show="present_user.type === '가이드'">
+            <v-ons-card>
+                <img v-bind:src="'http://localhost:8000/'+UserImage" alt="MSG" width="275" height="230">
+            </v-ons-card>
+            <v-ons-card>평점 : {{present_user.grade}} / 후기 작성 인원 수  : {{present_user.total_review}} </v-ons-card>
+            <v-ons-card>총 여행 완료 상품 수 : {{present_user.total_tour}}</v-ons-card>
+        </div>
         <v-ons-card>이메일 : {{present_user.email}}</v-ons-card>
         <v-ons-card>타입 : {{present_user.type}}</v-ons-card>
         <v-ons-list-item :modifier="md ? 'nodivider' : ''">
@@ -78,7 +82,10 @@
                     name: localStorage.getItem('newName'),
                     phonenum: localStorage.getItem('newPhoneNum'),
                     kakaoid: localStorage.getItem('newkakaoID'),
-                    type: localStorage.getItem('newType')
+                    type: localStorage.getItem('newType'),
+                    grade: localStorage.getItem('newGuide_Grade'),
+                    total_tour : localStorage.getItem('newGuide_Total_Tour'),
+                    total_review : localStorage.getItem('newGuide_Total_Review')
                 },
                 UserImage: localStorage.getItem('newImagePath')
             };

@@ -65,6 +65,15 @@ router.post('/login',function(req,res,next){
             console.log("userinfo : "+user_info);
             res.json({user_info});
         })
-})
+});
+router.post('/delete',function(req,res,next){
+    console.log("삭제 시작합니다.");
+    console.log(req.body.params);
+    userinfo.findOneAndRemove({Email:req.body.params.user}).exec()
+        .then(data=>{
+            console.log("userinfo : "+ data);
+            res.json({data});
+        })
+});
 
 module.exports = router;

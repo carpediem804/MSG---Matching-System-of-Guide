@@ -81,6 +81,29 @@ router.post('/delete', function(req, res,next) {
         })
     }
 });
+router.post('/delete2', function(req, res,next) {
+    console.log("delete2로 들어옴")
+    console.log(req.body.params);
+    console.log(req.body.params.type);
+    if(req.body.params.type=='여행객') {
+        console.log("여행객임.");
+        applyguide.findOneAndRemove({UserID:req.body.params.user},function(err,data){
+            if(err){
+                console.log(err);
+            }
+            res.send("삭제완료");
+        })
+    }
+    else{
+        console.log("가이드임.");
+        Tourinfo.findOneAndRemove({UserID:req.body.params.user},function (err,data) {
+            if(err){
+                console.log(err);
+            }
+            res.send("삭제완료");
+        })
+    }
+});
 router.post('/apply/delete', function(req, res,next) {
     console.log("apply/delete로 들어옴")
     if(req.body.params.type=='여행객') {
@@ -170,6 +193,17 @@ router.post('/guideAuth/make', function(req, res,next) { //가이드 등록번�
             res.json({data});
         }
     });
+});
+router.post('/guideAuth/check', function(req, res,next) { //가이드 등록번호 임의로 생성.
+    console.log(req.body.params);
+    Guide_Auth_info.find({Guide_Auth_Num : req.body.params.Auth_Number},function(err,data){
+        if(err){
+            console.log(err);
+        }
+        else {
+            res.json({data});
+        }
+    })
 });
 router.post('/guideAuth/check', function(req, res,next) { //가이드 등록번호 임의로 생성.
     console.log(req.body.params);

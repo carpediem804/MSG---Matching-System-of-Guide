@@ -16,10 +16,14 @@
             </v-ons-card>
             <div class="guide_info" v-show="show_info === true">
                 <v-ons-card v-for="item in guide_info">
+                    <img v-bind:src="'http://localhost:8000/'+item.User_ImageURL" alt="MSG" width="275" height="230">
                     <v-ons-card>이메일 : {{item.Email}}</v-ons-card>
                     <v-ons-card>이름 : {{item.Name}}</v-ons-card>
                     <v-ons-card>핸드폰 번호 : {{item.PhoneNum}}</v-ons-card>
                     <v-ons-card>카카오 ID : {{item.kakaoID}}</v-ons-card>
+                    <v-ons-card>가이드 등록번호 : {{item.Auth}}</v-ons-card>
+                    <v-ons-card>평점 : {{item.GuideGrade}} / {{item.Total_Review}}명 평가</v-ons-card>
+                    <v-ons-card>여행 진행 건수 : {{item.GuideGrade}}</v-ons-card>
                 </v-ons-card>
             </div>
             <v-ons-card v-for="todo in guide_apply_data">
