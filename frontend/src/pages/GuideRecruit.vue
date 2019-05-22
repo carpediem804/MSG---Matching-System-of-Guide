@@ -63,9 +63,9 @@
 
 
 
-        <!--<P align="center">-->
-        <!--<button class="button_apply" @click="pay()">결제 테스트</button>-->
-        <!--</p>-->
+        <P align="center">
+        <button class="button_apply" @click="pay()">결제 테스트</button>
+        </p>
 
 
     </v-ons-page>
@@ -82,12 +82,11 @@
 
 
 
-
 export default {
         head: {
             script: [
                 { src: "https://code.jquery.com/jquery-1.12.4.min.js" },
-                // { src: "https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" },
+                { src: "https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" },
             ]
         },
 
@@ -130,12 +129,18 @@ export default {
                 methods: {
 
                     pay(){
+                        //
+                        // Vue.use(IMP, 'imp11299540');
+                        // Vue.IMP().load();
+
+                        console.log()
+
                         this.$IMP().request_pay({
-                            pg: 'html5_inicis',
+                            pg: 'kakao',
                             pay_method: 'card',
                             merchant_uid: 'merchant_' + new Date().getTime(),
                             name: '주문명:결제테스트',
-                            amount: 14000,
+                            amount: 100,
                             buyer_email: 'iamport@siot.do',
                             buyer_name: '구매자이름',
                             buyer_tel: '010-1234-5678',
