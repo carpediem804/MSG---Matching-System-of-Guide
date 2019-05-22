@@ -20,6 +20,10 @@
       <div id="login_after" v-if="!test2()">
         <br>
         {{ present_user.name }}님 / {{ present_user.type }}<br>
+       <div>
+        <ons-icon v-for="n in Math.floor(UserGrade)" icon="fa-star"></ons-icon>
+        <ons-icon v-if="count(UserGrade)" icon="fa-star-half-alt"></ons-icon>
+       </div>
         {{UserGrade}} 점<br>
         <button class="login_button" @click="push(page[1].component, page[1].label)">프로필 수정</button>
         <button class="login_button" @click="push(page[2].component, page[2].label)">등록 상품</button>
@@ -43,6 +47,16 @@
 
   export default {
     methods: {
+      count(counter){
+        var temp = counter;
+        temp = temp - Math.floor(counter);
+        if(temp>0)
+        {this.checkGrade= true;}
+        else
+          this.checkGrade =false;
+
+        return this.checkGrade;
+      },
       session_existed() {
         if (localStorage.getItem('newType') === '가이드') {
           return true;
@@ -120,7 +134,9 @@
     },
     data() {
       return {
+        checkGrade: false,
         UserGrade: localStorage.getItem('newGuide_Grade'),
+        counter: this.UserGrade,
         present_user :{
           email: localStorage.getItem('newEmail'),
           password: localStorage.getItem('newPWD'),
