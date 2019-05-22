@@ -3,7 +3,14 @@
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
         <div class="check_guide" v-show="present_user.type === '가이드'">
             <v-ons-card>
-                <img v-bind:src="'http://localhost:8000/'+UserImage" alt="MSG" width="275" height="230">
+                <img  v-if="!userImage" v-bind:src="'http://localhost:8000/'+UserImage" alt="MSG" width="275" height="230">
+                <img v-else class="profile-image" :src="userImage" width="275" height="230"/>
+                <div v-if="!userImage">
+                    <input type="file" round class="change-profile-image" @change="onFileChange" />
+                </div>
+                <div v-else>
+                    <button class="delete-profile-image" color="secondary" icon="delete" @click="removeImage">Delete</button>
+                </div>
             </v-ons-card>
             <v-ons-card>평점 : {{present_user.grade}} / 후기 작성 인원 수  : {{present_user.total_review}} </v-ons-card>
             <v-ons-card>총 여행 완료 상품 수 : {{present_user.total_tour}}</v-ons-card>
@@ -53,11 +60,53 @@
 </template>
 
 <script>
+    import axios from 'axios'
     export default {
         methods: {
+            onFileChange(e) {
+                var files = e.target.files || e.dataTransfer.files
+                this.selectedFile = e.target.files[0];
+                if (!files.length) {
+                    return
+                }
+                this.createImage(files[0])
+                console.log('이미지올림');
+                console.log(files[0].name);
+                console.log(this.selectedFile.name);
+
+
+            },
+
+            createImage(file) {
+                var reader = new FileReader()
+                var vm = this
+
+                reader.onload = (e) => {
+                    vm.userImage = e.target.result
+
+                }
+                reader.readAsDataURL(file)
+
+            },
+            removeImage: function (e) {
+                this.userImage = ''
+            },
             fixup(){
-                this.$http.post('http://localhost:8000/registUserInfo/fix', {
-                    user: this.present_user
+                axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+                let formData = new FormData();
+                formData.append('file',this.selectedFile);
+
+                axios.post('http://localhost:8000/registUserInfo/fix',formData, {
+
+                    useremail: this.present_user.email,
+                    userpassword: this.present_user.password,
+                    username: this.present_user.name,
+                    userphonenum: this.present_user.phonenum,
+                    userkakaoid: this.present_user.kakaoid,
+                    usertype: this.present_user.type,
+                    usergrade: this.present_user.grade,
+                    usertotal_tour : this.present_user.total_tour,
+                    usertotal_review : this.present_user.total_review,
                 })
                     .then(response => {  //로그인 성공
                             localStorage.clear();
@@ -76,6 +125,7 @@
         },
         data() {
             return {
+                userImage: '',
                 present_user :{
                     email: localStorage.getItem('newEmail'),
                     password: localStorage.getItem('newPWD'),

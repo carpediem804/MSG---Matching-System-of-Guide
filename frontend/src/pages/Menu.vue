@@ -18,6 +18,8 @@
         <br><br>
       </div>
       <div id="login_after" v-if="!test2()">
+        <br>
+        <img  v-if="session_existed()" v-bind:src="'http://localhost:8000/'+UserImage" alt="MSG" width="40" height="40"> 평점자리<br>
         <br>{{ present_user.name }}님 / {{ present_user.type }}<br>
         <button class="login_button" @click="push(page[1].component, page[1].label)">프로필 수정</button>
         <button class="login_button" @click="push(page[2].component, page[2].label)">등록 상품</button>
@@ -41,6 +43,12 @@
 
   export default {
     methods: {
+      session_existed() {
+        if (localStorage.getItem('newType') === '가이드') {
+          return true;
+        }
+        return false;
+      },
       test2(){
         if(localStorage.getItem('newEmail')==null){
           return true;
@@ -112,6 +120,7 @@
     },
     data() {
       return {
+        UserImage: localStorage.getItem('newImagePath'),
         present_user :{
           email: localStorage.getItem('newEmail'),
           password: localStorage.getItem('newPWD'),
