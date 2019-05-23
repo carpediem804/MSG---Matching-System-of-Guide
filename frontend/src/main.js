@@ -15,14 +15,22 @@ import AppNavigate from './AppNavigator.vue';
 import firebase from 'firebase';
 // import VueLocalStorage from 'vue-localstorage'
 // import App from './App.vue';
+import 'expose-loader?$!expose-loader?jQuery!jquery'
+import IMP from 'vue-iamport'
 
 Vue.use(Vuex);
 Vue.use(VueOnsen);
 // Vue.use(VueLocalStorage);
 // Register components globally
 // Object.values(OnsenComponents).forEach(component => Vue.component(component.name, component)); // For ESM
+
+//Vue.use(IMP, '가맹점식별코드')
+Vue.use(IMP, 'imp33886024') //아임포트 회원가입 후 발급된 가맹점 고유 코드를 사용해주세요. 예시는 KCP공식 아임포트 데모 계정입니다.
+Vue.IMP().load()
+
 Vue.component('custom-toolbar', CustomToolbar); // Common toolbar
 Vue.prototype.$http = axios;
+
 
 Vue.config.productionTip = false;
 
