@@ -13,15 +13,23 @@
         </v-ons-button>
         <v-ons-button class="login_button" @click="push(page[0].component, page[0].label)">회원가입
         </v-ons-button>
+        <v-ons-button class="login_button" @click="push(page[5].component, page[5].label)">관리자용
+        </v-ons-button>
         <br><br>
       </div>
       <div id="login_after" v-if="!test2()">
-        <br>{{ present_user.name }}님 / {{ present_user.type }}<br>
+        <br>
+        {{ present_user.name }}님 / {{ present_user.type }}<br>
+       <div>
+        <ons-icon v-for="n in Math.floor(UserGrade)" icon="fa-star"></ons-icon>
+        <ons-icon v-if="count(UserGrade)" icon="fa-star-half-alt"></ons-icon>
+       </div>
+        {{UserGrade}} 점<br>
         <button class="login_button" @click="push(page[1].component, page[1].label)">프로필 수정</button>
         <button class="login_button" @click="push(page[2].component, page[2].label)">등록 상품</button>
         <button class="login_button" @click="push(page[3].component, page[3].label)">신청 상품</button>
         <button class="login_button" @click="push(page[4].component, page[4].label)">완료된 상품</button>
-        <button class="login_button" @click="push(page[5].component, page[5].label)">홍스홍스</button>
+        <!--<button class="login_button" @click="push(page[5].component, page[5].label)">홍스홍스</button>-->
         <button class="login_button" @click="Logout()">로그아웃</button>
       </div>
     </div>
@@ -39,6 +47,22 @@
 
   export default {
     methods: {
+      count(counter){
+        var temp = counter;
+        temp = temp - Math.floor(counter);
+        if(temp>0)
+        {this.checkGrade= true;}
+        else
+          this.checkGrade =false;
+
+        return this.checkGrade;
+      },
+      session_existed() {
+        if (localStorage.getItem('newType') === '가이드') {
+          return true;
+        }
+        return false;
+      },
       test2(){
         if(localStorage.getItem('newEmail')==null){
           return true;
@@ -76,12 +100,16 @@
             email: this.user.email
           })
                   .then((response) => {  //로그인 성공;
+                            localStorage.setItem('newImagePath', response.data.user_info.User_ImageURL);
                             localStorage.setItem('newEmail', response.data.user_info.Email)
                             localStorage.setItem('newPWD',response.data.user_info.PWD)
                             localStorage.setItem('newName', response.data.user_info.Name)
                             localStorage.setItem('newPhoneNum', response.data.user_info.PhoneNum)
                             localStorage.setItem('newkakaoID', response.data.user_info.kakaoID)
                             localStorage.setItem('newType', response.data.user_info.Type)
+                            localStorage.setItem('newGuide_Grade', response.data.user_info.GuideGrade);
+                            localStorage.setItem('newGuide_Total_Tour', response.data.user_info.Total_Tour);
+                            localStorage.setItem('newGuide_Total_Review', response.data.user_info.Total_Review);
                             alert("로그인 성공!")
                             location.reload();
                           },
@@ -106,6 +134,9 @@
     },
     data() {
       return {
+        checkGrade: false,
+        UserGrade: localStorage.getItem('newGuide_Grade'),
+        counter: this.UserGrade,
         present_user :{
           email: localStorage.getItem('newEmail'),
           password: localStorage.getItem('newPWD'),

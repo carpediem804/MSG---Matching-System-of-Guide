@@ -1,7 +1,15 @@
-<template>
-    <v-ons-page>
-        <custom-toolbar v-bind="toolbarInfo">{{item.RecruitTitle}}</custom-toolbar>
 
+
+<template>
+
+    <v-ons-page>
+
+        <!--<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>-->
+        <!--<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" ></script>-->
+
+
+        <custom-toolbar v-bind="toolbarInfo">{{item.RecruitTitle}}</custom-toolbar>
+        <v-ons-list-header>{{item.UserID}} 의 글</v-ons-list-header>
         <div class="ddd" style="text-align: center;">
             <v-ons-card>
                 지역: {{item.RecruitLocation}}
@@ -15,6 +23,12 @@
                 내용:<br><br>
                 {{item.RecruitContent}}<br>
             </v-ons-card>
+
+            <v-ons-card>
+                기간:<br>
+                {{item.From_time.substring(0,21)}} ~ <br>{{item.To_time.substring(0,21)}}<br>
+            </v-ons-card>
+
             <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>
             <v-ons-list>
                 <v-ons-card v-for="todo in item.ApplyGuideID">
@@ -42,21 +56,16 @@
             </p>
         </div>
 
-        <!--<div v-else>-->
-            <!--<P align="center">-->
-                <!--<button class="button_apply" @click="Replace(page1.component)">가이드 신청하기</button>-->
-            <!--</p>-->
-        <!--</div>-->
-
-        <!--<div v-else>-->
-            <!--<P align="center">-->
-                <!--<button class="button_apply" @click="Toggle(page1.component)">가이드 신청하기</button>-->
-            <!--</p>-->
-        <!--</div>-->
-
-        <!--{{this.$store.mutations.replace(this.$store.state, this.$store.replace())}}-->
 
 
+
+
+
+
+
+        <P align="center">
+        <button class="button_apply" @click="pay()">결제 테스트</button>
+        </p>
 
 
     </v-ons-page>
@@ -72,7 +81,14 @@
     import Login from './Menu.vue'
 
 
-    export default {
+
+export default {
+        head: {
+            script: [
+                { src: "https://code.jquery.com/jquery-1.12.4.min.js" },
+                { src: "https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" },
+            ]
+        },
 
         data() {
             return {
@@ -111,6 +127,41 @@
 
 
                 methods: {
+
+                    pay(){
+                        //
+                        // Vue.use(IMP, 'imp11299540');
+                        // Vue.IMP().load();
+
+                        console.log()
+
+                        this.$IMP().request_pay({
+                            pg: 'kakao',
+                            pay_method: 'card',
+                            merchant_uid: 'merchant_' + new Date().getTime(),
+                            name: '주문명:결제테스트',
+                            amount: 100,
+                            buyer_email: 'iamport@siot.do',
+                            buyer_name: '구매자이름',
+                            buyer_tel: '010-1234-5678',
+                            buyer_addr: '서울특별시 강남구 삼성동',
+                            buyer_postcode: '123-456'
+                        }, (result_success) => {
+                            //성공할 때 실행 될 콜백 함수
+                            var msg = '결제가 완료되었습니다.';
+                            msg += '고유ID : ' + result_success.imp_uid;
+                            msg += '상점 거래ID : ' + result_success.merchant_uid;
+                            msg += '결제 금액 : ' + result_success.paid_amount;
+                            msg += '카드 승인번호 : ' + result_success.apply_num;
+                            alert(msg);
+                        }, (result_failure) => {
+                            //실패시 실행 될 콜백 함수
+                            var msg = '결제에 실패하였습니다.';
+                            msg += '에러내용 : ' + result_failure.error_msg;
+                            alert(msg);
+                        })
+                    },
+
                     go_to_login(){
                         this._self.$ons.notification.alert({
                             message: "로그인이 필요한 서비스 입니다.",

@@ -13,7 +13,7 @@
             <v-ons-card>제목 : {{item.RecruitTitle}}</v-ons-card>
             <v-ons-card>지역 : {{item.RecruitLocation}}</v-ons-card>
             <v-ons-card>내용 : {{item.RecruitContent}}</v-ons-card>
-            <v-ons-card>날짜 : {{item.From_time}} 부터 {{item.To_time}} 까지</v-ons-card>
+            <v-ons-card>날짜 : <br>{{item.From_time.substring(0,21)}} 부터 <br>{{item.To_time.substring(0,21)}} 까지</v-ons-card>
             <v-ons-card>인원 : {{item.RecruitPeopleNumber}}</v-ons-card>
             <v-ons-card>작성시간 : {{item.WriteTime}}</v-ons-card>
             </v-ons-list>
@@ -36,13 +36,13 @@
             <v-ons-card>지역 : {{item.TourLocation}}</v-ons-card>
             <v-ons-card>테마 : {{item.TourThema}}</v-ons-card>
             <v-ons-card>내용 : {{item.TourContent}}</v-ons-card>
-            <v-ons-card>날짜 : {{item.TourDayandTime_start}} 부터 {{item.TourDayandTime_end}} 까지</v-ons-card>
+            <v-ons-card>날짜 : <br>{{item.TourDayandTime_start.substring(0,21)}} 부터 <br>{{item.TourDayandTime_end.substring(0,21)}} 까지</v-ons-card>
             <v-ons-card>최소인원 : {{item.TourMinNum}}</v-ons-card>
             <v-ons-card>최대인원 : {{item.TourMaxNum}}</v-ons-card>
-            <v-ons-list-header>신청인원 : {{item.TourNowPeopleNum}}명 / {{item.TourApplyList.length}} 단체 </v-ons-list-header>
+            <v-ons-list-header>신청인원 : {{item.TourNowPeopleNum}}명 / {{item.TourApplyList2.length}} 단체 </v-ons-list-header>
             <v-ons-list>
-                <v-ons-card v-for="todo in item.TourApplyList">
-                    단체대표 : {{todo}}
+                <v-ons-card v-for="todo in item.TourApplyList2">
+                    단체대표 : {{todo.user_apply_id}} {{todo.user_num}}명
                 </v-ons-card>
             </v-ons-list>
         </div>

@@ -8,12 +8,12 @@ router.post('/', function (req, res, next) {
 
     const peoplenum  = req.body.params.userInfo.TourNowPeopleNum + (req.body.params.Number*1);
     console.log("바꿔야되는 사람수 : "+peoplenum);
-    tourdata.findOneAndUpdate({TourNum:req.body.params.userInfo.TourNum},{$push:{TourApplyList:req.body.params.TourInfo},$set:{TourNowPeopleNum:peoplenum} },{new: true},function(err,data) {
+    tourdata.findOneAndUpdate({TourNum:req.body.params.userInfo.TourNum},{$push:{TourApplyList2:{user_apply_id:req.body.params.TourInfo, user_num:req.body.params.Number}},$set:{TourNowPeopleNum:peoplenum} },{new: true},function(err,data) {
         if (err) {
             console.log(err);
         }
-       console.log(data);
+        console.log(data);
         res.send("된다")
     });
-})
+});
 module.exports = router;

@@ -9,9 +9,9 @@
                 <v-ons-card>내용 : {{todo.SuggestContent}}</v-ons-card>
             </v-ons-card>
         </div>
-        <div class="traveler" v-if="session_type()">
-            아직 미구현입니다.
-        </div>
+        <!--<div class="traveler" v-if="session_type()">-->
+            <!--아직 미구현입니다.-->
+        <!--</div>-->
     </v-ons-page>
 </template>
 

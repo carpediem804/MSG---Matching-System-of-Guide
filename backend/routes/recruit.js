@@ -62,7 +62,7 @@ router.post('/custom', function (req, res, next) {
     savecustom.RecruitContent = req.body.params.recruitdata.content;
     savecustom.From_time = req.body.params.recruitdata.from_day
     savecustom.To_time = req.body.params.recruitdata.to_day
-  //  savecustom.ApplyRecruitID = "아직 안정햇다`";
+
     savecustom.save(function(err,data){
         if(err){
             console.log(err);

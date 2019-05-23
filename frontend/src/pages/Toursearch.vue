@@ -48,7 +48,7 @@
                 <strong>  {{todo.TourTitle}} </strong><br>
             </div>
             # {{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명
-            &nbsp;# {{todo.TourPrice}}\ <br>
+            &nbsp;# {{todo.TourPrice}}원 <br>
             # {{todo.TourLocation}}    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}}
         </v-ons-list-item>
 
@@ -57,8 +57,6 @@
     <v-ons-list v-else>
         <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
             <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
-            <v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>
-            <v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
             <div>&nbsp;</div>
             <div class="title2">
                 <strong>  {{todo.TourTitle}} </strong>
@@ -130,7 +128,7 @@
                     if(a){
                         if(b){
                             if(c){
-                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle === this.search ) && this.categories[i].includes(this.search)){
+                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle.includes(this.search) ) && this.categories[i].includes(this.search)){
                                     console.log('abc');
 
                                     this.filtered.push( this.categories[i]);
@@ -139,7 +137,7 @@
                             } // abc
                             else{
                                 if((this.categories[i].TourLocation === this.selectedLocal) &&
-                                    ((this.categories[i].TourTitle === this.search) || (this.categories[i].TourContent.includes(this.search)))){
+                                    ((this.categories[i].TourTitle.includes(this.search)) || (this.categories[i].TourContent.includes(this.search)))){
                                     console.log('ab');
                                     this.filtered.push( this.categories[i]);
                                 }
@@ -147,14 +145,14 @@
                         }
                         else{
                             if(c){
-                                if(((this.categories[i].TourTitle === this.search) || (this.categories[i].TourContent.includes(this.search))) &&
+                                if(((this.categories[i].TourTitle.includes(this.search)) || (this.categories[i].TourContent.includes(this.search))) &&
                                     (this.categories[i].TourThema === this.selectedThema)){
                                     console.log('ac');
                                     this.filtered.push( this.categories[i]);
                                 }
                             }//ac
                             else{
-                                if((this.categories[i].TourTitle === this.search) || (this.categories[i].TourContent.includes(this.search))){
+                                if((this.categories[i].TourTitle.includes(this.search) ) || (this.categories[i].TourContent.includes(this.search))){
                                     console.log('a');
                                     this.filtered.push( this.categories[i]);
                                 }
@@ -164,7 +162,7 @@
                     else{
                         if(b){
                             if(c){
-                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle === this.search )){
+                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle.includes(this.search) )){
                                     console.log('bc');
                                     this.filtered.push( this.categories[i]);
                                 }
@@ -178,7 +176,7 @@
                         }
                         else{
                             if(c){
-                                if((this.categories[i].TourTitle === this.search )){
+                                if((this.categories[i].TourTitle.includes(this.search) )){
                                     console.log('c');
                                     this.filtered.push( this.categories[i]);
                                 }//c
@@ -280,7 +278,8 @@
                         {value: '인천', text: '인천'},
                         {value: '대전', text: '대전'},
                         {value: '대구', text: '대구'},
-                        {value: '부산', text: '부산'}
+                        {value: '부산', text: '부산'},
+                        {value: '수원', text: '수원'},
                     ],
                     selectedLocal: '미설정',
 
@@ -288,9 +287,10 @@
                         {value: '미설정', text: 'Thema'},
                         {value: '힐링', text: '힐링'},
                         {value: '쇼핑', text: '쇼핑'},
-                        {value: '효도', text: '효도'},
+                        {value: '운동', text: '운동'},
                         {value: '관광', text: '관광'},
-                        {value: '맛집', text: '맛집'}
+                        {value: '맛집', text: '맛집'},
+                        {value: '교육', text: '교육'},
                     ],
                     //보기, 정렬
                     selectedThema: '미설정',

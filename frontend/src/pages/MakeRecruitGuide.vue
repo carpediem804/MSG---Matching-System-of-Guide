@@ -34,7 +34,7 @@
 
                 <v-ons-list-item :modifier="md ? 'nodivider' : ''">
                     <div class="left">
-                        희망 인원
+                        단체 인원
                     </div>
                     <label class="center">
                         <v-ons-input maxlength="20"
@@ -56,6 +56,7 @@
                                      v-model="recruit.from_day"
                         >
                         </v-ons-input>
+
                     </label>
                 </v-ons-list-item>
 
@@ -124,6 +125,7 @@
         },
         data() {
             return {
+                checkGrade: false,
                 recruit: {
                     id: localStorage.getItem('newEmail'),
                     title: '',

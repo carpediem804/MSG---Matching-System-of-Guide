@@ -9,7 +9,8 @@ var ApplyRecruitSchema = new mongoose.Schema({
     apply_post_num : {type :Number },
     SuggestContent: String,
     SuggestPrice : Number,
-    RecruitApplier :String
+    RecruitApplier :String,
+    applystatus : {type:Number, default : 0} // 0:대기중 , 1:선택됨 , 2 : 선택안됨
 });
 ApplyRecruitSchema.plugin(autoIncrement, {
     model: 'applyrecruit',
