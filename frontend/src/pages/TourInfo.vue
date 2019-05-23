@@ -165,31 +165,31 @@
                                     })
                                 }
                                 else{
-                                    this._self.$IMP().request_pay({
-                                        pg: 'html5_inicis',
-                                        pay_method: 'card',
-                                        merchant_uid: 'merchant_' + new Date().getTime(),
-                                        name: this._self.tour.TourTitle,
-                                        amount: parseInt(num) * parseInt(this._self.tour.TourPrice),
-                                        buyer_email: localStorage.getItem('newEmail'),
-                                        buyer_name: '구매자이름',
-                                        buyer_tel: '010-1234-5678',
-                                        buyer_addr: '서울특별시 강남구 삼성동',
-                                        buyer_postcode: '123-456'
-                                    }, (result_success) => {
-                                        //성공할 때 실행 될 콜백 함수
-                                        var msg = '결제가 완료되었습니다.';
-                                        msg += '고유ID : ' + result_success.imp_uid;
-                                        msg += '상점 거래ID : ' + result_success.merchant_uid;
-                                        msg += '결제 금액 : ' + result_success.paid_amount;
-                                        msg += '카드 승인번호 : ' + result_success.apply_num;
-                                        alert(msg);
-                                    }, (result_failure) => {
-                                        //실패시 실행 될 콜백 함수
-                                        var msg = '결제에 실패하였습니다.';
-                                        msg += '에러내용 : ' + result_failure.error_msg;
-                                        alert(msg);
-                                    })
+                                    // this._self.$IMP().request_pay({
+                                    //     pg: 'html5_inicis',
+                                    //     pay_method: 'card',
+                                    //     merchant_uid: 'merchant_' + new Date().getTime(),
+                                    //     name: this._self.tour.TourTitle,
+                                    //     amount: parseInt(num) * parseInt(this._self.tour.TourPrice),
+                                    //     buyer_email: localStorage.getItem('newEmail'),
+                                    //     buyer_name: '구매자이름',
+                                    //     buyer_tel: '010-1234-5678',
+                                    //     buyer_addr: '서울특별시 강남구 삼성동',
+                                    //     buyer_postcode: '123-456'
+                                    // }, (result_success) => {
+                                    //     //성공할 때 실행 될 콜백 함수
+                                    //     var msg = '결제가 완료되었습니다.';
+                                    //     msg += '고유ID : ' + result_success.imp_uid;
+                                    //     msg += '상점 거래ID : ' + result_success.merchant_uid;
+                                    //     msg += '결제 금액 : ' + result_success.paid_amount;
+                                    //     msg += '카드 승인번호 : ' + result_success.apply_num;
+                                    //     alert(msg);
+                                    // }, (result_failure) => {
+                                    //     //실패시 실행 될 콜백 함수
+                                    //     var msg = '결제에 실패하였습니다.';
+                                    //     msg += '에러내용 : ' + result_failure.error_msg;
+                                    //     alert(msg);
+                                    // })
                                     this._self.$http.post('http://localhost:8000/applyTour',{
                                     params: {
                                         Number: num,
