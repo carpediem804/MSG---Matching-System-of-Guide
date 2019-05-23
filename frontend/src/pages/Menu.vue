@@ -20,11 +20,12 @@
       <div id="login_after" v-if="!test2()">
         <br>
         {{ present_user.name }}님 / {{ present_user.type }}<br>
-       <div>
+       <div v-if="session_existed()">
         <ons-icon v-for="n in Math.floor(UserGrade)" icon="fa-star"></ons-icon>
         <ons-icon v-if="count(UserGrade)" icon="fa-star-half-alt"></ons-icon>
+           {{UserGrade}} 점<br>
        </div>
-        {{UserGrade}} 점<br>
+
         <button class="login_button" @click="push(page[1].component, page[1].label)">프로필 수정</button>
         <button class="login_button" @click="push(page[2].component, page[2].label)">등록 상품</button>
         <button class="login_button" @click="push(page[3].component, page[3].label)">신청 상품</button>
