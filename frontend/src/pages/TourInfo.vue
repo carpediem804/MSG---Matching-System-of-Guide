@@ -135,25 +135,39 @@
                 this.$store.commit('navigator/pop', {
                 });
             },
-            saveApply(res,num){
-                if ( res.success ) {
-                    this.$http.post('http://localhost:8000/applyTour',{
-                        params: {
-                            Number: num,
-                            userInfo: this.$store.state.tour,
-                            TourInfo: localStorage.getItem('newEmail'),
-                        }
+            pay(num){
+                this.$IMP().request_pay({
+                    pg: 'kakao',
+                    pay_method: 'card',
+                    merchant_uid: 'merchant_' + new Date().getTime(),
+                    name: this.tour.TourTitle,
+                    amount: parseInt(num) * parseInt(this.tour.TourPrice),
+                    buyer_email: localStorage.getItem('newEmail'),
+                    buyer_name: '구매자이름',
+                    buyer_tel: '010-1234-5678',
+                    buyer_addr: '서울특별시 강남구 삼성동',
+                    buyer_postcode: '123-456',
+                }, (result_success) => {
+                    //성공할 때 실행 될 콜백 함수
+                    this.$http.post('http://localhost:8000/applyTour',{	
+                        params: {	
+                            Number: num,	
+                            userInfo: this.tour,	
+                            TourInfo: localStorage.getItem('newEmail'),	
+                        }	
                     })
-                    var msg = '결제 완료.';
-                    msg += '고유ID : ' + rsp.imp_uid;
-                    msg += '상점 거래ID : ' + rsp.merchant_uid;
-                    msg += '결제 금액 : ' + rsp.paid_amount;
-                    msg += '카드 승인번호 : ' + rsp.apply_num;
-                } else {
-                        var msg = '결제에 실패하였습니다.';
-                        msg += '에러내용 : ' + rsp.error_msg;
-                }
-                alert(msg);
+                    var msg = '결제가 완료되었습니다.';
+                    msg += '고유ID : ' + result_success.imp_uid;
+                    msg += '상점 거래ID : ' + result_success.merchant_uid;
+                    msg += '결제 금액 : ' + result_success.paid_amount;
+                    msg += '카드 승인번호 : ' + result_success.apply_num;
+                    alert(msg);
+                }, (result_failure) => {
+                    //실패시 실행 될 콜백 함수
+                    var msg = '결제에 실패하였습니다.';
+                    msg += '에러내용 : ' + result_failure.error_msg;
+                    alert(msg);
+                })
             },
             applyTour(){
                 if (localStorage.getItem('newType') === null){
@@ -177,7 +191,6 @@
                         cancelable: 'true',
                         _self: this,
                         callback: function (num) {
-                            var _self2 = this._self;
                             if(num>0){
                                 if((parseInt(this._self.tour.TourNowPeopleNum) + parseInt(num)) > parseInt(this._self.tour.TourMaxNum)){
                                     this._self.$ons.notification.alert({ 
@@ -186,31 +199,7 @@
                                     })
                                 }
                                 else{
-                                    this._self.$IMP().request_pay({
-                                        pg: 'kakao',
-                                        pay_method: 'card',
-                                        merchant_uid: 'merchant_' + new Date().getTime(),
-                                        name: this._self.tour.TourTitle,
-                                        amount: parseInt(num) * parseInt(this._self.tour.TourPrice),
-                                        buyer_email: localStorage.getItem('newEmail'),
-                                        buyer_name: '구매자이름',
-                                        buyer_tel: '010-1234-5678',
-                                        buyer_addr: '서울특별시 강남구 삼성동',
-                                        buyer_postcode: '123-456',
-                                    }, (result_success) => {
-                                        //성공할 때 실행 될 콜백 함수
-                                        var msg = '결제가 완료되었습니다.';
-                                        msg += '고유ID : ' + result_success.imp_uid;
-                                        msg += '상점 거래ID : ' + result_success.merchant_uid;
-                                        msg += '결제 금액 : ' + result_success.paid_amount;
-                                        msg += '카드 승인번호 : ' + result_success.apply_num;
-                                        alert(msg);
-                                    }, (result_failure) => {
-                                        //실패시 실행 될 콜백 함수
-                                        var msg = '결제에 실패하였습니다.';
-                                        msg += '에러내용 : ' + result_failure.error_msg;
-                                        alert(msg);
-                                    })
+                                    this._self.pay(num);
                                 }
                             }
                             else if(num==0){
