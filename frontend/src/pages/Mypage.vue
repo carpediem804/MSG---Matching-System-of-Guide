@@ -12,7 +12,7 @@
                     <button class="delete-profile-image" color="secondary" icon="delete" @click="removeImage">Delete</button>
                 </div>
             </v-ons-card>
-            <v-ons-card>평점 : {{present_user.grade}} / 후기 작성 인원 수  : {{present_user.total_review}} </v-ons-card>
+            <v-ons-card>평점 {{present_user.grade}} / {{present_user.total_review}} 건</v-ons-card>
             <v-ons-card>총 여행 완료 상품 수 : {{present_user.total_tour}}</v-ons-card>
         </div>
         <v-ons-card>이메일 : {{present_user.email}}</v-ons-card>
