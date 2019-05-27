@@ -4,5 +4,9 @@ phases:
 
   install:
     commands:
-      - pip install -r requirements.txt
+      - npm install firebase
+      - npm i --save-dev expose-loader
+      - npm i --save jquery
+      - npm install vue-iamport
+      - yarn install
 
