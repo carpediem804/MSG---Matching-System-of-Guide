@@ -9,4 +9,4 @@ phases:
       - npm i --save jquery
       - npm install vue-iamport
       - yarn install
-
+      - yarn upgrade
