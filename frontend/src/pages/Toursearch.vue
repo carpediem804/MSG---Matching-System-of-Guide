@@ -16,8 +16,24 @@
         </v-ons-select>
 
         <v-ons-button class="button-margin"  @click="test_func()">Search</v-ons-button>
+
+        <v-ons-modal :visible="modalVisible" @click="modalVisible = false">
+            <p style="text-align: center">
+                <img class="profile-image" :src="userImage" width="275" height="230"/>
+
+                <div v-if="!userImage">
+                    <input type="file" round class="change-profile-image" @change="onFileChange" />
+                </div>
+                <div v-else>
+                    <button class="delete-profile-image" color="secondary" icon="delete" @click="removeImage">Delete</button>
+                </div>
+            <button class="send-image" color="secondary" icon="delete" @click="sendimgage()">Search</button>
+        </v-ons-modal>
+
     </div>
+    <v-ons-button class="imageregist"  @click="imagesearch()">Image Search</v-ons-button>
     <p align="right">
+
         <v-ons-button class="maketourbutton" v-if="session_existed()" icon='ion-edit'
                       @click="push(page.component, page.label)"> 투어상품 작성하기
         </v-ons-button>
@@ -30,12 +46,6 @@
             <button v-for="b in buttons.view" v-bind:title="b.title"
                     v-bind:class="viewType == b.class?'selected':''"
                     v-on:click="toggleList('view',b.class)">
-                <i class="fas" v-bind:class="'fa-'+b.class"></i>
-            </button>
-            <span>sort</span>
-            <button v-for="b in buttons.sort" v-bind:title="b.title"
-                    v-bind:class="sortType == b.class?'selected':''"
-                    v-on:click="toggleList('sort',b.class)">
                 <i class="fas" v-bind:class="'fa-'+b.class"></i>
             </button>
         </div>
@@ -84,9 +94,65 @@
 
     import MakeTourItem from "./MakeTourItem.vue";
     import TourInfo from "./TourInfo.vue";
+    import axios from 'axios'
 
     export default {
         methods: {
+            onFileChange(e) {
+                var files = e.target.files || e.dataTransfer.files
+                this.selectedFile = e.target.files[0];
+                if (!files.length) {
+                    return
+                }
+                this.createImage(files[0])
+                console.log('이미지올림');
+                console.log(files[0].name);
+                console.log(this.selectedFile.name);
+
+
+            },
+
+            createImage(file) {
+                var reader = new FileReader()
+                var vm = this
+
+                reader.onload = (e) => {
+                    vm.userImage = e.target.result
+
+                }
+                reader.readAsDataURL(file)
+
+            },
+            removeImage: function (e) {
+                this.userImage = ''
+            },
+            imagesearch(){
+                    this.modalVisible = true;
+                    clearTimeout(this.timeoutID);
+                    this.timeoutID = setTimeout(() => this.modalVisible = false, 2000);
+            },
+            sendimgage(){
+                axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+                let formData = new FormData();
+                formData.append('file',this.selectedFile);
+                axios.post('http://localhost:8000/imagesearch',formData,{
+                    params: {
+
+
+                    }
+                }).then(function(data){
+                    console.log("register TourItem complete");
+                });
+                this.$ons.notification.alert({
+                    message: "이미지 검색",
+                    title: "이미지검색",
+                    callback: function (index) {
+                        //  location.reload();
+                    },
+                })
+                // location.reload();
+
+            },
             push(page, key,tour) {
                 this.$store.state.tour = tour;
                 console.log(localStorage.getItem('newType'));
@@ -221,6 +287,10 @@
 
             data() {
                 return {
+                    modalVisible: false,
+                    timeoutID: 0,
+                    userImage: '',
+                    selectedFile:null,
                     nowDate: Date.now(),
                     viewimg:"http://localhost:8000/uploads/",
                     fakeimg: "file-1544454352258.png",
@@ -233,6 +303,7 @@
                         component: TourInfo,
                         label: '투어상품'
                     },
+
                     filtered: [
                         {
                             TourContent: "",
