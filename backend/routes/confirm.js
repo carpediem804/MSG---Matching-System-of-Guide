@@ -6,9 +6,19 @@ const recruitguide = require('../db/models/GuideRecruit');
 router.post('/', function (req, res, next) {
     console.log("confirm로 들어옴");
     console.log(req.body.params);
-    //guide가 신청한 글의 상태를 확정이라고 바꾸어야 댄당
-    //그리고 알람을 줘야되는데 (확정되자마자)
 
-    //그 가이드 모집글의 상태를 바꿔줘야댄다 이거 바꼇다~
+    recruitguide.findOneAndUpdate({RecruitNum:req.body.params.target},{$set:{GuideID:req.body.params.user,Apply_state:1}},{new: true},function(err,data) {
+        if (err) {
+            console.log(err);
+        }
+        console.log(data);
+    });
+    applyguide.findOneAndUpdate({apply_post_num:req.body.params.target,RecruitApplier: req.body.params.user},{$set:{apply_status:1}},{new: true},function(err,data) {
+        if (err) {
+            console.log(err);
+        }
+        console.log(data);
+        res.send("된다")
+    });
 });
 module.exports = router;

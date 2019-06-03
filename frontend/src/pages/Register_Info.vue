@@ -16,13 +16,24 @@
             <v-ons-card>날짜 : <br>{{item.From_time.substring(0,21)}} 부터 <br>{{item.To_time.substring(0,21)}} 까지</v-ons-card>
             <v-ons-card>인원 : {{item.RecruitPeopleNumber}}</v-ons-card>
             <v-ons-card>작성시간 : {{item.WriteTime}}</v-ons-card>
+                <v-ons-card>게시글 상태 : {{item.Apply_state}}</v-ons-card>
             </v-ons-list>
-            <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>
-            <v-ons-list>
-                <v-ons-card v-for="todo in item.ApplyGuideID" @click="push1(page.component, page.label, todo)">
-                    지원자: {{todo}}
-                </v-ons-card>
-            </v-ons-list>
+            <div class="confirm" v-if="!confirm_guide()">
+                <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>
+                <v-ons-list>
+                    <v-ons-card v-for="todo in item.ApplyGuideID" @click="push1(page.component, page.label, todo)">
+                        지원자: {{todo}}
+                    </v-ons-card>
+                </v-ons-list>
+            </div>
+            <div class="confirm" v-if="confirm_guide()">
+                <v-ons-list-header>확정자</v-ons-list-header>
+                <v-ons-list>
+                    <v-ons-card @click="push1(page.component, page.label, item.GuideID)">
+                        {{item.GuideID}}
+                    </v-ons-card>
+                </v-ons-list>
+            </div>
         </div>
         <div class="travler" v-if="!session_type()">
             <p align="right">
@@ -56,6 +67,14 @@
         methods: {
             session_type(){
                 if(localStorage.getItem('newType') === '여행객'){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            },
+            confirm_guide(){
+                if(this.item.Apply_state === 1){
                     return true;
                 }
                 else{

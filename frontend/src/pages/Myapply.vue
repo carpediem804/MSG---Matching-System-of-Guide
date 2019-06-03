@@ -36,6 +36,16 @@
                             <v-ons-list-item ># {{todo.RecruitLocation}} </v-ons-list-item>
                         </v-ons-list>
                     </div>
+                    <div class="content3" v-if="todo.Apply_state === 1">
+                        <v-ons-list>
+                            <v-ons-list-item ># 가이드 확정됨!!!!! </v-ons-list-item>
+                        </v-ons-list>
+                    </div>
+                    <div class="content3" v-if="todo.Apply_state === 0">
+                        <v-ons-list>
+                            <v-ons-list-item ># 가이드 미정</v-ons-list-item>
+                        </v-ons-list>
+                    </div>
                 </v-ons-card>
             </v-ons-list>
         </div>

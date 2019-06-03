@@ -10,7 +10,7 @@ var ApplyRecruitSchema = new mongoose.Schema({
     SuggestContent: String,
     SuggestPrice : Number,
     RecruitApplier :String,
-    applystatus : {type:Number, default : 0} // 0:대기중 , 1:선택됨 , 2 : 선택안됨
+    apply_status : {type:Number, default : 0} // 0:대기중 , 1:선택됨 , 2 : 선택안됨
 });
 ApplyRecruitSchema.plugin(autoIncrement, {
     model: 'applyrecruit',

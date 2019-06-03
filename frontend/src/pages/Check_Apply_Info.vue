@@ -1,7 +1,7 @@
 <template>
     <v-ons-page>
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
-        <v-ons-list-header>{{user}} 의 글</v-ons-list-header>
+        <v-ons-list-header>{{user}} 의 글 // {{target}} 확인</v-ons-list-header>
         <div class="traveler" v-if="session_type()">
             <v-ons-card>
                 가이드 프로필
@@ -33,12 +33,16 @@
                 <img v-bind:src="'http://localhost:8000/'+todo.apply_Image_URL" alt="MSG" width="275" height="230">
                 <v-ons-card>가격 : {{todo.SuggestPrice}}</v-ons-card>
                 <v-ons-card>내용 : {{todo.SuggestContent}}</v-ons-card>
+                <v-ons-card>확인 : {{todo.RecruitApplier}}</v-ons-card>
+                <v-ons-card>상태 : {{todo.apply_status}}</v-ons-card>
             </v-ons-card>
-            <p align="center">
-                <v-ons-button class="ConfirmGuide" icon='fa-check'
-                              @click="Confirm_Guide()"> 확정하기
-                </v-ons-button>
-            </p>
+            <div class="confirm" v-if="!confirm()">
+                <p align="center">
+                    <v-ons-button class="ConfirmGuide" icon='fa-check'
+                                  @click="Confirm_Guide()"> 확정하기
+                    </v-ons-button>
+                </p>
+            </div>
         </div>
         <!--<div class="traveler" v-if="!session_type()">-->
         <!--아직 미구현입니다.-->
@@ -59,6 +63,7 @@
                 .then((response) => {  //로그인 성공;
                         if(localStorage.getItem('newType') === '여행객'){
                             this.guide_apply_data=response.data.data;
+                            console.log(this.guide_apply_data);
                         }
                         else{
                             this.traveler_apply_data=response.data.Tourdata;
@@ -82,6 +87,14 @@
                     this.checkGrade =false;
 
                 return this.checkGrade;
+            },
+            confirm(){
+                if(this.guide_apply_data[0].apply_status === 1){
+                    return true;
+                }
+                else{
+                    return false;
+                }
             },
             show_guide_info(key1){
                 if(this.show_info === false){
@@ -114,7 +127,23 @@
                 }
             },
             Confirm_Guide(){
-                alert('확정!');
+                this.$http.post('http://localhost:8000/confirm/', {
+                    params: {
+                        user: this.user,
+                        target: this.target
+                    }
+                })
+                    .then((response) => {  //로그인 성공;
+                            alert("가이드가 확정되었습니다.");
+                            location.reload();
+                        },
+                        (error) => { // error 를 보여줌
+                            alert(error.response.data.error)
+                        }
+                    )
+                    .catch(error => {
+                        alert(error)
+                    })
             }
         },
         data() {
@@ -123,14 +152,7 @@
                 target: this.$store.state.target,
                 traveler_apply_data:[{
                 }],
-                guide_apply_data:[{
-                    ApplyRecruitID: 0,
-                    RecruitApplier: "",
-                    SuggestContent: "",
-                    SuggestPrice: 0,
-                    apply_Image_URL: "",
-                    apply_post_num: 0,
-                }],
+                guide_apply_data:[],
                 guide_info:[],
                 show_info: false
             };

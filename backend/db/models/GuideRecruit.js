@@ -14,6 +14,8 @@ var GuideRecruitSchema = new mongoose.Schema({
     RecruitPeopleNumber : Number,
     RecruitContent : String,
     ApplyGuideID :[],
+    Apply_state: {type:Number, default:0},
+    GuideID : String
 });
 GuideRecruitSchema.plugin(autoIncrement, {
     model: 'GuideRecruit',

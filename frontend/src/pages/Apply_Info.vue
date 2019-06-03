@@ -70,17 +70,32 @@
                 <v-ons-card>인원 : {{item.RecruitPeopleNumber}}</v-ons-card>
                 <v-ons-card>작성시간 : {{item.WriteTime}}</v-ons-card>
             </v-ons-list>
-            <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>
-            <v-ons-list>
-                <v-ons-card v-for="todo in item.ApplyGuideID" @click="push1(page.component, page.label, todo)">
-                    <div class="me" v-if="check_me(todo)" style="font-family: 궁서">
-                        지원자: {{todo}} (ME)
-                    </div>
-                    <div class="other" v-if="!check_me(todo)">
-                        지원자: {{todo}}
-                    </div>
-                </v-ons-card>
-            </v-ons-list>
+            <div class="confirm" v-if="item.Apply_state === 0">
+                <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>
+                <v-ons-list>
+                    <v-ons-card v-for="todo in item.ApplyGuideID" @click="push1(page.component, page.label, todo)">
+                        <div class="me" v-if="check_me(todo)" style="font-family: 궁서">
+                            지원자: {{todo}} (ME)
+                        </div>
+                        <div class="other" v-if="!check_me(todo)">
+                            지원자: {{todo}}
+                        </div>
+                    </v-ons-card>
+                </v-ons-list>
+            </div>
+            <div class="confirm" v-if="item.Apply_state === 1">
+                <v-ons-list-header>확정자</v-ons-list-header>
+                <v-ons-list>
+                    <v-ons-card @click="push1(page.component, page.label, item.GuideID)">
+                        <div class="me" v-if="check_me(item.GuideID)" style="font-family: 궁서">
+                            {{item.GuideID}} (ME)
+                        </div>
+                        <div class="other" v-if="!check_me(item.GuideID)">
+                            {{item.GuideID}}
+                        </div>
+                    </v-ons-card>
+                </v-ons-list>
+            </div>
         </div>
     </v-ons-page>
 </template>
