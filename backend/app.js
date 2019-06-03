@@ -9,6 +9,7 @@ const signup = require('./routes/signup')
 const checkinfo = require('./routes/checkinfo')
 const applytour = require('./routes/applytour')
 const confirm = require('./routes/confirm');
+const imagesearch = require('./routes/imagesearch');
 const app = express()
 
 app.use((req, res, next) =>{
@@ -28,4 +29,5 @@ app.use('/recruit',recruit);
 app.use('/checkInfo',checkinfo);
 app.use('/applyTour',applytour);
 app.use('/confirm',confirm);
+app.use('/imagesearch',imagesearch);
 module.exports = app;
