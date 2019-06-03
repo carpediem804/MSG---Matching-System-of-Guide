@@ -39,7 +39,7 @@
             <div class="confirm" v-if="!confirm()">
                 <p align="center">
                     <v-ons-button class="ConfirmGuide" icon='fa-check'
-                                  @click="Confirm_Guide()"> 확정하기
+                                  @click="Confirm_Guide(guide_apply_data[0].SuggestPrice)"> 가이드 확정 및 결제하기
                     </v-ons-button>
                 </p>
             </div>
@@ -52,6 +52,12 @@
 
 <script>
     export default {
+        head: {
+            script: [
+                { src: "https://code.jquery.com/jquery-1.12.4.min.js" },
+                { src: "https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" },
+            ]
+        },
         beforeCreate(){
             this.$http.post('http://localhost:8000/checkInfo/show', {
                 params: {
@@ -126,24 +132,49 @@
                     return false;
                 }
             },
-            Confirm_Guide(){
-                this.$http.post('http://localhost:8000/confirm/', {
-                    params: {
-                        user: this.user,
-                        target: this.target
-                    }
-                })
-                    .then((response) => {  //로그인 성공;
-                            alert("가이드가 확정되었습니다.");
-                            location.reload();
-                        },
-                        (error) => { // error 를 보여줌
-                            alert(error.response.data.error)
+            Confirm_Guide(key){
+                this.$IMP().request_pay({
+                    pg: 'kakao',
+                    pay_method: 'card',
+                    merchant_uid: 'merchant_' + new Date().getTime(),
+                    name: '주문명:결제테스트',
+                    amount: key,
+                    buyer_email: 'iamport@siot.do',
+                    buyer_name: '구매자이름',
+                    buyer_tel: '010-1234-5678',
+                    buyer_addr: '서울특별시 강남구 삼성동',
+                    buyer_postcode: '123-456'
+                }, (result_success) => {
+                    //성공할 때 실행 될 콜백 함수
+                    var msg = '결제가 완료되었습니다.';
+                    msg += '고유ID : ' + result_success.imp_uid;
+                    msg += '상점 거래ID : ' + result_success.merchant_uid;
+                    msg += '결제 금액 : ' + result_success.paid_amount;
+                    msg += '카드 승인번호 : ' + result_success.apply_num;
+                    alert(msg);
+                    this.$http.post('http://localhost:8000/confirm/', {
+                        params: {
+                            user: this.user,
+                            target: this.target
                         }
-                    )
-                    .catch(error => {
-                        alert(error)
                     })
+                        .then((response) => {  //로그인 성공;
+                                alert("가이드가 확정되었습니다.");
+                                location.reload();
+                            },
+                            (error) => { // error 를 보여줌
+                                alert(error.response.data.error)
+                            }
+                        )
+                        .catch(error => {
+                            alert(error)
+                        })
+                }, (result_failure) => {
+                    //실패시 실행 될 콜백 함수
+                    var msg = '결제에 실패하였습니다.';
+                    msg += '에러내용 : ' + result_failure.error_msg;
+                    alert(msg);
+                })
             }
         },
         data() {

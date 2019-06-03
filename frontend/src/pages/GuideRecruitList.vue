@@ -1,46 +1,19 @@
 <template>
   <v-ons-page>
-
     <div class="center" style="text-align: center;">
-
       <label class="center"  >
         <p>
-
         <form class='s-form'>
           <v-ons-input float maxlength="100"
                        placeholder="Keywords"
                        v-model="name"
           >
           </v-ons-input>
-
           <v-ons-button style="text-align: center"
                         @click="test_func()">Search
           </v-ons-button>
-
         </form>
-
-
-        <!--<v-ons-select style="width: 120px" v-model ="selectedLocal " >-->
-
-          <!--<option v-for="item in localitems"  :value="item.value" >-->
-            <!--{{ item.text }}-->
-          <!--</option>-->
-
-        <!--</v-ons-select>-->
-
-        <!--<v-ons-select style="width: 120px" v-model ="selectedLocal " >-->
-
-          <!--<option v-for="item in localitems"  :value="item.value" >-->
-            <!--{{ item.text }}-->
-          <!--</option>-->
-
-        <!--</v-ons-select>-->
-
-
-
       </label>
-
-
       <v-ons-list>
         <v-ons-card v-for="item in filtered" @click="push(page2.component, page2.label, item)">
           <!--<img src="../assets/background4.jpg" alt="Image File" style="width:310px; height:auto">-->
@@ -53,18 +26,17 @@
               <v-ons-list-item ># {{item.RecruitLocation}} </v-ons-list-item>
             </v-ons-list>
           </div>
+          <div class="content3" align="center" v-if="item.Apply_state === 0">
+            모집중...
+          </div>
+          <div class="content4" align="center" v-if="item.Apply_state === 1">
+            모집완료
+          </div>
         </v-ons-card>
       </v-ons-list>
-
-
     </div>
-
-
     <br>
     <br>
-
-
-
     <P align="center">
       <button class="button_apply" v-if="session_existed()" @click="push(page1.component, page1.label)">가이드 모집하기</button>
     </p>
@@ -306,6 +278,40 @@
     z-index: 10;
   }
 
+  .content3{
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin: 20px 0 14px;
+    padding-top: 1px;
+    border: none;
+    border-radius: 0;
+    background-color: #F79F81;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 61px;
+    -webkit-appearance: none;
+  }
+  .content4{
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin: 20px 0 14px;
+    padding-top: 1px;
+    border: none;
+    border-radius: 0;
+    background-color: #01DF01;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 61px;
+    -webkit-appearance: none;
+  }
   .dots > span {
     cursor: pointer;
   }

@@ -16,7 +16,7 @@
                     </div>
                     <div class="content3" v-if="todo.Apply_state === 1">
                     <v-ons-list>
-                        <v-ons-list-item ># 가이드 확정됨!!!!! </v-ons-list-item>
+                        <v-ons-list-item ># 가이드 확정됨!!!!!</v-ons-list-item>
                     </v-ons-list>
                     </div>
                     <div class="content3" v-if="todo.Apply_state === 0">

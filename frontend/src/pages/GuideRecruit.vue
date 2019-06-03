@@ -63,9 +63,9 @@
 
 
 
-        <P align="center">
-        <button class="button_apply" @click="pay()">결제 테스트</button>
-        </p>
+        <!--<P align="center">-->
+        <!--<button class="button_apply" @click="pay()">결제 테스트</button>-->
+        <!--</p>-->
 
 
     </v-ons-page>
