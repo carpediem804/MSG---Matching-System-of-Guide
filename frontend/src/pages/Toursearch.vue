@@ -17,8 +17,11 @@
 
         <v-ons-button class="button-margin"  @click="test_func()">Search</v-ons-button>
 
-        <v-ons-modal :visible="modalVisible" @click="modalVisible = false">
+        <v-ons-modal :visible="modalVisible" >
+            <p style="text-align: right">
+            <button class="send-image" color="secondary" icon="close" @click="modalVisible = false;">close</button>
             <p style="text-align: center">
+
                 <img class="profile-image" :src="userImage" width="275" height="230"/>
 
                 <div v-if="!userImage">
@@ -128,8 +131,8 @@
             },
             imagesearch(){
                     this.modalVisible = true;
-                    clearTimeout(this.timeoutID);
-                    this.timeoutID = setTimeout(() => this.modalVisible = false, 2000);
+                  //  clearTimeout(this.timeoutID);
+                   // this.timeoutID = setTimeout(() => this.modalVisible = false, 2000);
             },
             sendimgage(){
                 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
@@ -147,11 +150,12 @@
                     message: "이미지 검색",
                     title: "이미지검색",
                     callback: function (index) {
-                        //  location.reload();
+                         // location.reload();
                     },
                 })
                 // location.reload();
-
+                this.removeImage();
+                this.modalVisible = false;
             },
             push(page, key,tour) {
                 this.$store.state.tour = tour;
