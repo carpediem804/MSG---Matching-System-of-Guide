@@ -19,7 +19,7 @@
 
         <v-ons-modal :visible="modalVisible" >
             <p style="text-align: right">
-            <button class="send-image" color="secondary" icon="close" @click="modalVisible = false;">close</button>
+            <button class="send-image" color="secondary" icon="close" @click="closesearch()">close</button>
             <p style="text-align: center">
 
                 <img class="profile-image" :src="userImage" width="275" height="230"/>
@@ -132,7 +132,11 @@
             imagesearch(){
                     this.modalVisible = true;
                   //  clearTimeout(this.timeoutID);
-                   // this.timeoutID = setTimeout(() => this.modalVisible = false, 2000);
+                 //  this.timeoutID = setTimeout(() => this.modalVisible = false, 2000);
+            },
+            closesearch(){
+                this.modalVisible =false;
+                this.removeImage();
             },
             sendimgage(){
                 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
