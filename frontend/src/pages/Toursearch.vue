@@ -348,7 +348,19 @@
 
                         }
                     ],
-
+                    Landmarks:
+                        { locations: [ { latLng: [Object] } ],
+                            properties: [],
+                            mid: '/m/0cn46',
+                            locale: '',
+                            description: 'Piazza dei Miracoli',
+                            score: 0.6560990214347839,
+                            confidence: 0,
+                            topicality: 0,
+                            boundingPoly:
+                                { vertices: [ [Object], [Object], [Object], [Object] ],
+                                    normalizedVertices: [] }
+                        },
                     search: '',
                     spdOpen: false,
                     localitems: [
@@ -379,16 +391,12 @@
                         'view':[
                             {'class': 'list', 'title':'view in list', selected:false},
                             {'class': 'th-large', 'title':'view in thumbnail', selected:true}
-                        ],
-                        'sort':[
-                            {'class':'sort-alpha-down','title':'sort by deadline',selected:true},
-                            {'class':'sort-numeric-down','title':'sort by price', selected:false},
-                            {'class':'star','title':'sort by star',selected:false},
                         ]
                     }
 
                 };
             },
+
             beforeCreate() {
                 this.$http.get('http://localhost:8000/getTourList/custom').then(res => {
                     console.log("보냇다 보냇다~ ")
@@ -407,8 +415,15 @@
                     console.log(this.viewimg)
                 }).catch(res => {
                     console.log(res)
-                })
+                }),
 
+                    this.$http.get('http://localhost:8000/imagesearch').then(res => {
+                        console.log("보냇다 보냇다~ ")
+                        this.Landmarks = res.data.Landmarks;
+                        console.log(this.Landmarks.description);
+                    }).catch(res => {
+                        console.log(res)
+                    })
             },
 
 
