@@ -16,10 +16,13 @@
         </v-ons-select>
 
         <v-ons-button class="button-margin"  @click="test_func()">Search</v-ons-button>
-
+        <!--<v-ons-button class="button-margin"  @click="test_clear()">Clear</v-ons-button>-->
+        <p align="center">
+            <v-ons-button class="imageregist"  @click="imagesearch()">Image Search</v-ons-button>
+        </p>
         <v-ons-modal :visible="modalVisible" >
             <p style="text-align: right">
-            <button class="send-image" color="secondary" icon="close" @click="closesearch()">close</button>
+            <v-ons-icon class="send-image" size="30px" icon="close" @click="closesearch()"></v-ons-icon>&nbsp;&nbsp;&nbsp;&nbsp;
             <p style="text-align: center">
 
                 <img class="profile-image" :src="userImage" width="275" height="230"/>
@@ -28,13 +31,15 @@
                     <input type="file" round class="change-profile-image" @change="onFileChange" />
                 </div>
                 <div v-else>
-                    <button class="delete-profile-image" color="secondary" icon="delete" @click="removeImage">Delete</button>
+                    <p align="right">
+                    <v-ons-button class="delete-profile-image" color="secondary" icon="delete" @click="removeImage">Delete</v-ons-button>&nbsp;&nbsp;
+                    </p>
+                    <v-ons-button class="send-image" color="secondary" icon="delete" @click="sendimgage()">Search</v-ons-button>
                 </div>
-            <button class="send-image" color="secondary" icon="delete" @click="sendimgage()">Search</button>
         </v-ons-modal>
 
     </div>
-    <v-ons-button class="imageregist"  @click="imagesearch()">Image Search</v-ons-button>
+
     <p align="right">
 
         <v-ons-button class="maketourbutton" v-if="session_existed()" icon='ion-edit'
@@ -101,6 +106,10 @@
 
     export default {
         methods: {
+            // test_clear(){
+            //
+            //     return localStorage.clear();
+            // },
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files
                 this.selectedFile = e.target.files[0];

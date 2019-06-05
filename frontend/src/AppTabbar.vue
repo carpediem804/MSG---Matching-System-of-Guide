@@ -58,7 +58,7 @@
             label: '투어상품 검색',
             icon: this.md ? null : 'ion-film-marker',
             page: Toursearch,
-            theme: red
+            theme: blue
           },
           {
             label: 'Home',
@@ -70,7 +70,7 @@
             label: '가이드 모집',
             icon: this.md ? null : 'ion-edit',
             page: RecruitGuideSearch,
-            theme: purple
+            theme: blue
           }
         ]
       };
