@@ -1,24 +1,28 @@
 <template>
 <v-ons-page>
     <div class="test2" align="center">
-        <v-ons-search-input maxlength="100" placeholder="Keywords" v-model="search"></v-ons-search-input>
-        <div></div>
-        <v-ons-select style="width: 80px" v-model ="selectedLocal " >
+        <p align="left">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+        <v-ons-select class="select" v-model ="selectedLocal " >
             <option v-for="loitem in localitems"  :value="loitem.value" >
                 {{ loitem.text }}
             </option>
         </v-ons-select> 
 
-        <v-ons-select style="width: 80px" v-model="selectedThema" >
+        <v-ons-select class="select" v-model="selectedThema" >
             <option v-for="thitem in themaitems"  :value="thitem.value" >
                 {{ thitem.text }}
             </option>
         </v-ons-select>
-
+        </p>
+        <v-ons-search-input maxlength="100" placeholder="Keywords" v-model="search"></v-ons-search-input>
         <v-ons-button class="button-margin"  @click="test_func()">Search</v-ons-button>
         <!--<v-ons-button class="button-margin"  @click="test_clear()">Clear</v-ons-button>-->
-        <p align="center">
-            <v-ons-button class="imageregist"  @click="imagesearch()">Image Search</v-ons-button>
+        <p align="right">
+            <v-ons-button class="button-margin"  @click="imagesearch()">Image</v-ons-button>
+            <v-ons-button class="button-margin" v-if="session_existed()" icon='ion-edit'
+                          @click="push(page.component, page.label)"> 투어상품 작성하기
+            </v-ons-button>
         </p>
         <v-ons-modal :visible="modalVisible" >
             <p style="text-align: right">
@@ -32,21 +36,13 @@
                 </div>
                 <div v-else>
                     <p align="right">
-                    <v-ons-button class="delete-profile-image" color="secondary" icon="delete" @click="removeImage">Delete</v-ons-button>&nbsp;&nbsp;
+                    <v-ons-button class="button-margin" icon="delete" @click="removeImage">Delete</v-ons-button>&nbsp;&nbsp;
                     </p>
-                    <v-ons-button class="send-image" color="secondary" icon="delete" @click="sendimgage()">Search</v-ons-button>
+                    <v-ons-button class="button-margin"  @click="sendimgage()">Search</v-ons-button>
                 </div>
         </v-ons-modal>
 
     </div>
-
-    <p align="right">
-
-        <v-ons-button class="maketourbutton" v-if="session_existed()" icon='ion-edit'
-                      @click="push(page.component, page.label)"> 투어상품 작성하기
-        </v-ons-button>
-    </p>
-
     <!--//보기 정렬-->
     <div class="button-group">
         <div class="buttons" align="right">
@@ -59,29 +55,29 @@
         </div>
     </div>
 
-    <v-ons-list v-if="viewType ==='list'">
+    <v-ons-list style="background: #efeff4" v-if="viewType ==='list'">
 
-        <v-ons-list-item v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
-            <div class="title2">
+        <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
+            <div class="title">
                 <strong>  {{todo.TourTitle}} </strong><br>
             </div>
             # {{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명
             &nbsp;# {{todo.TourPrice}}원 <br>
             # {{todo.TourLocation}}    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}}
-        </v-ons-list-item>
+        </v-ons-card>
 
     </v-ons-list>
 
-    <v-ons-list v-else>
+    <v-ons-list style="background: #efeff4" v-else>
         <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
-            <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
-            <div>&nbsp;</div>
-            <div class="title2">
+            <p align="center">
+            <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="300" height="230">
+            <p align="center">
+            <div class="title">
                 <strong>  {{todo.TourTitle}} </strong>
             </div>
-            <div class="test2" align="right">{{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명</div>
-            <div class="content2">
-
+            <div align="right">{{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명</div>
+            <div class="content">
                 <v-ons-list>
                     <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
                     <v-ons-list-item ># {{todo.TourLocation}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}} </v-ons-list-item>
@@ -275,10 +271,17 @@
                 } //검색엔진
                 console.log(this.filtered)
                 if(this.filtered.length !== 0){
-                    alert("Items Searched !! ");
+                    this.$ons.notification.alert({
+                        message: "투어 상품이 없습니다",
+                        title: "투어 상품 검색",
+                    });
+
                 }
                 else {
-                    alert("No items !! ");
+                    this.$ons.notification.alert({
+                        message: "투어 상품이 검색되었습니다",
+                        title: "투어 상품 검색",
+                    });
                 }
 
             },//test_func()
@@ -287,18 +290,6 @@
                     case 'view':
                         this.viewType = className;
                         break;
-                    case 'sort':
-                        this.sortType = className;
-
-                        if(className === 'sort-alpha-down')
-                            this.filtered.sort(function(a,b){return a['deadline']>b['deadline']});
-                        else if(className === 'sort-numeric-down')
-                            this.filtered.sort(function (a,b){return a['price']<b['price']});
-                        else if(className === 'star')
-                            this.filtered.sort(function (a,b){return a['TourPrice']<b['TourPrice']});
-
-
-
                 }
             }
 
@@ -451,5 +442,17 @@
         white-space: nowrap;
         width: 300px;
         }
+    .button-margin{
+        height: 35px;
+        font-size: 14px;
+        button-bar-color : #0076ff;
+    }
+    .select{
+        height: 20px;
+        width: auto;
+    }
+    .content{
+
+    }
 
 </style>
