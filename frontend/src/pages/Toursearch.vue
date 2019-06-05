@@ -149,6 +149,8 @@
                     }
                 }).then(function(data){
                     console.log("register TourItem complete");
+                    console.log("imagesearch로부터 data받기 ")
+                    console.log(data);
                 });
                 this.$ons.notification.alert({
                     message: "이미지 검색",
