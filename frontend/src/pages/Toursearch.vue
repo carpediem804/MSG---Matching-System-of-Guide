@@ -36,7 +36,7 @@
                 </div>
                 <div v-else>
                     <p align="right">
-                    <v-ons-button class="button-margin" icon="delete" @click="removeImage">Delete</v-ons-button>&nbsp;&nbsp;
+                    <v-ons-button class="button-margin" icon="trash" @click="removeImage">Delete</v-ons-button>&nbsp;&nbsp;
                     </p>
                     <v-ons-button class="button-margin"  @click="sendimgage()">Search</v-ons-button>
                 </div>
@@ -440,7 +440,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        width: 300px;
+        width: auto;
         }
     .button-margin{
         height: 35px;
