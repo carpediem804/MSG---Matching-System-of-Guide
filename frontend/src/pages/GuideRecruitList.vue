@@ -4,11 +4,11 @@
       <label class="center"  >
         <p>
         <form class='s-form'>
-          <v-ons-input float maxlength="100"
+          <v-ons-search-input float maxlength="100"
                        placeholder="Keywords"
                        v-model="name"
           >
-          </v-ons-input>
+          </v-ons-search-input>
           <v-ons-button style="text-align: center"
                         @click="test_func()">Search
           </v-ons-button>
