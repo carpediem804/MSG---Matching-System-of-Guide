@@ -216,4 +216,14 @@ router.post('/guideAuth/check', function(req, res,next) { //가이드 등록번�
         }
     })
 });
+router.post('/check/time', function(req, res,next) { //가이드 등록번호 임의로 생성.
+    console.log(req.body.params);
+    Tourinfo.findOneAndUpdate({TourNum:req.body.params.target},{$set:{TourState :req.body.params.change_stat}},{new: true},function(err,data){
+        if (err) {
+            console.log(err);
+        }
+        console.log(data);
+        res.send("된다")
+    });
+});
 module.exports = router;

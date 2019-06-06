@@ -58,18 +58,25 @@
     <v-ons-list style="background: #efeff4" v-if="viewType ==='list'">
 
         <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
+            <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start) === 0">
+            </div>
             <div class="title">
                 <strong>  {{todo.TourTitle}} </strong><br>
             </div>
             # {{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명
             &nbsp;# {{todo.TourPrice}}원 <br>
             # {{todo.TourLocation}}    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}}
+            <br>
+            # {{todo.TourDayandTime_start}}
+            # {{test_time}}
         </v-ons-card>
 
     </v-ons-list>
 
     <v-ons-list style="background: #efeff4" v-else>
         <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
+            <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start) === 0">
+            </div>
             <p align="center">
             <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="300" height="230">
             <p align="center">
@@ -82,6 +89,20 @@
                     <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
                     <v-ons-list-item ># {{todo.TourLocation}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}} </v-ons-list-item>
                     <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
+                    <v-ons-list-item>
+                        상태 : {{todo.TourState}}
+                    </v-ons-list-item>
+                    <v-ons-list-item>
+                        <div class="time_check1" v-if="todo.TourState === 0">
+                            여행객 모집 중!!!!!!!!!!!!!!!
+                        </div>
+                        <div class="time_check2" v-if="todo.TourState === 1">
+                            여행객 모집 완료!!!!!!!!!!!!!!!
+                        </div>
+                        <div class="time_check3" v-if="todo.TourState === 2">
+                            여행 끄으읕!!!!!!!!!!!!!
+                        </div>
+                    </v-ons-list-item>
                 </v-ons-list>
             </div>
         </v-ons-card>
@@ -102,6 +123,58 @@
 
     export default {
         methods: {
+            time_check(target, state, key){
+                var time_register = this.$moment(key).format('YYYYMMDD');
+                var time_present =  this.$moment(new Date()).format('YYYYMMDD');
+                var temp = time_register - time_present;
+                console.log(temp);
+                if(target === 0){
+                    return 0;
+                }
+                if(temp > 0 && temp <= 3 && state !== 1){
+                        this.$http.post('http://localhost:8000/checkInfo/check/time', {
+                            params: {
+                                change_stat: 1,
+                                target: target
+                            }
+                        })
+                            .then((response) => {
+                                    return 0;
+                                },
+                                (error) => { // error 를 보여줌
+                                    alert(error.response.data.error)
+                                }
+                            )
+                            .catch(error => {
+                                alert(error);
+                                return 0;
+                            })
+                        //state를 1로 바꿔줘야 해.
+                        //업데이트 하는 백쪽 연결,
+                }
+                else if(temp <= 0 && state !== 2){
+                        this.$http.post('http://localhost:8000/checkInfo/check/time', {
+                            params: {
+                                change_stat: 2,
+                                target: target
+                            }
+                        })
+                            .then((response) => {
+                                    return 0;
+                                },
+                                (error) => { // error 를 보여줌
+                                    alert(error.response.data.error)
+                                }
+                            )
+                            .catch(error => {
+                                alert(error);
+                                return 0;
+                            });
+                }
+                else{
+                    return 0;
+                }
+            },
             // test_clear(){
             //
             //     return localStorage.clear();
@@ -121,7 +194,7 @@
             },
 
             createImage(file) {
-                var reader = new FileReader()
+                var reader = new FileReader();
                 var vm = this
 
                 reader.onload = (e) => {
@@ -149,8 +222,6 @@
                 formData.append('file',this.selectedFile);
                 axios.post('http://localhost:8000/imagesearch',formData,{
                     params: {
-
-
                     }
                 }).then(function(data){
                     console.log("register TourItem complete");
@@ -297,6 +368,7 @@
 
             data() {
                 return {
+                    test_time: this.$moment(new Date()).format('YYYYMMDD'),
                     modalVisible: false,
                     timeoutID: 0,
                     userImage: '',
@@ -451,8 +523,56 @@
         height: 20px;
         width: auto;
     }
-    .content{
-
+    .time_check1{
+        display: block;
+        width: 100%;
+        height: 50px;
+        margin: 20px 0 14px;
+        padding-top: 1px;
+        border: none;
+        border-radius: 0;
+        background-color: #01DF01;
+        cursor: pointer;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 61px;
+        -webkit-appearance: none;
+    }
+    .time_check2{
+        display: block;
+        width: 100%;
+        height: 50px;
+        margin: 20px 0 14px;
+        padding-top: 1px;
+        border: none;
+        border-radius: 0;
+        background-color: #F79F81;
+        cursor: pointer;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 61px;
+        -webkit-appearance: none;
+    }
+    .time_check3{
+        display: block;
+        width: 100%;
+        height: 50px;
+        margin: 20px 0 14px;
+        padding-top: 1px;
+        border: none;
+        border-radius: 0;
+        background-color: #2E64FE;
+        cursor: pointer;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 61px;
+        -webkit-appearance: none;
     }
 
 </style>

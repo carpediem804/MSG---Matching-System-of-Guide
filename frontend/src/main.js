@@ -18,8 +18,13 @@ import firebase from 'firebase';
 import 'expose-loader?$!expose-loader?jQuery!jquery'
 import IMP from 'vue-iamport'
 
+import moment from 'moment'
+import VueMomentJS from 'vue-momentjs'
+
 Vue.use(Vuex);
 Vue.use(VueOnsen);
+Vue.use(VueMomentJS, moment);
+
 // Vue.use(VueLocalStorage);
 // Register components globally
 // Object.values(OnsenComponents).forEach(component => Vue.component(component.name, component)); // For ESM
