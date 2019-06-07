@@ -33,6 +33,21 @@
         </v-ons-card>
         <v-ons-card>
             가이드 프로필
+            <div class="guide_info" v-show="show_info === true">
+                <v-ons-card v-for="item in guide_info">
+                    <img v-bind:src="'http://localhost:8000/'+item.User_ImageURL" alt="MSG" width="275" height="230">
+                    <v-ons-card>이메일 : {{item.Email}}</v-ons-card>
+                    <v-ons-card>이름 : {{item.Name}}</v-ons-card>
+                    <v-ons-card>핸드폰 번호 : {{item.PhoneNum}}</v-ons-card>
+                    <v-ons-card>카카오 ID : {{item.kakaoID}}</v-ons-card>
+                    <v-ons-card>가이드 등록번호 : {{item.Auth}}</v-ons-card>
+                    <v-ons-card>평점 :
+                        <ons-icon v-for="n in Math.floor(item.GuideGrade)" icon="fa-star"></ons-icon>
+                        <ons-icon v-if="count(item.GuideGrade)" icon="fa-star-half-alt"></ons-icon>
+                        {{item.GuideGrade}} / {{item.Total_Review}}명 평가</v-ons-card>
+                    <v-ons-card>여행 진행 건수 : {{item.GuideGrade}}</v-ons-card>
+                </v-ons-card>
+            </div>
             <p align="right">
                 <v-ons-button class="show_info" v-show="show_info === false" icon='fa-angle-down'
                               @click="show_guide_info(tour.UserID)"> 보기
@@ -42,21 +57,6 @@
                 </v-ons-button>
             </p>
         </v-ons-card>
-        <div class="guide_info" v-show="show_info === true">
-            <v-ons-card v-for="item in guide_info">
-                <img v-bind:src="'http://localhost:8000/'+item.User_ImageURL" alt="MSG" width="275" height="230">
-                <v-ons-card>이메일 : {{item.Email}}</v-ons-card>
-                <v-ons-card>이름 : {{item.Name}}</v-ons-card>
-                <v-ons-card>핸드폰 번호 : {{item.PhoneNum}}</v-ons-card>
-                <v-ons-card>카카오 ID : {{item.kakaoID}}</v-ons-card>
-                <v-ons-card>가이드 등록번호 : {{item.Auth}}</v-ons-card>
-                <v-ons-card>평점 :
-                    <ons-icon v-for="n in Math.floor(item.GuideGrade)" icon="fa-star"></ons-icon>
-                    <ons-icon v-if="count(item.GuideGrade)" icon="fa-star-half-alt"></ons-icon>
-                    {{item.GuideGrade}} / {{item.Total_Review}}명 평가</v-ons-card>
-                <v-ons-card>여행 진행 건수 : {{item.GuideGrade}}</v-ons-card>
-            </v-ons-card>
-        </div>
     </div>
     <div v-if="session_existed()===2"></div>
     <div v-else>
