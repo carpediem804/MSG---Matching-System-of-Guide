@@ -21,8 +21,8 @@
         <br>
         {{ present_user.name }}님 / {{ present_user.type }}<br>
        <div v-if="session_existed()">
-        <ons-icon v-for="n in Math.floor(UserGrade)" icon="fa-star"></ons-icon>
-        <ons-icon v-if="count(UserGrade)" icon="fa-star-half-alt"></ons-icon>
+        <ons-icon v-for="n in Math.floor(UserGrade)" icon="fa-star" style="color: gold"></ons-icon>
+        <ons-icon v-if="count(UserGrade)" icon="fa-star-half-alt"style="color: gold"></ons-icon>
            {{UserGrade}} 점<br>
        </div>
 

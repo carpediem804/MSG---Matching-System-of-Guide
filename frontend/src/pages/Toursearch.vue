@@ -52,11 +52,17 @@
                     v-on:click="toggleList('view',b.class)">
                 <i class="fas" v-bind:class="'fa-'+b.class"></i>
             </button>
+
+            <span>sort</span>
+            <button v-for="b in buttons.sort" v-bind:title="b.title"
+                    v-bind:class="sortType == b.class?'selected':''"
+                    v-on:click="toggleList('sort',b.class)">
+                <i class="fas" v-bind:class="'fa-'+b.class"></i>
+            </button>
         </div>
     </div>
 
     <v-ons-list style="background: #efeff4" v-if="viewType ==='list'">
-
         <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
             <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start) === 0">
             </div>
@@ -70,7 +76,6 @@
             # {{todo.TourDayandTime_start}}
             # {{test_time}}
         </v-ons-card>
-
     </v-ons-list>
 
     <v-ons-list style="background: #efeff4" v-else>
@@ -123,6 +128,7 @@
 
     export default {
         methods: {
+
             time_check(target, state, key){
                 var time_register = this.$moment(key).format('YYYYMMDD');
                 var time_present =  this.$moment(new Date()).format('YYYYMMDD');
@@ -361,6 +367,27 @@
                     case 'view':
                         this.viewType = className;
                         break;
+                    case 'sort':
+                        this.sortType = className;
+                        if(className === 'sort-numeric-up')
+                        {
+                            this.filtered.sort(function (a, b) {return a['dealdline'] > b['deadline']});
+                            console.log("시간");
+                        }
+                        if(className === 'sort-alpha-down')
+                        {   console.log(this.filtered);
+                            this.filtered.sort(function(a,b){return a.TourTitle > b.TourTitle});
+                            console.log("제목");
+                            console.log(this.filtered);
+                        }
+                        if(className === 'star')
+                        {  console.log(this.filtered);
+                            this.filtered.sort(function(a,b){return a.TourPrice - b.TourPrice});
+                            console.log("가격");
+
+                            console.log(this.filtered);
+                        }
+
                 }
             }
 
@@ -465,6 +492,11 @@
                         'view':[
                             {'class': 'list', 'title':'view in list', selected:false},
                             {'class': 'th-large', 'title':'view in thumbnail', selected:true}
+                        ],
+                        'sort':[
+                            {'class': 'sort-numeric-up', 'title':'sort by deadline '},
+                            {'class': 'sort-alpha-down', 'title':'sort by alphabet'},
+                            {'class': 'star', 'title':'sort by stars'},
                         ]
                     }
 

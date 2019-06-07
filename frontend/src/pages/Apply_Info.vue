@@ -3,9 +3,10 @@
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
         <div class="travler" v-if="session_type()">
             <p align="right">
-                <v-ons-button class="Delete_button" icon="trash" style="width:150px"
+                <v-ons-button class="Delete_button" icon="trash" style="width:auto"
                               @click="cancel_info()"> 신청취소
                 </v-ons-button>
+                <v-ons-button class="review" icon="edit" @click="push1(page2.component, page2.label)" >리뷰</v-ons-button>
             </p>
             <v-ons-list-header>세부 정보</v-ons-list-header>
             <v-ons-card>
@@ -102,9 +103,11 @@
 
 <script>
     import Check_Apply_Info2 from "./Check_Apply_Info2.vue";
+    import EditReview from "./EditReview.vue";
 
     export default {
         methods: {
+
             count(counter){
                 var temp = counter;
                 temp = temp - Math.floor(counter);
@@ -221,6 +224,10 @@
                 page: {
                     component:Check_Apply_Info2,
                     label: '신청 가이드 정보'
+                },
+                page2:{
+                    component:EditReview,
+                    label: '리뷰작성'
                 },
                 temp_people_num: 0,
                 item : this.$store.state.item,
