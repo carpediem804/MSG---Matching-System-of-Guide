@@ -35,9 +35,9 @@
                     <input type="file" round class="change-profile-image" @change="onFileChange" />
                 </div>
                 <div v-else>
-                    <p align="right">
+                    <div align="right">
                     <v-ons-button class="button-margin" icon="trash" @click="removeImage">Delete</v-ons-button>&nbsp;&nbsp;
-                    </p>
+                    </div>
                     <v-ons-button class="button-margin"  @click="sendimgage()">Search</v-ons-button>
                 </div>
         </v-ons-modal>
