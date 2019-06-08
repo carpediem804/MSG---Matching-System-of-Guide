@@ -26,14 +26,17 @@ const UserSchema = new mongoose.Schema({
     Auth : {
         type : Number
     },
-    GuideGrade :{
-        type : Number
+    GuideGrade :{//가이드 전체 평점
+        type : Number,
+        default : 0
     },
-    Total_Tour:{
-        type : Number
+    Total_Tour:{ //지금까지 진행한 여행건수
+        type : Number,
+        default : 0
     },
-    Total_Review:{
-        type : Number
+    Total_Review:{ //리뷰개수
+        type : Number,
+        default : 0
     }
 });
 

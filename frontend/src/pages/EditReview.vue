@@ -89,16 +89,18 @@
             }
 
         },
-        // beforeCreate() {
-        //     this.$http.get('http://localhost:8000/getTourList/custom').then(res => {
-        //         console.log("리뷰리뷰~ ")
-        //         //this.prereview = res.data.tourdata; 주소정하자
-        //
-        //     }).catch(res => {
-        //         console.log(res)
-        //     })
-        //
-        // },
+        beforeCreate() {
+            axios.post('http://localhost:8000/review/list',{
+                params: {
+                    guideID: this.$store.state.guideid
+                }
+            }).then(function(data){
+                console.log("받았따");
+                this.prereview = data.data;
+                alert('리스트리스트.');
+            })
+
+        },
     }
 </script>
 
