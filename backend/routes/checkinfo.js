@@ -7,6 +7,7 @@ const guideinfo = require('../db/models/ApplyRecruit');
 const applyrecruit = require('../db/models/ApplyRecruit');
 const userinfo = require('../db/models/Userinfo');
 const Guide_Auth_info = require('../db/models/Guide_Auth');
+const Token = require('../db/models/Token');
 
 router.post('/register', function(req, res,next){
     console.log("checkinfo/register로 들어옴");
@@ -225,5 +226,34 @@ router.post('/check/time', function(req, res,next) { //가이드 등록번호 �
         console.log(data);
         res.send("된다")
     });
+});
+router.post('/check/token', function(req, res,next) { //가이드 등록번호 임의로 생성.
+    console.log(req.body.params);
+    if(req.body.params.token === null || req.body.params.id === null){
+        res.send("둘중에 하나라도 null 값 들어가있어서 아무것도 안했어.")
+    }
+    else{
+        Token.findOneAndUpdate({Token:req.body.params.token},{$set:{ID:req.body.params.id}},{new: true},function(err,data){
+            if (err) {
+                console.log(err);
+            }
+            console.log(data);
+            if(data === null){
+                let new_token = new Token();
+                new_token.ID = req.body.params.id;
+                new_token.Token = req.body.params.token;
+                new_token.save(function (err, data) {
+                    if (err) {
+                        res.send(err);
+                    } else {
+                        res.send("새로 저장 data" + data);
+                    }
+                });
+            }
+            else{
+                res.send("기존 data" + data);
+            }
+    });
+    }
 });
 module.exports = router;

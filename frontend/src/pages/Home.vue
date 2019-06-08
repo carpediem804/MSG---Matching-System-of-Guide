@@ -11,6 +11,24 @@
 
 <script>
 export default {
+  beforeCreate(){
+    this.$http.post('http://localhost:8000/checkinfo/check/token', {
+      params: {
+        id: localStorage.getItem("newEmail"),
+        token: localStorage.getItem("newToken")
+      }
+    })
+            .then((response) => {  //로그인 성공;
+                     console.log(response);
+                    },
+                    (error) => { // error 를 보여줌
+                      console.log(error);
+                    }
+            )
+            .catch(error => {
+              alert(error)
+            })
+  },
   data() {
     return {
   };

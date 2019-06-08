@@ -155,8 +155,6 @@
                                 alert(error);
                                 return 0;
                             })
-                        //state를 1로 바꿔줘야 해.
-                        //업데이트 하는 백쪽 연결,
                 }
                 else if(temp <= 0 && state !== 2){
                         this.$http.post('http://localhost:8000/checkInfo/check/time', {
