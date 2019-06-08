@@ -12,13 +12,15 @@
             </v-ons-list>
 
             <v-ons-card :modifier="md ? 'nodivider' : ''">
+
                 <div>
+                    {{myID}}<br>
                     평점 : <v-ons-input maxlength="20"
                                  placeholder="평점"
                                  v-model="myreview.mystar"></v-ons-input>
 
                     <textarea name="content" v-model="myreview.mytext" cols="30" rows="5" placeholder="리뷰를 남겨주세요."></textarea>
-                    <v-ons-button align="right">Submit</v-ons-button>
+                    <v-ons-button align="right" @click="submit2()">Submit</v-ons-button>
                 </div>
             </v-ons-card>
 
@@ -30,7 +32,6 @@
     import firebase from 'firebase'
     import axios from 'axios'
     export default {
-        name: "EditReview",
         methods: {
             count(counter){
                 var temp = counter;
@@ -42,9 +43,33 @@
 
                 return this.checkGrade;
             },
+            submit2(){
+                console.log(this.myreview.mytext);
+                console.log(this.myreview.mystar);
+                console.log(this.myID);
+                console.log("user: "+ this.$store.state.guideid);
+                //console.log(this.user);
+                axios.post('http://localhost:8000/review',{
+                    params: {
+                        mytext : this.myreview.mytext,
+                        mystar : this.myreview.mystar,
+                        myuserID: this.myID,
+                        guideID: this.$store.state.guideid
+                    }
+                }).then(function(data){
+                    console.log("던졋다");
+
+                    alert('제출되었습니다.');
+                })
+
+
+               // location.reload();
+            }
         },
         data(){
             return{
+                guide: this.$store.state.guideid,
+                myID: localStorage.getItem('newEmail'),
                 checkGrade : false,
                 prereview : [{
                     pretext: "review",
@@ -58,9 +83,8 @@
                     },
                 ],
                 myreview : [{
-                    mytext: "myreview",
-                    mystar: 2,
-                    myuserID: "Me"
+                    mytext: "",
+                    mystar: Number,
                 }]
             }
 

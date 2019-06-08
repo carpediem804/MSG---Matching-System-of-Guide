@@ -8,6 +8,7 @@ var ReviewSchema = new mongoose.Schema({
         type:String,
         required: true
     },
+    Content : [],
     ReviewGrade: Number,
     TotalGrade: String,
     PeopleNum: String,

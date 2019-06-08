@@ -10,12 +10,12 @@ router.post('/',function(req,res,next){
             console.log("이미지없음")
         }
         else {
+            console.log("되고있따아앙~~ ");
          //   console.log("laskdfjiaoewfjasdlkfs\n"+detectLandmarks(req.file.filename));
             detectLandmarks(req.file.filename).then(function(senddata){
-
-
-             senddata.forEach(data => console.log(data));
-               res.json(senddata);
+          //   console.log(senddata);
+                senddata.forEach(data => console.log(data));
+             res.json(senddata);
             });
 
            //console.log(senddata);
@@ -42,7 +42,7 @@ async function detectLandmarks(fileName) {
     // Performs landmark detection on the local file
     const [result] = await client.landmarkDetection(fileName);
     const landmarks = result.landmarkAnnotations;
-    console.log(landmarks);
+  //  console.log(landmarks);
    // console.log(landmarks.description);
     // console.log('Landmarks:');
     // console.log("landmark[0] = " +landmarks[0][0]);

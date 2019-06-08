@@ -1,19 +1,22 @@
 <template>
   <v-ons-page>
     <div class="center" style="text-align: center;">
-      <label class="center"  >
-        <p>
-        <form class='s-form'>
-          <v-ons-search-input float maxlength="100"
-                       placeholder="Keywords"
-                       v-model="name"
-          >
-          </v-ons-search-input>
-          <v-ons-button style="text-align: center"
-                        @click="test_func()">Search
-          </v-ons-button>
-        </form>
-      </label>
+      <v-ons-list>
+        <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+          <label class="center">
+            &nbsp;&nbsp;&nbsp;&nbsp;                
+              <v-ons-search-input maxlength="20"
+                    placeholder="Search"
+                    v-model="name"
+              >
+              </v-ons-search-input>
+              <v-ons-button class="button-margin"  @click="test_func()">
+                <ons-icon icon="fa-search"></ons-icon>
+              </v-ons-button>
+          </label>
+        </v-ons-list-item>
+      </v-ons-list>
+      
       <v-ons-list>
         <v-ons-card v-for="item in filtered" @click="push(page2.component, page2.label, item)">
           <!--<img src="../assets/background4.jpg" alt="Image File" style="width:310px; height:auto">-->

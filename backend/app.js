@@ -10,6 +10,7 @@ const checkinfo = require('./routes/checkinfo')
 const applytour = require('./routes/applytour')
 const confirm = require('./routes/confirm');
 const imagesearch = require('./routes/imagesearch');
+const review = require('./routes/review');
 const app = express()
 
 app.use((req, res, next) =>{
@@ -30,4 +31,5 @@ app.use('/checkInfo',checkinfo);
 app.use('/applyTour',applytour);
 app.use('/confirm',confirm);
 app.use('/imagesearch',imagesearch);
+app.use('/review',review);
 module.exports = app;
