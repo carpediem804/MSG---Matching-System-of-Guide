@@ -171,6 +171,21 @@
                     }
                 });
             },
+            push1(page, key, todo) {
+                this.$store.state.user = todo;
+                this.$store.state.target = this.item.RecruitNum;
+                this.$store.commit('navigator/push', {
+                    extends: page,
+                    data() {
+                        return {
+                            toolbarInfo: {
+                                backLabel: 'Back',
+                                title: key
+                            }
+                        }
+                    }
+                });
+            },
             cancel_info(){
                 if(localStorage.getItem('newType') === '여행객' ){
                     for(var i=0; i<this.item.TourApplyList2.length; i++){
