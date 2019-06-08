@@ -12,11 +12,17 @@ router.post('/',function(req,res,next){
         else {
             console.log("되고있따아앙~~ ");
          //   console.log("laskdfjiaoewfjasdlkfs\n"+detectLandmarks(req.file.filename));
-            detectLandmarks(req.file.filename).then(function(senddata){
-          //   console.log(senddata);
-                senddata.forEach(data => console.log(data));
-             res.json(senddata);
-            });
+
+               detectLandmarks(req.file.filename).then(function (err,senddata) {
+                   if(err){
+                       console.log(err)
+                   }
+                   else {
+                       //   console.log(senddata);
+                       senddata.forEach(data => console.log(data));
+                       res.json(senddata);
+                   }
+               });
 
            //console.log(senddata);
 //            res.send(detectLandmarks(req.file.filename));
