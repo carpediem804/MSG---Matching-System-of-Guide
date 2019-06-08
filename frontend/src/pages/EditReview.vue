@@ -14,7 +14,7 @@
             <v-ons-card :modifier="md ? 'nodivider' : ''">
 
                 <div>
-                    아이디:  {{user}}<br>
+                    아이디:  {{guide}}<br>
                     평점 : <v-ons-input maxlength="20"
                                  placeholder="평점"
                                  v-model="myreview.mystar"></v-ons-input>
@@ -32,7 +32,6 @@
     import firebase from 'firebase'
     import axios from 'axios'
     export default {
-        name: "EditReview",
         methods: {
             count(counter){
                 var temp = counter;
@@ -46,13 +45,13 @@
             },
             submit2(){
                 console.log("myreview"+this.myreview);
-                console.log("user"+ this.$store.state.user);
+                console.log("user"+ this.$store.state.guideid);
                 //console.log(this.user);
                 axios.post('http://localhost:8000/review',{
                     params: {
                         mytext : this.myreview.mytext,
                         mystar : this.myreview.mystar,
-                        guideID: this.$store.state.user
+                        guideID: this.$store.state.guideid
                     }
                 }).then(function(data){
                     console.log("던졋다");
@@ -67,7 +66,7 @@
         },
         data(){
             return{
-                user: this.$store.state.user,
+                guide: this.$store.state.guideid,
 
                 checkGrade : false,
                 prereview : [{

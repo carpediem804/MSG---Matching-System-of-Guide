@@ -6,7 +6,7 @@
                 <v-ons-button class="Delete_button" icon="trash" style="width:auto"
                               @click="cancel_info()"> 신청취소
                 </v-ons-button>
-                <v-ons-button  class="review" icon="edit" @click="push1(page2.component, page2.label,item.GuideID)" >리뷰</v-ons-button>
+                <v-ons-button  class="review" icon="edit" @click="push2(page2.component, page2.label,item.UserID)" >리뷰</v-ons-button>
             </p>
             <v-ons-list-header>세부 정보</v-ons-list-header>
             <v-ons-card>
@@ -171,9 +171,11 @@
                     }
                 });
             },
-            push1(page, key, todo) {
-                this.$store.state.user = todo;
-                this.$store.state.target = this.item.RecruitNum;
+            push2(page, key, guide) {
+                console.log("가이드아이디");
+                console.log(guide);
+                this.$store.state.guideid = guide;
+                console.log(this.$store.state.guideid);
                 this.$store.commit('navigator/push', {
                     extends: page,
                     data() {

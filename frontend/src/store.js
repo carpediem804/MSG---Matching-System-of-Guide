@@ -6,6 +6,7 @@ export default {
       state: {
         user:'',
         target:'',
+        guideid:'',
         tour:[],
         item: [],
         stack: [],
