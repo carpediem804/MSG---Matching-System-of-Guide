@@ -255,7 +255,7 @@
 
   .dots {
     text-align: center;
-    font-size: 30px;
+    font-size: 20px;
     color: #fff;
     position: absolute;
     bottom: 40px;
