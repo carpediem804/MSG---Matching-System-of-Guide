@@ -227,7 +227,7 @@ router.post('/check/time', function(req, res,next) { //가이드 등록번호 �
         res.send("된다")
     });
 });
-router.post('/check/token', function(req, res,next) { //가이드 등록번호 임의로 생성.
+router.post('/check/token', function(req, res,next) {
     console.log(req.body.params);
     if(req.body.params.token === null || req.body.params.id === null){
         res.send("둘중에 하나라도 null 값 들어가있어서 아무것도 안했어.")
@@ -255,5 +255,33 @@ router.post('/check/token', function(req, res,next) { //가이드 등록번호 �
             }
     });
     }
+});
+router.post('/alarm', function(req, res,next){
+    console.log(req.body.params);
+    console.log("레드 라인");
+    Token.find({ID:req.body.params.target},function(err,data){
+        console.log(data);
+    });
+});
+router.post('/guide/addtour', function(req, res,next){
+    console.log(req.body.params.user_id);
+    userinfo.findOne({Email: req.body.params.user_id},function(err,data){
+        if(err){
+            console.log(err);
+        }
+        else {
+            console.log(data);
+            const update_tour =  (data.Total_Tour+1)*1;
+            userinfo.update({Email: req.body.params.user_id},{$set:{Total_Tour : update_tour}},function(err,data2){
+                if(err){
+                    console.log(err);
+                }
+                else {
+                    console.log(data2);
+                    res.send(data2);
+                }
+            });
+        }
+    });
 });
 module.exports = router;

@@ -45,7 +45,7 @@
                         <ons-icon v-for="n in Math.floor(item.GuideGrade)" icon="fa-star"></ons-icon>
                         <ons-icon v-if="count(item.GuideGrade)" icon="fa-star-half-alt"></ons-icon>
                         {{item.GuideGrade}} / {{item.Total_Review}}명 평가</v-ons-card>
-                    <v-ons-card>여행 진행 건수 : {{item.GuideGrade}}</v-ons-card>
+                    <v-ons-card>여행 진행 건수 : {{item.Total_Tour}}</v-ons-card>
                 </v-ons-card>
             </div>
             <p align="right">
@@ -58,8 +58,7 @@
             </p>
         </v-ons-card>
     </div>
-    <div v-if="session_existed()===2"></div>
-    <div v-else>
+    <div v-if="session_existed()!==2 && tour.TourState === 0">
         <P align="center">
             <button class="button_notapply" disabled="true" v-if="tour.TourNowPeopleNum>= tour.TourMaxNum" @click="applyTour()">투어상품 신청하기</button>
             <button class="button_apply" v-else @click="applyTour()">투어상품 신청하기</button>

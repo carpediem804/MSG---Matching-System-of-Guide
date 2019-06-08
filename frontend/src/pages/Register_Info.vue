@@ -3,9 +3,11 @@
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
         <div class="travler" v-if="session_type()">
             <p align="right">
-                <v-ons-button class="Delete_button" icon="trash" style="width:150px"
+                <v-ons-button class="Delete_button"  icon="trash" style="width:auto"
                               @click="delete_info()"> 삭제하기
                 </v-ons-button>
+                <v-ons-button class="review"  icon="edit" style="width:auto" v-if="item.Apply_state === 1"
+                              @click="push2(page2.component, page2.label, item.UserID)">리뷰</v-ons-button>
             </p>
             <v-ons-list-header>세부 정보</v-ons-list-header>
             <v-ons-list>
@@ -62,6 +64,7 @@
 
 <script>
     import Check_Apply_Info from "./Check_Apply_Info.vue";
+    import EditReview from "./EditReview.vue";
 
     export default {
         methods: {
@@ -84,6 +87,20 @@
             push1(page, key, todo) {
                 this.$store.state.user = todo;
                 this.$store.state.target = this.item.RecruitNum;
+                this.$store.commit('navigator/push', {
+                    extends: page,
+                    data() {
+                        return {
+                            toolbarInfo: {
+                                backLabel: 'Back',
+                                title: key
+                            }
+                        }
+                    }
+                });
+            },
+            push2(page, key, todo) {
+                this.$store.state.guideid = todo;
                 this.$store.commit('navigator/push', {
                     extends: page,
                     data() {
@@ -121,6 +138,10 @@
                 page: {
                     component: Check_Apply_Info,
                     label: '신청 가이드 정보'
+                },
+                page2:{
+                    component:EditReview,
+                    label: '리뷰작성'
                 },
                 item : this.$store.state.item
             };
