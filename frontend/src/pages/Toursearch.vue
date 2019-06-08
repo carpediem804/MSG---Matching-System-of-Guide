@@ -1,29 +1,65 @@
 <template>
 <v-ons-page>
     <div class="test2" align="center">
-        <p align="left">
-            &nbsp;&nbsp;&nbsp;&nbsp;
-        <v-ons-select class="select" v-model ="selectedLocal " >
-            <option v-for="loitem in localitems"  :value="loitem.value" >
-                {{ loitem.text }}
-            </option>
-        </v-ons-select> 
+        <v-ons-list>
+            <p align="left">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <v-ons-select class="select" v-model ="selectedLocal " >
+                    <option v-for="loitem in localitems"  :value="loitem.value" >
+                        {{ loitem.text }}
+                    </option>
+                </v-ons-select> 
+                <v-ons-select class="select" v-model="selectedThema" >
+                    <option v-for="thitem in themaitems"  :value="thitem.value" >
+                        {{ thitem.text }}
+                    </option>
+                </v-ons-select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <v-ons-button class="button-margin"  @click="imagesearch()">Image Search</v-ons-button>
+            </p>
+            <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+            <label class="center">
+                &nbsp;&nbsp;&nbsp;&nbsp;                
+                <v-ons-search-input maxlength="20"
+                    placeholder="Search"
+                    v-model="search"
+                >
+                </v-ons-search-input>
+                <v-ons-button class="button-margin"  @click="test_func()">
+                    <ons-icon icon="fa-search"></ons-icon>
+                </v-ons-button>
 
-        <v-ons-select class="select" v-model="selectedThema" >
-            <option v-for="thitem in themaitems"  :value="thitem.value" >
-                {{ thitem.text }}
-            </option>
-        </v-ons-select>
-        </p>
-        <v-ons-search-input maxlength="100" placeholder="Keywords" v-model="search"></v-ons-search-input>
-        <v-ons-button class="button-margin"  @click="test_func()">Search</v-ons-button>
-        <!--<v-ons-button class="button-margin"  @click="test_clear()">Clear</v-ons-button>-->
-        <p align="right">
-            <v-ons-button class="button-margin"  @click="imagesearch()">Image</v-ons-button>
-            <v-ons-button class="button-margin" v-if="session_existed()" icon='ion-edit'
-                          @click="push(page.component, page.label)"> 투어상품 작성하기
-            </v-ons-button>
-        </p>
+                <!-- <v-ons-icon icon="fa-search"></v-ons-icon> -->
+            </label>
+            <!-- <div class="center">
+                <v-ons-icon icon="fa-search"></v-ons-icon>
+            </div> -->
+            </v-ons-list-item>
+            <p align="right">
+                <v-ons-button class="button-margin" v-if="session_existed()" icon='ion-edit'
+                    @click="push(page.component, page.label)"> 투어상품 등록
+                </v-ons-button>
+            </p>
+            <!--//보기 정렬-->
+            <div class="button-group">
+                <div class="buttons" align="right">
+                    <span>view</span>
+                    <button v-for="b in buttons.view" v-bind:title="b.title"
+                            v-bind:class="viewType == b.class?'selected':''"
+                            v-on:click="toggleList('view',b.class)">
+                        <i class="fas" v-bind:class="'fa-'+b.class"></i>
+                    </button>
+
+                    <span>sort</span>
+                    <button v-for="b in buttons.sort" v-bind:title="b.title"
+                            v-bind:class="sortType == b.class?'selected':''"
+                            v-on:click="toggleList('sort',b.class)">
+                        <i class="fas" v-bind:class="'fa-'+b.class"></i>
+                    </button>
+                </div>
+            </div>
+            &nbsp;
+        </v-ons-list>
         <v-ons-modal :visible="modalVisible" >
             <p style="text-align: right">
             <v-ons-icon class="send-image" size="30px" icon="close" @click="closesearch()"></v-ons-icon>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -43,80 +79,58 @@
         </v-ons-modal>
 
     </div>
-    <!--//보기 정렬-->
-    <div class="button-group">
-        <div class="buttons" align="right">
-            <span>view</span>
-            <button v-for="b in buttons.view" v-bind:title="b.title"
-                    v-bind:class="viewType == b.class?'selected':''"
-                    v-on:click="toggleList('view',b.class)">
-                <i class="fas" v-bind:class="'fa-'+b.class"></i>
-            </button>
+    <v-ons-list>
+        <v-ons-list style="background: #efeff4" v-if="viewType ==='list'">
+            <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
+                <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start) === 0">
+                </div>
+                <div class="title">
+                    <strong>  {{todo.TourTitle}} </strong><br>
+                </div>
+                # {{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명
+                &nbsp;# {{todo.TourPrice}}원 <br>
+                # {{todo.TourLocation}}    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}}
+                <br>
+                # {{todo.TourDayandTime_start}}
+                # {{test_time}}
+            </v-ons-card>
+        </v-ons-list>
 
-            <span>sort</span>
-            <button v-for="b in buttons.sort" v-bind:title="b.title"
-                    v-bind:class="sortType == b.class?'selected':''"
-                    v-on:click="toggleList('sort',b.class)">
-                <i class="fas" v-bind:class="'fa-'+b.class"></i>
-            </button>
-        </div>
-    </div>
-
-    <v-ons-list style="background: #efeff4" v-if="viewType ==='list'">
-        <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
-            <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start) === 0">
-            </div>
-            <div class="title">
-                <strong>  {{todo.TourTitle}} </strong><br>
-            </div>
-            # {{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명
-            &nbsp;# {{todo.TourPrice}}원 <br>
-            # {{todo.TourLocation}}    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}}
-            <br>
-            # {{todo.TourDayandTime_start}}
-            # {{test_time}}
-        </v-ons-card>
+        <v-ons-list style="background: #efeff4" v-else>
+            <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
+                <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start) === 0">
+                </div>
+                <p align="center">
+                <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="300" height="230">
+                <p align="center">
+                <div class="title">
+                    <strong>  {{todo.TourTitle}} </strong>
+                </div>
+                <div align="right">{{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명</div>
+                <div class="content">
+                    <v-ons-list>
+                        <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
+                        <v-ons-list-item ># {{todo.TourLocation}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}} </v-ons-list-item>
+                        <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
+                        <v-ons-list-item>
+                            상태 : {{todo.TourState}}
+                        </v-ons-list-item>
+                        <v-ons-list-item>
+                            <div class="time_check1" v-if="todo.TourState === 0">
+                                여행객 모집 중!!!!!!!!!!!!!!!
+                            </div>
+                            <div class="time_check2" v-if="todo.TourState === 1">
+                                여행객 모집 완료!!!!!!!!!!!!!!!
+                            </div>
+                            <div class="time_check3" v-if="todo.TourState === 2">
+                                여행 끄으읕!!!!!!!!!!!!!
+                            </div>
+                        </v-ons-list-item>
+                    </v-ons-list>
+                </div>
+            </v-ons-card>
+        </v-ons-list>
     </v-ons-list>
-
-    <v-ons-list style="background: #efeff4" v-else>
-        <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
-            <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start) === 0">
-            </div>
-            <p align="center">
-            <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="300" height="230">
-            <p align="center">
-            <div class="title">
-                <strong>  {{todo.TourTitle}} </strong>
-            </div>
-            <div align="right">{{todo.TourNowPeopleNum}}명 / {{todo.TourMaxNum}}명</div>
-            <div class="content">
-                <v-ons-list>
-                    <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
-                    <v-ons-list-item ># {{todo.TourLocation}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}} </v-ons-list-item>
-                    <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
-                    <v-ons-list-item>
-                        상태 : {{todo.TourState}}
-                    </v-ons-list-item>
-                    <v-ons-list-item>
-                        <div class="time_check1" v-if="todo.TourState === 0">
-                            여행객 모집 중!!!!!!!!!!!!!!!
-                        </div>
-                        <div class="time_check2" v-if="todo.TourState === 1">
-                            여행객 모집 완료!!!!!!!!!!!!!!!
-                        </div>
-                        <div class="time_check3" v-if="todo.TourState === 2">
-                            여행 끄으읕!!!!!!!!!!!!!
-                        </div>
-                    </v-ons-list-item>
-                </v-ons-list>
-            </div>
-        </v-ons-card>
-
-    </v-ons-list>
-
-
-
-
 </v-ons-page>
 </template>
 
