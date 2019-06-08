@@ -234,6 +234,7 @@
                 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
                 let formData = new FormData();
                 formData.append('file',this.selectedFile);
+                let self =this;
                 axios.post('http://localhost:8000/imagesearch',formData,{
                     params: {
                     }
@@ -243,9 +244,10 @@
                     console.log(data2);
                     console.log(data2.data);
                     console.log(data2.data[0].description);
-                    const temp = data2.data[0].description;
                     console.log('landmakrs : ');
-                   this.Landmarks2 = data2.data[0].description;
+                   
+                   self.Landmarks2 = data2.data[0].description;
+                    console.log(self.Landmarks2);
 
                 }).then()
                 {
