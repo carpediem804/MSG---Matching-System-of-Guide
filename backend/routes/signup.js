@@ -40,6 +40,7 @@ router.post('/signup', function(req, res,next){
                 res.send("된다");
             }
         });
+
     });
 });
 router.post('/fix',function(req,res,next){
