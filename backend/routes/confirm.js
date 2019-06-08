@@ -13,12 +13,12 @@ router.post('/', function (req, res, next) {
         }
         console.log(data);
     });
-    applyguide.findOneAndUpdate({apply_post_num:req.body.params.target,RecruitApplier: req.body.params.user},{$set:{apply_status:1}},{new: true},function(err,data) {
+    applyguide.findOneAndUpdate({apply_post_num:req.body.params.target,RecruitApplier: req.body.params.user},{$set:{apply_status:1}},{new: true},function(err,data2) {
         if (err) {
             console.log(err);
         }
-        console.log(data);
-        res.send("된다")
+        console.log(data2);
+        res.send(data2)
     });
 });
 module.exports = router;
