@@ -40,17 +40,12 @@
 
         <!--{{session_existed()}}-->
 
-        <div v-if="session_existed()===2">
+        <div v-if="session_existed() === 2 && item.Apply_state === 0">
             <P align="center">
                 <button class="button_apply" @click="push1(page.component,page.label)">가이드 신청하기</button>
             </p>
         </div>
-
-        <div v-else-if="session_existed()===1">
-
-        </div>
-
-        <div v-else>
+        <div v-if="session_existed() === 0 && item.Apply_state === 0">
             <P align="center">
                 <button class="button_apply" @click="go_to_login()">가이드 신청하기</button>
             </p>

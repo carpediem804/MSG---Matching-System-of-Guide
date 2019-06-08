@@ -91,4 +91,14 @@ router.get('/apply', function (req, res, next) {
         }
     });
 });
+router.post('/check/time', function(req, res,next) {
+    console.log(req.body.params);
+    guiderecruit.findOneAndUpdate({RecruitNum:req.body.params.target},{$set:{Apply_state :req.body.params.change_stat}},{new: true},function(err,data){
+        if (err) {
+            console.log(err);
+        }
+        console.log(data);
+        res.send("된다")
+    });
+});
 module.exports = router;

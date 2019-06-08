@@ -17,6 +17,8 @@
       <v-ons-list>
         <v-ons-card v-for="item in filtered" @click="push(page2.component, page2.label, item)">
           <!--<img src="../assets/background4.jpg" alt="Image File" style="width:310px; height:auto">-->
+          <div class="update_time" v-if="time_check(item.RecruitNum,item.Apply_state,item.From_time) === 0">
+          </div>
           <div class="title2">
             {{item.RecruitTitle}}
           </div>
@@ -31,6 +33,9 @@
           </div>
           <div class="content4" align="center" v-if="item.Apply_state === 1">
             모집완료
+          </div>
+          <div class="content5" align="center" v-if="item.Apply_state === 2">
+            기간지남...
           </div>
         </v-ons-card>
       </v-ons-list>
@@ -69,7 +74,7 @@
 
     data() {
       return {
-
+        test_time: this.$moment(new Date()).format('YYYYMMDD'),
         filtered: [],
 
         temp :[],
@@ -149,7 +154,37 @@
       };
     },
     methods: {
-
+      time_check(target, state, key){
+        var time_register = this.$moment(key).format('YYYYMMDD');
+        var time_present =  this.$moment(new Date()).format('YYYYMMDD');
+        var temp = time_register - time_present;
+        console.log(temp);
+        if(target === 0){
+          return 0;
+        }
+        if(temp <= 0 && state !== 2){
+          this.$http.post('http://localhost:8000/recruit/check/time', {
+            params: {
+              change_stat: 2,
+              target: target
+            }
+          })
+                  .then((response) => {
+                            return 0;
+                          },
+                          (error) => { // error 를 보여줌
+                            alert(error.response.data.error)
+                          }
+                  )
+                  .catch(error => {
+                    alert(error);
+                    return 0;
+                  });
+        }
+        else{
+          return 0;
+        }
+      },
       session_existed() {
         if (localStorage.getItem('newType') === '여행객') {
           return true;
@@ -200,8 +235,8 @@
           push(page, key, item) {
 
 
-              this.$store.state.item=item
-              console.log(this.$store.state.item)
+              this.$store.state.item=item;
+              console.log(this.$store.state.item);
               // this.Passed=RecruitNum
               // console.log(RecruitNum)
               // Eventbus.$emit("use-eventbus", RecruitNum);
@@ -304,6 +339,23 @@
     border: none;
     border-radius: 0;
     background-color: #01DF01;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 61px;
+    -webkit-appearance: none;
+  }
+  .content5{
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin: 20px 0 14px;
+    padding-top: 1px;
+    border: none;
+    border-radius: 0;
+    background-color: red;
     cursor: pointer;
     text-align: center;
     color: #fff;

@@ -58,8 +58,7 @@
             </p>
         </v-ons-card>
     </div>
-    <div v-if="session_existed()===2"></div>
-    <div v-else>
+    <div v-if="session_existed()!==2 && tour.TourState === 0">
         <P align="center">
             <button class="button_notapply" disabled="true" v-if="tour.TourNowPeopleNum>= tour.TourMaxNum" @click="applyTour()">투어상품 신청하기</button>
             <button class="button_apply" v-else @click="applyTour()">투어상품 신청하기</button>
