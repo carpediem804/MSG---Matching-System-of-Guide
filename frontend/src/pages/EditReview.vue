@@ -20,7 +20,7 @@
                                  v-model="myreview.mystar"></v-ons-input>
 
                     <textarea name="content" v-model="myreview.mytext" cols="30" rows="5" placeholder="리뷰를 남겨주세요."></textarea>
-                    <v-ons-button align="right" @click="submit()">Submit</v-ons-button>
+                    <v-ons-button align="right" @click="submit2()">Submit</v-ons-button>
                 </div>
             </v-ons-card>
 
@@ -44,22 +44,23 @@
 
                 return this.checkGrade;
             },
-            submit(){
-                console.log(this.myreview);
-                console.log(user);
-                console.log(this.user);
+            submit2(){
+                console.log("myreview"+this.myreview);
+                console.log("user"+ this.$store.state.user);
+                //console.log(this.user);
                 axios.post('http://localhost:8000/review',{
                     params: {
-                        review : this.myreview,
-                        guideID: this.user,
-
+                        mytext : this.myreview.mytext,
+                        mystar : this.myreview.mystar,
+                        guideID: this.$store.state.user
                     }
                 }).then(function(data){
                     console.log("던졋다");
-                    console.log(this.myreview);
-                    console.log(user);
+                    //console.log(this.myreview);
+                    //console.log(user);
+                    alert('제출되었습니다.');
                 })
-                alert('제출되었습니다.');
+
 
                // location.reload();
             }
@@ -81,8 +82,8 @@
                     },
                 ],
                 myreview : [{
-                    mytext: "myreview",
-                    mystar: 2,
+                    mytext: "",
+                    mystar: Number,
                     myuserID: localStorage.getItem('newEmail')
                 }]
             }
