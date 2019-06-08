@@ -263,4 +263,7 @@ router.post('/alarm', function(req, res,next){
         console.log(data);
     });
 });
+router.post('/guide/addtour', function(req, res,next){
+    console.log(req.body.params.user_id);
+});
 module.exports = router;
