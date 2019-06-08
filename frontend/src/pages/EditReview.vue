@@ -12,13 +12,15 @@
             </v-ons-list>
 
             <v-ons-card :modifier="md ? 'nodivider' : ''">
+
                 <div>
+                    아이디:  {{myreview.myuserID}}<br>
                     평점 : <v-ons-input maxlength="20"
                                  placeholder="평점"
                                  v-model="myreview.mystar"></v-ons-input>
 
                     <textarea name="content" v-model="myreview.mytext" cols="30" rows="5" placeholder="리뷰를 남겨주세요."></textarea>
-                    <v-ons-button align="right">Submit</v-ons-button>
+                    <v-ons-button align="right" @click="submit()">Submit</v-ons-button>
                 </div>
             </v-ons-card>
 
@@ -42,9 +44,26 @@
 
                 return this.checkGrade;
             },
+            submit(){
+                axios.post('http://localhost:8000/review',{
+                    params: {
+                        review : this.myreview,
+                        guideID: this.guide_Id,
+
+                    }
+                }).then(function(data){
+                    console.log("던졋다");
+                    console.log(this.myreview);
+                    console.log(this.guide_Id);
+                })
+                alert('제출되었습니다.');
+
+               // location.reload();
+            }
         },
         data(){
             return{
+                guide_Id: this.$store.state.user,
                 checkGrade : false,
                 prereview : [{
                     pretext: "review",
@@ -60,7 +79,7 @@
                 myreview : [{
                     mytext: "myreview",
                     mystar: 2,
-                    myuserID: "Me"
+                    myuserID: localStorage.getItem('newEmail')
                 }]
             }
 
