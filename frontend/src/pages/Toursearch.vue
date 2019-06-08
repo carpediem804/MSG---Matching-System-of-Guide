@@ -29,11 +29,7 @@
                     <ons-icon icon="fa-search"></ons-icon>
                 </v-ons-button>
 
-                <!-- <v-ons-icon icon="fa-search"></v-ons-icon> -->
             </label>
-            <!-- <div class="center">
-                <v-ons-icon icon="fa-search"></v-ons-icon>
-            </div> -->
             </v-ons-list-item>
             <p align="right">
                 <v-ons-button class="button-margin" v-if="session_existed()" icon='ion-edit'
@@ -80,7 +76,7 @@
 
     </div>
     <v-ons-list>
-        <v-ons-list style="background: #efeff4" v-if="viewType ==='list'">
+        <v-ons-list v-if="viewType ==='list'">
             <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
                 <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start) === 0">
                 </div>
@@ -96,7 +92,7 @@
             </v-ons-card>
         </v-ons-list>
 
-        <v-ons-list style="background: #efeff4" v-else>
+        <v-ons-list v-else>
             <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
                 <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start) === 0">
                 </div>
