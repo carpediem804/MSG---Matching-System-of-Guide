@@ -237,21 +237,29 @@
                 axios.post('http://localhost:8000/imagesearch',formData,{
                     params: {
                     }
-                }).then(function(data){
+                }).then(function(data2){
                     console.log("register TourItem complete");
                     console.log("imagesearch로부터 data받기 ")
-                    console.log(data);
-                });
-                this.$ons.notification.alert({
-                    message: "이미지 검색",
-                    title: "이미지검색",
-                    callback: function (index) {
-                         // location.reload();
-                    },
-                })
-                // location.reload();
-                this.removeImage();
-                this.modalVisible = false;
+                    console.log(data2);
+                    console.log(data2.data);
+                    console.log(data2.data[0].description);
+                    const temp = data2.data[0].description;
+                    console.log('landmakrs : ');
+                   this.Landmarks2 = data2.data[0].description;
+
+                }).then()
+                {
+                    this.$ons.notification.alert({
+                        message: "이미지 검색",
+                        title: "이미지검색",
+                        callback: function (index) {
+                            // location.reload();
+                        },
+                    })
+
+                    this.removeImage();
+                    this.modalVisible = false;
+                }
             },
             push(page, key,tour) {
                 this.$store.state.tour = tour;
@@ -403,6 +411,7 @@
 
             data() {
                 return {
+                    Landmarks2: '',
                     test_time: this.$moment(new Date()).format('YYYYMMDD'),
                     modalVisible: false,
                     timeoutID: 0,
@@ -457,19 +466,7 @@
 
                         }
                     ],
-                    Landmarks:
-                        { locations: [ { latLng: [Object] } ],
-                            properties: [],
-                            mid: '/m/0cn46',
-                            locale: '',
-                            description: 'Piazza dei Miracoli',
-                            score: 0.6560990214347839,
-                            confidence: 0,
-                            topicality: 0,
-                            boundingPoly:
-                                { vertices: [ [Object], [Object], [Object], [Object] ],
-                                    normalizedVertices: [] }
-                        },
+
                     search: '',
                     spdOpen: false,
                     localitems: [
@@ -529,15 +526,8 @@
                     console.log(this.viewimg)
                 }).catch(res => {
                     console.log(res)
-                }),
+                })
 
-                    this.$http.get('http://localhost:8000/imagesearch').then(res => {
-                        console.log("보냇다 보냇다~ ")
-                        this.Landmarks = res.data.Landmarks;
-                        console.log(this.Landmarks.description);
-                    }).catch(res => {
-                        console.log(res)
-                    })
             },
 
 

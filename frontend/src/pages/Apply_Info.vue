@@ -34,7 +34,7 @@
                         {{item.GuideGrade}} / {{item.Total_Review}}명 평가
                         <v-ons-button  class="review" icon="edit" @click="push2(page2.component, page2.label,item.UserID)">리뷰</v-ons-button>
                     </v-ons-card>
-                    <v-ons-card>여행 진행 건수 : {{item.GuideGrade}}</v-ons-card>
+                    <v-ons-card>여행 진행 건수 : {{item.Total_Tour}}</v-ons-card>
                 </v-ons-card>
             </div>
             <v-ons-list-header>상태: {{item.TourState}} </v-ons-list-header>

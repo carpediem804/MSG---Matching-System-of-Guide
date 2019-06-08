@@ -18,6 +18,11 @@
                             <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
                             <v-ons-list-item ># {{todo.TourLocation}} # {{todo.TourThema}} </v-ons-list-item>
                             <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
+                            <v-ons-list-item>
+                                <div class="content3" v-if="todo.TourState === 0">여행객 모집 중</div>
+                                <div class="content4" v-if="todo.TourState === 1">여행객 모집 완료</div>
+                                <div class="content5" v-if="todo.TourState === 2">기간 지남</div>
+                            </v-ons-list-item>
                         </v-ons-list>
                     </div>
                 </v-ons-card>
@@ -34,16 +39,11 @@
                     <div class="content2">
                         <v-ons-list>
                             <v-ons-list-item ># {{todo.RecruitLocation}} </v-ons-list-item>
-                        </v-ons-list>
-                    </div>
-                    <div class="content3" v-if="todo.Apply_state === 1">
-                        <v-ons-list>
-                            <v-ons-list-item ># 가이드 확정됨!!!!! </v-ons-list-item>
-                        </v-ons-list>
-                    </div>
-                    <div class="content3" v-if="todo.Apply_state === 0">
-                        <v-ons-list>
-                            <v-ons-list-item ># 가이드 미정</v-ons-list-item>
+                            <v-ons-list-item >
+                                <div class="content3" v-if="todo.Apply_state === 0">가이드 미정</div>
+                                <div class="content4" v-if="todo.Apply_state === 1">가이드 확정</div>
+                                <div class="content5" v-if="todo.Apply_state === 2">기간 지남</div>
+                            </v-ons-list-item>
                         </v-ons-list>
                     </div>
                 </v-ons-card>
@@ -142,6 +142,56 @@
     };
 </script>
 
-<style scoped>
-
+<style>
+    .content3{
+        display: block;
+        width: 100%;
+        height: 50px;
+        margin: 20px 0 14px;
+        padding-top: 1px;
+        border: none;
+        border-radius: 0;
+        background-color: #F79F81;
+        cursor: pointer;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 61px;
+        -webkit-appearance: none;
+    }
+    .content4{
+        display: block;
+        width: 100%;
+        height: 50px;
+        margin: 20px 0 14px;
+        padding-top: 1px;
+        border: none;
+        border-radius: 0;
+        background-color: #01DF01;
+        cursor: pointer;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 61px;
+        -webkit-appearance: none;
+    }
+    .content5{
+        display: block;
+        width: 100%;
+        height: 50px;
+        margin: 20px 0 14px;
+        padding-top: 1px;
+        border: none;
+        border-radius: 0;
+        background-color: red;
+        cursor: pointer;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 61px;
+        -webkit-appearance: none;
+    }
 </style>
