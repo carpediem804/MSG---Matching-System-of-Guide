@@ -38,7 +38,7 @@
         </div>
         <div class="travler" v-if="!session_type()">
             <p align="right">
-                <v-ons-button class="Delete_button" icon="trash" style="width:auto"
+                <v-ons-button class="Delete_button" icon="trash" style="width:auto" v-if="item.TourState === 0"
                               @click="delete_info()"> 삭제하기
                 </v-ons-button>
             </p>

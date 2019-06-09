@@ -3,7 +3,7 @@
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
         <div class="travler" v-if="session_type()">
             <p align="right">
-                <v-ons-button class="Delete_button" icon="trash" style="width:auto"
+                <v-ons-button class="Delete_button" icon="trash" style="width:auto" v-if="item.TourState ===0"
                               @click="cancel_info()"> 신청취소
                 </v-ons-button>
 
@@ -60,7 +60,7 @@
         </div>
         <div class="travler" v-if="!session_type()">
             <p align="right">
-                <v-ons-button class="Delete_button" icon="trash" style="width:150px"
+                <v-ons-button class="Delete_button" icon="trash" style="width:150px" v-if="item.Apply_state===0"
                               @click="cancel_info()"> 신청취소
                 </v-ons-button>
             </p>

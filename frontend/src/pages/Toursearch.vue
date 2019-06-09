@@ -93,9 +93,6 @@
                         <v-ons-list-item ># {{todo.TourLocation}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}} </v-ons-list-item>
                         <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
                         <v-ons-list-item>
-                            상태 : {{todo.TourState}}
-                        </v-ons-list-item>
-                        <v-ons-list-item>
                             <div class="time_check1" v-if="todo.TourState === 0">
                                 여행객 모집 중!
                             </div>
@@ -124,11 +121,11 @@
         methods: {
 
             time_check(target, state, key, user){
-                console.log(user);
+                // console.log(user);
                 var time_register = this.$moment(key).format('YYYYMMDD');
                 var time_present =  this.$moment(new Date()).format('YYYYMMDD');
                 var temp = time_register - time_present;
-                console.log(temp);
+                // console.log(temp);
                 if(target === 0){
                     return 0;
                 }

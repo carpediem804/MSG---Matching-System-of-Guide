@@ -1,15 +1,14 @@
 <template>
     <v-ons-page>
-
         <custom-toolbar v-bind="toolbarInfo">리뷰</custom-toolbar>
 
         <v-ons-list style="background: #eceff1">
-            <v-ons-card v-for="todo in prereview">
-                <v-ons-list-header >{{todo.writeID}}
-                    <v-ons-icon v-for="n in Math.floor(todo.ReviewGrade)" icon="fa-star" style="color: gold"></v-ons-icon>
-                    <v-ons-icon v-if="count(todo.ReviewGrade)" icon="fa-star-half-alt" style="color: gold"></v-ons-icon>
-                    {{todo.ReviewGrade}}점 </v-ons-list-header>
-                <v-ons-list-item style="width: auto">{{todo.writecontent}}</v-ons-list-item>
+            <v-ons-card v-for="item in prereview">
+                <v-ons-list-header >{{item.writeID}}
+                    <v-ons-icon v-for="n in Math.floor(item.ReviewGrade)" icon="fa-star" style="color: gold"></v-ons-icon>
+                    <v-ons-icon v-if="count(item.ReviewGrade) === true" icon="fa-star-half-alt" style="color: gold"></v-ons-icon>
+                    {{item.ReviewGrade}}점 </v-ons-list-header>
+                <v-ons-list-item style="width: auto">{{item.writecontent}}</v-ons-list-item>
             </v-ons-card>
         </v-ons-list>
 
@@ -52,12 +51,19 @@
 
             count(counter){
                 var temp = counter;
+                console.log(temp);
                 temp = temp - Math.floor(counter);
-                if(temp>0)
-                {this.checkGrade= true;}
-                else
+                console.log(temp);
+                if(temp>0){
+                    console.log("반쪽자리");
+                    this.checkGrade= true;
+                    return this.checkGrade;
+                }
+                else{
+                    console.log("없어도되");
                     this.checkGrade =false;
-                return this.checkGrade;
+                    return this.checkGrade;
+                }
             },
             submit2(){
                 console.log(this.myreview.mytext);
@@ -85,14 +91,7 @@
                 guide: this.$store.state.guideid,
                 myID: localStorage.getItem('newEmail'),
                 checkGrade : false,
-                prereview : [{
-                    ReviewGrade: 1,
-                    TargetGuide: "park@gmail.com",
-                    writeID: "tae@gmail.com",
-                    writecontent: "2",
-                    __v: 0,
-                    _id: "5cfbc54545666820f469e098"
-                }],
+                prereview : [],
                 myreview : [{
                     mytext: "",
                     mystar: Number,
@@ -103,13 +102,12 @@
             let self = this;
             axios.post('http://localhost:8000/review/list',{
                 params: {
-                    guideID: this.$store.state.guideid
+                    guideID: self.$store.state.guideid
                 }
             }).then(function(data){
                 console.log("받았따");
-                console.log(data);
-                self.prereview.pop();
                 for (var i = 0; i < data.data.length; i++) {
+                    console.log(data.data[i]);
                     self.prereview.push(data.data[i]);
                 }
                 console.log(self.prereview);
