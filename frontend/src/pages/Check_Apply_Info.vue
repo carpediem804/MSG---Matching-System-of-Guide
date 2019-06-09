@@ -17,7 +17,7 @@
                             <ons-icon v-for="n in Math.floor(item.GuideGrade)" icon="fa-star"></ons-icon>
                             <ons-icon v-if="count(item.GuideGrade)" icon="fa-star-half-alt"></ons-icon>
                             {{item.GuideGrade}} / {{item.Total_Review}}명 평가</v-ons-card>
-                        <v-ons-card>여행 진행 건수 : {{item.GuideGrade}}</v-ons-card>
+                        <v-ons-card>여행 진행 건수 : {{item.Total_Tour}}</v-ons-card>
                     </v-ons-card>
                 </div>
                 <p align="right">
@@ -160,8 +160,27 @@
                         }
                     })
                         .then((response) => {  //로그인 성공;
+                                console.log(response.data);
+                                console.log("확인확인");
+                                console.log(response.data.RecruitApplier);
+                                this.$http.post('http://localhost:8000/checkInfo/guide/addtour', {
+                                    params: {
+                                        user_id: response.data.RecruitApplier,
+                                    }
+                                })
+                                    .then((res) => {
+                                            return 0;
+                                        },
+                                        (err) => {
+                                            alert(err.response.data.error)
+                                            return 0;
+                                        })
+                                    .catch(err => {
+                                        alert(err);
+                                        return 0;
+                                    });
                                 alert("가이드가 확정되었습니다.");
-                                location.reload();
+                                // location.reload();
                             },
                             (error) => { // error 를 보여줌
                                 alert(error.response.data.error)

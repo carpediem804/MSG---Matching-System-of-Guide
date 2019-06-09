@@ -263,4 +263,25 @@ router.post('/alarm', function(req, res,next){
         console.log(data);
     });
 });
+router.post('/guide/addtour', function(req, res,next){
+    console.log(req.body.params.user_id);
+    userinfo.findOne({Email: req.body.params.user_id},function(err,data){
+        if(err){
+            console.log(err);
+        }
+        else {
+            console.log(data);
+            const update_tour =  (data.Total_Tour+1)*1;
+            userinfo.update({Email: req.body.params.user_id},{$set:{Total_Tour : update_tour}},function(err,data2){
+                if(err){
+                    console.log(err);
+                }
+                else {
+                    console.log(data2);
+                    res.send(data2);
+                }
+            });
+        }
+    });
+});
 module.exports = router;

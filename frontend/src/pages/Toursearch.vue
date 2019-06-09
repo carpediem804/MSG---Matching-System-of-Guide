@@ -78,7 +78,7 @@
     <v-ons-list>
         <v-ons-list v-if="viewType ==='list'">
             <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
-                <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start) === 0">
+                <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start,todo.UserID) === 0">
                 </div>
                 <div class="title">
                     <strong>  {{todo.TourTitle}} </strong><br>
@@ -94,7 +94,7 @@
 
         <v-ons-list v-else>
             <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
-                <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start) === 0">
+                <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start,todo.UserID) === 0">
                 </div>
                 <p align="center">
                 <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="300" height="230">
@@ -139,7 +139,8 @@
     export default {
         methods: {
 
-            time_check(target, state, key){
+            time_check(target, state, key, user){
+                console.log(user);
                 var time_register = this.$moment(key).format('YYYYMMDD');
                 var time_present =  this.$moment(new Date()).format('YYYYMMDD');
                 var temp = time_register - time_present;
@@ -155,16 +156,17 @@
                             }
                         })
                             .then((response) => {
-                                    return 0;
+                                   return 0;
                                 },
                                 (error) => { // error 를 보여줌
                                     alert(error.response.data.error)
+                                    return 0;
                                 }
                             )
                             .catch(error => {
                                 alert(error);
                                 return 0;
-                            })
+                            });
                 }
                 else if(temp <= 0 && state !== 2){
                         this.$http.post('http://localhost:8000/checkInfo/check/time', {
@@ -174,10 +176,26 @@
                             }
                         })
                             .then((response) => {
-                                    return 0;
+                                    this.$http.post('http://localhost:8000/checkInfo/guide/addtour', {
+                                        params: {
+                                            user_id: user,
+                                        }
+                                    })
+                                        .then((res) => {
+                                                return 0;
+                                            },
+                                            (error) => {
+                                                alert(error.response.data.error)
+                                                return 0;
+                                            })
+                                        .catch(error => {
+                                            alert(error);
+                                            return 0;
+                                        });
                                 },
                                 (error) => { // error 를 보여줌
                                     alert(error.response.data.error)
+                                    return 0;
                                 }
                             )
                             .catch(error => {
@@ -364,7 +382,7 @@
                         }
                     }
                 } //검색엔진
-                console.log(this.filtered)
+                console.log(this.filtered);
                 if(this.filtered.length !== 0){
                     this.$ons.notification.alert({
                         message: "투어 상품이 없습니다",
