@@ -3,11 +3,11 @@
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
         <div class="travler" v-if="session_type()">
             <p align="right">
-                <v-ons-button class="Delete_button"  icon="trash" style="width:auto"
+                <v-ons-button class="Delete_button"  icon="trash" style="width:auto" v-if="item.Apply_state === 0"
                               @click="delete_info()"> 삭제하기
                 </v-ons-button>
-                <v-ons-button class="review"  icon="edit" style="width:auto" v-if="item.Apply_state === 1"
-                              @click="push2(page2.component, page2.label, item.UserID)">리뷰</v-ons-button>
+                <v-ons-button class="review"  icon="edit" style="width:auto" v-if="item.Apply_state !== 0"
+                              @click="push2(page2.component, page2.label, item.GuideID)">리뷰 작성하기</v-ons-button>
             </p>
             <v-ons-list-header>세부 정보</v-ons-list-header>
             <v-ons-list>
@@ -18,7 +18,6 @@
             <v-ons-card>날짜 : <br>{{item.From_time.substring(0,21)}} 부터 <br>{{item.To_time.substring(0,21)}} 까지</v-ons-card>
             <v-ons-card>인원 : {{item.RecruitPeopleNumber}}</v-ons-card>
             <v-ons-card>작성시간 : {{item.WriteTime}}</v-ons-card>
-                <v-ons-card>게시글 상태 : {{item.Apply_state}}</v-ons-card>
             </v-ons-list>
             <div class="confirm" v-if="!confirm_guide()">
                 <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>
