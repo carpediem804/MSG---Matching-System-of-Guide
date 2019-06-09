@@ -21,6 +21,7 @@ import IMP from 'vue-iamport'
 import moment from 'moment'
 import VueMomentJS from 'vue-momentjs'
 
+
 Vue.use(Vuex);
 Vue.use(VueOnsen);
 Vue.use(VueMomentJS, moment);

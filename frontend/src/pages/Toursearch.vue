@@ -97,13 +97,13 @@
                         </v-ons-list-item>
                         <v-ons-list-item>
                             <div class="time_check1" v-if="todo.TourState === 0">
-                                여행객 모집 중!!!!!!!!!!!!!!!
+                                여행객 모집 중!
                             </div>
                             <div class="time_check2" v-if="todo.TourState === 1">
-                                여행객 모집 완료!!!!!!!!!!!!!!!
+                                여행객 모집 완료!
                             </div>
                             <div class="time_check3" v-if="todo.TourState === 2">
-                                여행 끄으읕!!!!!!!!!!!!!
+                                여행 투어 완료!
                             </div>
                         </v-ons-list-item>
                     </v-ons-list>
