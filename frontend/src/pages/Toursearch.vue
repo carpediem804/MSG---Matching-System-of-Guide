@@ -2,33 +2,17 @@
 <v-ons-page>
     <div class="test2" align="center">
         <v-ons-list>
-            <p align="left">
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <v-ons-select class="select" v-model ="selectedLocal " >
-                    <option v-for="loitem in localitems"  :value="loitem.value" >
-                        {{ loitem.text }}
-                    </option>
-                </v-ons-select> 
-                <v-ons-select class="select" v-model="selectedThema" >
-                    <option v-for="thitem in themaitems"  :value="thitem.value" >
-                        {{ thitem.text }}
-                    </option>
-                </v-ons-select>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <v-ons-button class="button-margin"  @click="imagesearch()">Image Search</v-ons-button>
-            </p>
             <v-ons-list-item :modifier="md ? 'nodivider' : ''">
             <label class="center">
-                &nbsp;&nbsp;&nbsp;&nbsp;                
-                <v-ons-search-input maxlength="20"
+                &nbsp;&nbsp;&nbsp; <v-ons-input maxlength="20"
                     placeholder="Search"
-                    v-model="search"
-                >
-                </v-ons-search-input>
-                <v-ons-button class="button-margin"  @click="test_func()">
+                    v-model="search"></v-ons-input>&nbsp;&nbsp;
+                <v-ons-button class="button-margin"  @click="toursearch()" >
                     <ons-icon icon="fa-search"></ons-icon>
-                </v-ons-button>
-
+                </v-ons-button>&nbsp;
+                <v-ons-button class="button-margin" @click="imagesearch()" >
+                    <ons-icon icon="camera" size="15px" style="color: white"></ons-icon>
+                </v-ons-button>&nbsp;
             </label>
             </v-ons-list-item>
             <p align="right">
@@ -38,7 +22,7 @@
             </p>
             <!--//보기 정렬-->
             <div class="button-group">
-                <div class="buttons" align="right">
+                <div class="buttons" align="center">
                     <span>view</span>
                     <button v-for="b in buttons.view" v-bind:title="b.title"
                             v-bind:class="viewType == b.class?'selected':''"
@@ -266,20 +250,37 @@
                    
                    self.Landmarks2 = data2.data[0].description;
                     console.log(self.Landmarks2);
+                    return(self.Landmarks2);
 
-                }).then()
+
+                }).then(function(){
+                    console.log('이미지검색 시작~');
+                    console.log(self.Landmarks2);
+                    self.imagesearch2(self.Landmarks2);
+                    // while (this.filtered.length !== 0) {
+                    //     this.filtered.pop();
+                    // }
+                    // console.log('필터 길이'+this.filtered.length);
+                    // console.log('진짜 길이'+this.categories.length);
+                    //
+                    // for (var i = 0; i < this.categories.length; i++) {
+                    //     if(this.categories[i].TourContent.includes(self.Landmarks2) || this.categories[i].TourTitle.includes(self.Landmarks2)){
+                    //         this.filtered.push(this.categories[i]);
+                    //     }
+                    // } //검색엔진
+                    // console.log('진짜 필터 길이'+this.filtered.length);
+                })
                 {
+                    this.removeImage();
+                    this.modalVisible = false;
                     this.$ons.notification.alert({
                         message: "이미지 검색",
                         title: "이미지검색",
                         callback: function (index) {
                             // location.reload();
                         },
-                    })
-
-                    this.removeImage();
-                    this.modalVisible = false;
-                }
+                    });
+                }// axios
             },
             push(page, key,tour) {
                 this.$store.state.tour = tour;
@@ -296,94 +297,22 @@
                     }
                 });
             },
-            session_existed() {
-                if (localStorage.getItem('newType') === '가이드') {
-                    return true;
-                }
-                return false;
-            },
-            test_func() {
-                console.log(this.categories.length);
+            imagesearch2(search) {
+                console.log('이미지'+search);
                 while (this.filtered.length !== 0) {
                     this.filtered.pop();
                 }
-                console.log(this.filtered.length)
-                console.log(this.categories.length);
-                var a = true;
-                var b = true;
-                var c = true;
+                console.log('필터 : '+this.filtered.length)
+                console.log('본체 : '+this.categories.length);
+                console.log('본체 : '+this.categories);
                 for (var i = 0; i < this.categories.length; i++) {
-                    if(this.search === "")
-                    {a = false;}
-                    if(this.selectedLocal === "미설정")
-                    {b= false;}
-                    if(this.selectedThema === "미설정")
-                    {c= false;}
-                    if(a){
-                        if(b){
-                            if(c){
-                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle.includes(this.search) ) && this.categories[i].includes(this.search)){
-                                    console.log('abc');
-
-                                    this.filtered.push( this.categories[i]);
-                                   // console.log(this.filtered.TourImageURL[i]);
-                                }
-                            } // abc
-                            else{
-                                if((this.categories[i].TourLocation === this.selectedLocal) &&
-                                    ((this.categories[i].TourTitle.includes(this.search)) || (this.categories[i].TourContent.includes(this.search)))){
-                                    console.log('ab');
-                                    this.filtered.push( this.categories[i]);
-                                }
-                            }//ab
-                        }
-                        else{
-                            if(c){
-                                if(((this.categories[i].TourTitle.includes(this.search)) || (this.categories[i].TourContent.includes(this.search))) &&
-                                    (this.categories[i].TourThema === this.selectedThema)){
-                                    console.log('ac');
-                                    this.filtered.push( this.categories[i]);
-                                }
-                            }//ac
-                            else{
-                                if((this.categories[i].TourTitle.includes(this.search) ) || (this.categories[i].TourContent.includes(this.search))){
-                                    console.log('a');
-                                    this.filtered.push( this.categories[i]);
-                                }
-                            }//a
-                        }
-                    }//a true
-                    else{
-                        if(b){
-                            if(c){
-                                if((this.categories[i].TourLocation === this.selectedLocal) && (this.categories[i].TourTitle.includes(this.search) )){
-                                    console.log('bc');
-                                    this.filtered.push( this.categories[i]);
-                                }
-                            }//bc
-                            else{
-                                if((this.categories[i].TourLocation === this.selectedLocal)){
-                                    console.log('b');
-                                    this.filtered.push( this.categories[i]);
-                                }
-                            }//b
-                        }
-                        else{
-                            if(c){
-                                if((this.categories[i].TourTitle.includes(this.search) )){
-                                    console.log('c');
-                                    this.filtered.push( this.categories[i]);
-                                }//c
-                            }
-                            else{
-                                console.log('zero');
-                                this.filtered.push( this.categories[i]);
-                            }// nothing
-                        }
+                    if(this.categories[i].TourContent.includes(search) || this.categories[i].TourTitle.includes(search)){
+                        this.filtered.push(this.categories[i]);
                     }
+                    console.log('필터 : '+this.filtered)
                 } //검색엔진
-                console.log(this.filtered);
-                if(this.filtered.length !== 0){
+                console.log('찐필터 : '+this.filtered);
+                if(this.filtered.length == 0){
                     this.$ons.notification.alert({
                         message: "투어 상품이 없습니다",
                         title: "투어 상품 검색",
@@ -397,7 +326,44 @@
                     });
                 }
 
-            },//test_func()
+            },//imageseach()
+            session_existed() {
+                if (localStorage.getItem('newType') === '가이드') {
+                    return true;
+                }
+                return false;
+            },
+            toursearch() {
+                console.log('필터 : '+this.categories.length);
+                while (this.filtered.length !== 0) {
+                    this.filtered.pop();
+                }
+                console.log('필터 : '+this.filtered.length)
+                console.log('본체 : '+this.categories.length);
+
+                for (var i = 0; i < this.categories.length; i++) {
+                        if (this.categories[i].TourTitle.includes(this.search) || this.categories[i].TourContent.includes(this.search) || this.categories[i].TourLocation === (this.search) || this.categories[i].TourThema === (this.search)) {
+                            this.filtered.push(this.categories[i]);
+                        }
+
+
+                } //검색엔진
+                console.log('찐필터 : '+this.filtered);
+                if(this.filtered.length == 0){
+                    this.$ons.notification.alert({
+                        message: "투어 상품이 없습니다",
+                        title: "투어 상품 검색",
+                    });
+
+                }
+                else {
+                    this.$ons.notification.alert({
+                        message: "투어 상품이 검색되었습니다",
+                        title: "투어 상품 검색",
+                    });
+                }
+
+            },//toursearch()
             toggleList: function (type, className) {
                 switch (type) {
                     case 'view':
@@ -452,11 +418,11 @@
 
                     filtered: [
                         {
-                            TourContent: "",
-                            TourDayandTime: "",
+                            TourContent: "testcontent",
+                            TourDayandTime: "testDay",
                             TourImageURL: "http://localhost:8000/",
-                            TourLocation: "",
-                            TourThema: '',
+                            TourLocation: "testLo",
+                            TourThema: 'testThe',
                             TourMaxNum: 10,
                             TourMinNum: 5,
                             TourNowPeopleNum: 0,
@@ -489,28 +455,6 @@
 
                     search: '',
                     spdOpen: false,
-                    localitems: [
-                        {value: '미설정', text: 'Local'},
-                        {value: '서울', text: '서울'},
-                        {value: '인천', text: '인천'},
-                        {value: '대전', text: '대전'},
-                        {value: '대구', text: '대구'},
-                        {value: '부산', text: '부산'},
-                        {value: '수원', text: '수원'},
-                    ],
-                    selectedLocal: '미설정',
-
-                    themaitems: [
-                        {value: '미설정', text: 'Thema'},
-                        {value: '힐링', text: '힐링'},
-                        {value: '쇼핑', text: '쇼핑'},
-                        {value: '운동', text: '운동'},
-                        {value: '관광', text: '관광'},
-                        {value: '맛집', text: '맛집'},
-                        {value: '교육', text: '교육'},
-                    ],
-                    //보기, 정렬
-                    selectedThema: '미설정',
                     viewType:'th-large',
                     sortType:'sort-numeric-up',
                     buttons:{
