@@ -273,13 +273,13 @@
                 {
                     this.removeImage();
                     this.modalVisible = false;
-                    this.$ons.notification.alert({
-                        message: "이미지 검색",
-                        title: "이미지검색",
-                        callback: function (index) {
-                            // location.reload();
-                        },
-                    });
+                    // this.$ons.notification.alert({
+                    //     message: "이미지 검색",
+                    //     title: "이미지검색",
+                    //     callback: function (index) {
+                    //         // location.reload();
+                    //     },
+                    // });
                 }// axios
             },
             push(page, key,tour) {
@@ -298,20 +298,18 @@
                 });
             },
             imagesearch2(search) {
-                console.log('이미지'+search);
+                console.log(this.categories.length);
                 while (this.filtered.length !== 0) {
                     this.filtered.pop();
                 }
-                console.log('필터 : '+this.filtered.length)
-                console.log('본체 : '+this.categories.length);
-                console.log('본체 : '+this.categories);
+                console.log(this.filtered.length)
+                console.log(this.categories.length);
                 for (var i = 0; i < this.categories.length; i++) {
                     if(this.categories[i].TourContent.includes(search) || this.categories[i].TourTitle.includes(search)){
                         this.filtered.push(this.categories[i]);
                     }
-                    console.log('필터 : '+this.filtered)
                 } //검색엔진
-                console.log('찐필터 : '+this.filtered);
+                console.log(this.filtered);
                 if(this.filtered.length == 0){
                     this.$ons.notification.alert({
                         message: "투어 상품이 없습니다",
@@ -334,12 +332,12 @@
                 return false;
             },
             toursearch() {
-                console.log('필터 : '+this.categories.length);
+                console.log(this.categories.length);
                 while (this.filtered.length !== 0) {
                     this.filtered.pop();
                 }
-                console.log('필터 : '+this.filtered.length)
-                console.log('본체 : '+this.categories.length);
+                console.log(this.filtered.length)
+                console.log(this.categories.length);
 
                 for (var i = 0; i < this.categories.length; i++) {
                         if (this.categories[i].TourTitle.includes(this.search) || this.categories[i].TourContent.includes(this.search) || this.categories[i].TourLocation === (this.search) || this.categories[i].TourThema === (this.search)) {
@@ -348,7 +346,7 @@
 
 
                 } //검색엔진
-                console.log('찐필터 : '+this.filtered);
+                console.log(this.filtered);
                 if(this.filtered.length == 0){
                     this.$ons.notification.alert({
                         message: "투어 상품이 없습니다",
