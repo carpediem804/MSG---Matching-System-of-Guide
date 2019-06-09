@@ -1,42 +1,154 @@
 <template>
   <v-ons-page modifier="white">
-    <!-- <div class="profile-pic">
-      <img src="../assets/logo1.png"> -->
     <div class="login_flag" align="center">
+      
+      <!-- 로그인 전 화면 -->
       <div id="login_before" v-if="test2()">
-        <h1 style="font-size: 40px; color: #A9BCF5" align="center">MSG</h1>
-        <br><br>
-        <input class="login_id" v-model="user.email" placeholder="Email" style="height: 20px; margin: 5px">
-        <br>
-        <input class="login_pw" v-model="user.password" type="Password"  placeholder="password" style="height: 20px; margin: 5px" >
-        <v-ons-button class="login_button" @click="Login()">로그인
-        </v-ons-button>
-        <v-ons-button class="login_button" @click="push(page[0].component, page[0].label)">회원가입
-        </v-ons-button>
-        <v-ons-button class="login_button" @click="push(page[5].component, page[5].label)">관리자용
-        </v-ons-button>
-        <br><br>
+        <h1 style="font-size: 40px; color: white" align="center"><ons-icon style="font-size: 40px; color: white" icon="fa-plane-departure"></ons-icon>MSG</h1>
+        
+        <v-ons-list>
+          <v-ons-list-header>로그인</v-ons-list-header>
+          <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+            <div class="left">
+              <v-ons-icon fixed-width class="list-item__icon" icon="fa-user-circle"></v-ons-icon>
+            </div>
+            <label class="center">
+              <v-ons-input float maxlength="20" placeholder="Email" v-model="user.email"></v-ons-input>
+            </label>
+          </v-ons-list-item>
+          <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+            <div class="left">
+              <v-ons-icon fixed-width class="list-item__icon" icon="fa-key"></v-ons-icon>
+            </div>
+            <label class="center">
+              <v-ons-input float maxlength="20" placeholder="password" v-model="user.password" type="Password"></v-ons-input>
+            </label>
+          </v-ons-list-item>
+          <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+            <div class="right">
+              <v-ons-button style="background-color: #A9BCF5" @click="Login()">로그인</v-ons-button>
+            </div>
+          </v-ons-list-item>
+          <v-ons-list-header>회원가입</v-ons-list-header>
+          <v-ons-list-item :modifier="md ? 'nodivider' : ''"
+            @click="push(page[0].component, page[0].label)"
+          >
+            <div class="left">
+              <v-ons-icon fixed-width class="list-item__icon" icon="fa-user-plus"></v-ons-icon>
+            </div>
+            <div class="center">
+              회원가입
+            </div>
+          </v-ons-list-item>
+          <v-ons-list-header>관리자</v-ons-list-header>
+          <v-ons-list-item :modifier="md ? 'nodivider' : ''"
+            @click="push(page[5].component, page[5].label)()"
+          >
+            <div class="left">
+              <v-ons-icon fixed-width class="list-item__icon" icon="fa-lock"></v-ons-icon>
+            </div>
+            <div class="center">
+              관리자 페이지
+            </div>
+          </v-ons-list-item>
+          <v-ons-list-header>Links</v-ons-list-header>
+          <v-ons-list-item :modifier="md ? 'nodivider' : ''"
+            @click="loadLink('https://github.com/carpediem804/MSG---Matching-System-of-Guide')"
+          >
+            <div class="left">
+              <v-ons-icon fixed-width class="list-item__icon" icon="ion-social-github"></v-ons-icon>
+            </div>
+            <div class="center">
+              MSG Github
+            </div>
+            <div class="right">
+              <v-ons-icon icon="fa-external-link"></v-ons-icon>
+            </div>
+          </v-ons-list-item>
+        </v-ons-list>
       </div>
+      
+      <!-- 로그인 후 화면 -->
       <div id="login_after" v-if="!test2()">
-        <br>
-        {{ present_user.name }}님 / {{ present_user.type }}<br>
-       <div v-if="session_existed()">
-        <ons-icon v-for="n in Math.floor(UserGrade)" icon="fa-star" style="color: gold"></ons-icon>
-        <ons-icon v-if="count(UserGrade)" icon="fa-star-half-alt"style="color: gold"></ons-icon>
-           {{UserGrade}} 점<br>
-       </div>
+        <h1 style="font-size: 40px; color: white" align="center"><ons-icon style="font-size: 40px; color: white" icon="fa-plane-departure"></ons-icon>MSG</h1>
 
-        <button class="login_button" @click="push(page[1].component, page[1].label)">프로필 수정</button>
-        <button class="login_button" @click="push(page[2].component, page[2].label)">등록 상품</button>
-        <button class="login_button" @click="push(page[3].component, page[3].label)">신청 상품</button>
-        <button class="login_button" @click="Logout()">로그아웃</button>
+        <v-ons-list>
+          <v-ons-list-header>로그인 정보</v-ons-list-header>
+          <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+            <div class="left">
+              <v-ons-icon fixed-width class="list-item__icon" icon="fa-user"></v-ons-icon>
+            </div>
+            <div class="center">
+              {{ present_user.name }}
+            </div>
+          </v-ons-list-item>
+          <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+            <div class="left">
+              <v-ons-icon fixed-width class="list-item__icon" icon="fa-address-card"></v-ons-icon>
+            </div>
+            <div class="center">
+              {{ present_user.type }}
+            </div>
+          </v-ons-list-item>
+          <v-ons-list-item v-if="session_existed()" :modifier="md ? 'nodivider' : ''">
+            <div class="left">
+              <v-ons-icon fixed-width class="list-item__icon" icon="fa-star"></v-ons-icon>
+            </div>
+            <div class="center">
+              <ons-icon v-for="n in Math.floor(UserGrade)" icon="fa-star" style="color: gold"></ons-icon>
+              <ons-icon v-if="count(UserGrade)" icon="fa-star-half-alt" style="color: gold"></ons-icon>
+              {{UserGrade}} 점 
+            </div>
+          </v-ons-list-item>
+        </v-ons-list>
+        
+        <v-ons-list>
+          <v-ons-list-header>활동</v-ons-list-header>
+          <v-ons-list-item v-for="(item, index) in afterMenu" :key="item.title"
+            :modifier="md ? 'nodivider' : ''"
+            @click="push(page[index+1].component, page[index+1].label)"
+          >
+            <div class="left">
+              <v-ons-icon fixed-width class="list-item__icon" :icon="item.icon"></v-ons-icon>
+            </div>
+            <div class="center">
+              {{ item.title }}
+            </div>
+          </v-ons-list-item>
+          <v-ons-list-item :modifier="md ? 'nodivider' : ''"
+            @click="Logout()"
+          >
+            <div class="left">
+              <v-ons-icon fixed-width class="list-item__icon" icon="fa-sign-out-alt"></v-ons-icon>
+            </div>
+            <div class="center">
+              로그아웃
+            </div>
+          </v-ons-list-item>
+        </v-ons-list>
+        
+        <v-ons-list>
+          <v-ons-list-header>Links</v-ons-list-header>
+          <v-ons-list-item :modifier="md ? 'nodivider' : ''"
+            @click="loadLink('https://github.com/carpediem804/MSG---Matching-System-of-Guide')"
+          >
+            <div class="left">
+              <v-ons-icon fixed-width class="list-item__icon" icon="ion-social-github"></v-ons-icon>
+            </div>
+            <div class="center">
+              MSG Github
+            </div>
+            <div class="right">
+              <v-ons-icon icon="fa-external-link"></v-ons-icon>
+            </div>
+          </v-ons-list-item>
+        </v-ons-list>
       </div>
     </div>
   </v-ons-page>
 </template>
 
 <script>
-
   import Menu_test from "./SignUp.vue"
   import Myregister from "./Myregister.vue"
   import Mypage from "./Mypage.vue"
@@ -45,7 +157,14 @@
   import Myapply from "./Myapply.vue";
 
   export default {
+    mounted() {
+      $('.login_flag').parent().attr('style', 'background-color: #99ccff !important')      
+    },
     methods: {
+      loadLink(url) {
+        window.open(url, '_blank');
+        console.log($('.login_flag').parent())
+      },
       count(counter){
         var temp = counter;
         temp = temp - Math.floor(counter);
@@ -144,6 +263,20 @@
           kakaoid: localStorage.getItem('newkakaoID'),
           type: localStorage.getItem('newType')
         },
+        afterMenu: [
+          {
+            title: '프로필 수정',
+            icon: 'fa-user-edit'
+          },
+          {
+            title: '등록 상품',
+            icon: 'fa-clipboard-list'
+          },
+          {
+            title: '신청 상품',
+            icon: 'fa-clipboard-list'
+          },
+        ],
         page: [
           {
             component: Menu_test,
