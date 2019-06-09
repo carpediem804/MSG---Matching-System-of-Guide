@@ -3,40 +3,41 @@
 
         <custom-toolbar v-bind="toolbarInfo">리뷰</custom-toolbar>
 
-            <v-ons-list style="background: #eceff1">
-                <v-ons-card v-for="todo in prereview">
-                    <v-ons-list-header >{{todo.writeID}}
+        <v-ons-list style="background: #eceff1">
+            <v-ons-card v-for="todo in prereview">
+                <v-ons-list-header >{{todo.writeID}}
                     <v-ons-icon v-for="n in Math.floor(todo.ReviewGrade)" icon="fa-star" style="color: gold"></v-ons-icon>
                     <v-ons-icon v-if="count(todo.ReviewGrade)" icon="fa-star-half-alt" style="color: gold"></v-ons-icon>
                     {{todo.ReviewGrade}}점 </v-ons-list-header>
-                    <v-ons-list-item style="width: auto">{{todo.writecontent}}</v-ons-list-item>
-                </v-ons-card>
-            </v-ons-list>
+                <v-ons-list-item style="width: auto">{{todo.writecontent}}</v-ons-list-item>
+            </v-ons-card>
+        </v-ons-list>
 
-            <v-ons-card :modifier="md ? 'nodivider' : ''">
+        <v-ons-card :modifier="md ? 'nodivider' : ''">
 
-                <div>
-                    {{myID}}<br>
-                    <span class="star-input">
+            <div>
+                {{myID}}<br>
+                <span class="star-input">
                       <span class="input">
-                        <input type="radio" name="star-input" id="p1" value="0.5"><label for="p1">0.5</label>
-                        <input type="radio" name="star-input" id="p2" value="1"><label for="p2">1</label>
-                        <input type="radio" name="star-input" id="p3" value="1.5"><label for="p3">1.5</label>
-                        <input type="radio" name="star-input" id="p4" value="2"><label for="p4">2</label>
-                        <input type="radio" name="star-input" id="p5" value="2.5"><label for="p5">2.5</label>
-                        <input type="radio" name="star-input" id="p6" value="3"><label for="p6">3</label>
-                        <input type="radio" name="star-input" id="p7" value="3.5"><label for="p7">3.5</label>
-                        <input type="radio" name="star-input" id="p8" value="4"><label for="p8">4</label>
-                        <input type="radio" name="star-input" id="p9" value="4.5"><label for="p9">4.5</label>
-                        <input type="radio" name="star-input" id="p10" value="5"><label for="p10">15</label>
+                        <input type="radio"  id="p1" value="0.5" v-model="userstar"><label for="p1">0.5</label>
+                        <input type="radio"  id="p2" value="1" v-model="userstar"><label for="p2">1</label>
+                        <input type="radio"  id="p3" value="1.5" v-model="userstar"><label for="p3">1.5</label>
+                        <input type="radio"  id="p4" value="2" v-model="userstar"><label for="p4">2</label>
+                        <input type="radio"  id="p5" value="2.5" v-model="userstar"><label for="p5">2.5</label>
+                        <input type="radio"  id="p6" value="3" v-model="userstar"><label for="p6">3</label>
+                        <input type="radio"  id="p7" value="3.5" v-model="userstar"><label for="p7">3.5</label>
+                        <input type="radio"  id="p8" value="4" v-model="userstar"><label for="p8">4</label>
+                        <input type="radio"  id="p9" value="4.5" v-model="userstar"><label for="p9">4.5</label>
+                        <input type="radio"  id="p10" value="5" v-model="userstar"><label for="p10">15</label>
                       </span>
-                      <output for="star-input"><b>0</b>점</output>
+                    <b> {{userstar}} </b> 점
+
                     </span>
 
-                    <textarea name="content" v-model="myreview.mytext" cols="30" rows="5" placeholder="리뷰를 남겨주세요."></textarea>
-                    <v-ons-button align="right" @click="submit2()">Submit</v-ons-button>
-                </div>
-            </v-ons-card>
+                <textarea name="content" v-model="myreview.mytext" cols="30" rows="5" placeholder="리뷰를 남겨주세요."></textarea>
+                <v-ons-button align="right" @click="submit2()">Submit</v-ons-button>
+            </div>
+        </v-ons-card>
 
 
     </v-ons-page>
@@ -47,39 +48,8 @@
     import axios from 'axios'
     export default {
         methods: {
-            star(){
-                var starRating = function(){
-                    var $star = $(".star-input"),
-                        $result = $star.find("output>b");
-                    $(document)
-                        .on("focusin", ".star-input>.input", function(){
-                            $(this).addClass("focus");
-                        })
-                        .on("focusout", ".star-input>.input", function(){
-                            var $this = $(this);
-                            setTimeout(function(){
-                                if($this.find(":focus").length === 0){
-                                    $this.removeClass("focus");
-                                }
-                            }, 100);
-                        })
-                        .on("change", ".star-input :radio", function(){
-                            $result.text($(this).next().text());
-                        })
-                        .on("mouseover", ".star-input label", function(){
-                            $result.text($(this).text());
-                        })
-                        .on("mouseleave", ".star-input>.input", function(){
-                            var $checked = $star.find(":checked");
-                            if($checked.length === 0){
-                                $result.text("0");
-                            } else {
-                                $result.text($checked.next().text());
-                            }
-                        });
-                };
-                starRating();
-            },
+
+
             count(counter){
                 var temp = counter;
                 temp = temp - Math.floor(counter);
@@ -87,7 +57,6 @@
                 {this.checkGrade= true;}
                 else
                     this.checkGrade =false;
-
                 return this.checkGrade;
             },
             submit2(){
@@ -99,22 +68,20 @@
                 axios.post('http://localhost:8000/review',{
                     params: {
                         mytext : this.myreview.mytext,
-                        mystar : this.myreview.mystar,
+                        mystar : this.userstar,
                         myuserID: this.myID,
                         guideID: this.$store.state.guideid
                     }
                 }).then(function(data){
                     console.log("던졋다");
-
                     alert('제출되었습니다.');
                 })
-
-
-               // location.reload();
+                // location.reload();
             }
         },
         data(){
             return{
+                userstar: 0,
                 guide: this.$store.state.guideid,
                 myID: localStorage.getItem('newEmail'),
                 checkGrade : false,
@@ -131,7 +98,6 @@
                     mystar: Number,
                 }]
             }
-
         },
         beforeCreate() {
             let self = this;
@@ -141,18 +107,14 @@
                 }
             }).then(function(data){
                 console.log("받았따");
-               console.log(data);
-
-                    self.prereview.pop();
-
+                console.log(data);
+                self.prereview.pop();
                 for (var i = 0; i < data.data.length; i++) {
                     self.prereview.push(data.data[i]);
                 }
                 console.log(self.prereview);
-
                 alert('리스트리스트.');
             })
-
         },
     }
 </script>
@@ -256,5 +218,4 @@
         font:bold 18px Helvetica, Arial, sans-serif;
         vertical-align: middle;
     }
-
 </style>

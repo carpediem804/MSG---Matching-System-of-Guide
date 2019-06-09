@@ -15,9 +15,10 @@ router.post('/', function(req, res,next) {
         console.log("찾은 data" + data);
         const updatereviewnum =  (data.Total_Review+1)*1;
         const updategrade =   ((data.GuideGrade * (updatereviewnum-1)*1) + req.body.params.mystar*1) / updatereviewnum;
+        var test2 = updategrade.toFixed(2);
         console.log("updatereviewnum" + updatereviewnum);
-        console.log("updategrade"+updategrade);
-        userinfo.update({Email: req.body.params.guideID},{$set:{Total_Review : updatereviewnum,GuideGrade:updategrade}},function(err,seconddata){
+        console.log("updategrade"+test2);
+        userinfo.update({Email: req.body.params.guideID},{$set:{Total_Review : updatereviewnum,GuideGrade:test2}},function(err,seconddata){
             if(err){
                 console.log(err);
             }
