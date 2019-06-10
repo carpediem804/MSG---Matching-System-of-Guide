@@ -3,8 +3,10 @@
     <div class="test2" align="center">
         <v-ons-list>
             <v-ons-list-item :modifier="md ? 'nodivider' : ''">
-            <label class="center">
-                &nbsp;&nbsp;&nbsp; <v-ons-input maxlength="20"
+
+                <label class="center">
+                   <div> <v-ons-input type="date" v-model="startDate"> </v-ons-input> </div>
+                &nbsp;&nbsp;<div><v-ons-input maxlength="20"
                     placeholder="Search"
                     v-model="search"></v-ons-input>&nbsp;&nbsp;
                 <v-ons-button class="button-margin"  @click="toursearch()" >
@@ -12,7 +14,7 @@
                 </v-ons-button>&nbsp;
                 <v-ons-button class="button-margin" @click="imagesearch()" >
                     <ons-icon icon="camera" size="15px" style="color: white"></ons-icon>
-                </v-ons-button>&nbsp;
+                </v-ons-button>&nbsp;</div>
             </label>
             </v-ons-list-item>
             <p align="right">
@@ -124,6 +126,10 @@
 
             time_set(key){
                 var time_set = this.$moment(key).format('YYYY-MM-DD h:mm a');
+                return time_set;
+            },
+            time_set2(key){
+                var time_set = this.$moment(key).format('YYYYMMDD');
                 return time_set;
             },
 
@@ -325,11 +331,24 @@
                 }
                 console.log(this.filtered.length)
                 console.log(this.categories.length);
-
+                console.log("날짜날짜:");
+                console.log(this.startDate);
                 for (var i = 0; i < this.categories.length; i++) {
+
+                    if(this.startDate)
+                    {
+                        if ( (this.categories[i].TourTitle.includes(this.search) || this.categories[i].TourContent.includes(this.search)
+                            || this.categories[i].TourLocation === (this.search) || this.categories[i].TourThema === (this.search))
+                            && this.time_set2(this.startDate) === this.time_set2(this.categories[i].TourDayandTime_start) )
+                        {
+                            this.filtered.push(this.categories[i]);
+                        }
+                    }
+                    else {
                         if (this.categories[i].TourTitle.includes(this.search) || this.categories[i].TourContent.includes(this.search) || this.categories[i].TourLocation === (this.search) || this.categories[i].TourThema === (this.search)) {
                             this.filtered.push(this.categories[i]);
                         }
+                    }
 
 
                 } //검색엔진
@@ -357,6 +376,10 @@
                         const time_set = key.substring(0,4)+ key.substring(5,7) + key.substring(8,10);
                         return time_set;
                 }
+                function price_set(key) {
+                    const price_set = key.toString();
+                    return price_set;
+                }
 
                 switch (type) {
                     case 'view':
@@ -373,11 +396,11 @@
                             console.log("변경 ");
                             console.log(this.filtered);
                         }
-                        if(className === 'star')
+                       else if(className === 'star')
                         {
                             console.log('원래 ');
                             console.log(this.filtered);
-                            this.filtered.sort((a,b)=>{return a.TourPrice - b.TourPrice});
+                            this.filtered.sort((a, b)=>{return price_set(a.TourPrice) - price_set(b.TourPrice)});
                             console.log("가격");
                             console.log("변경 ");
                             console.log(this.filtered);
@@ -391,6 +414,7 @@
 
             data() {
                 return {
+                    startDate:'',
                     Landmarks2: '',
                     test_time: this.$moment(new Date()).format('YYYYMMDD'),
                     modalVisible: false,
