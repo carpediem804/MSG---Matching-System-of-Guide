@@ -155,7 +155,7 @@
   import Myregister from "./Myregister.vue"
   import Mypage from "./Mypage.vue"
   import firebase from 'firebase'
-  import TaeTae from "./TaeTae.vue";
+  import Admin from "./TaeTae.vue";
   import Myapply from "./Myapply.vue";
   import ShowReview from "./showguidreview.vue";
 
@@ -331,8 +331,8 @@
             label: '확정 상품'
           },
           {
-            component: TaeTae,
-            label: '퉤퉤'
+            component: Admin,
+            label: '관리자 페이지'
           },
           {
             component: ShowReview,

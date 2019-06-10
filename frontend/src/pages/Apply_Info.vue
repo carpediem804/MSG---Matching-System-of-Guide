@@ -29,8 +29,8 @@
                     <v-ons-card>카카오 ID : {{item.kakaoID}}</v-ons-card>
                     <v-ons-card>가이드 등록번호 : {{item.Auth}}</v-ons-card>
                     <v-ons-card>평점 :
-                        <ons-icon v-for="n in Math.floor(item.GuideGrade)" icon="fa-star"></ons-icon>
-                        <ons-icon v-if="count(item.GuideGrade)" icon="fa-star-half-alt"></ons-icon>
+                        <ons-icon v-for="n in Math.floor(item.GuideGrade)" style="color: gold"icon="fa-star"></ons-icon>
+                        <ons-icon v-if="count(item.GuideGrade)" style="color: gold" icon="fa-star-half-alt"></ons-icon>
                         {{item.GuideGrade}} / {{item.Total_Review}}명 평가
 
                         <v-ons-button  class="review" icon="edit" @click="push2(page2.component, page2.label,item.Email)">리뷰</v-ons-button>
