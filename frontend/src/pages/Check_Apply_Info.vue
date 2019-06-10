@@ -1,7 +1,7 @@
 <template>
     <v-ons-page>
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
-        <v-ons-list-header>{{user}} 의 글 // {{target}} 확인</v-ons-list-header>
+        <v-ons-list-header>{{user}} 의 글 </v-ons-list-header>
         <div class="traveler" v-if="session_type()">
             <v-ons-card>
                 가이드 프로필
@@ -34,8 +34,6 @@
                 <img v-bind:src="'http://localhost:8000/'+todo.apply_Image_URL" alt="MSG" width="275" height="230">
                 <v-ons-card>가격 : {{todo.SuggestPrice}}</v-ons-card>
                 <v-ons-card>내용 : {{todo.SuggestContent}}</v-ons-card>
-                <v-ons-card>확인 : {{todo.RecruitApplier}}</v-ons-card>
-                <v-ons-card>상태 : {{todo.apply_status}}</v-ons-card>
             </v-ons-card>
             <div class="confirm" v-if="!confirm()">
                 <p align="center">

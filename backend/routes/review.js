@@ -23,7 +23,7 @@ router.post('/', function(req, res,next) {
                 console.log(err);
             }
             else {
-               // console.log("second data" + seconddata);
+               console.log("second data" + seconddata);
                 let savereview = new reviewdata();
                 savereview.TargetGuide =  req.body.params.guideID;
                 savereview.writeID = req.body.params.myuserID;

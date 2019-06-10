@@ -95,17 +95,14 @@
                        <v-ons-list-item> # {{time_set(todo.TourDayandTime_start)}} ~ {{time_set(todo.TourDayandTime_end)}}
                        </v-ons-list-item>
                         <v-ons-list-item>
-                            상태 : {{todo.TourState}}
-                        </v-ons-list-item>
-                        <v-ons-list-item>
                             <div class="time_check1" v-if="todo.TourState === 0">
-                                여행객 모집 중!!!!!!!!!!!!!!!
+                                여행객 모집 중!
                             </div>
                             <div class="time_check2" v-if="todo.TourState === 1">
-                                여행객 모집 완료!!!!!!!!!!!!!!!
+                                여행객 모집 완료!
                             </div>
                             <div class="time_check3" v-if="todo.TourState === 2">
-                                여행 끄으읕!!!!!!!!!!!!!
+                                여행 투어 완료!
                             </div>
                         </v-ons-list-item>
                     </v-ons-list>
@@ -131,11 +128,11 @@
             },
 
             time_check(target, state, key, user){
-                console.log(user);
+                // console.log(user);
                 var time_register = this.$moment(key).format('YYYYMMDD');
                 var time_present =  this.$moment(new Date()).format('YYYYMMDD');
                 var temp = time_register - time_present;
-                console.log(temp);
+                // console.log(temp);
                 if(target === 0){
                     return 0;
                 }

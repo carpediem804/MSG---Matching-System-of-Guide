@@ -2,54 +2,96 @@
     <v-ons-page modifier="white">
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
         <div id="SignUp">
-            <h1 style="font-size: 40px; color: #A9BCF5" align="center">MSG</h1>
-            <h1 style="font-size: 25px" align="center">이름</h1>
-            <input class="register_form" v-model="user.name" placeholder="Name">
-            <h1 style="font-size: 25px" align="center">이메일</h1>
-            <input class="register_form" v-model="user.email" placeholder="Email">
-            <h1 style="font-size: 25px" align="center">비밀번호</h1>
-            <input class="register_form" v-model="user.password" type="password"  placeholder="password" align="center">
-            <h1 style="font-size: 25px" align="center">전화번호</h1>
-            <input class="register_form" v-model="user.phoneNum" placeholder="phone number">
-            <h1 style="font-size: 25px" align="center">카카오톡 ID</h1>
-            <input class="register_form" v-model="user.kakaoId" placeholder="kakao id">
-            <h1 style="font-size: 25px" align="center">타입</h1>
-            <select class="register_form" v-model="user.type">
-                <option disabled value="">Please select one</option>
-                <option>여행객</option>
-                <option>가이드</option>
-            </select>
+            <h1 style="font-size: 40px; color: deepskyblue" align="center"><ons-icon style="font-size: 40px; color: deepskyblue" icon="fa-plane-departure"></ons-icon>MSG</h1>
+
+            <v-ons-list>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        <b>이름 :  </b>
+                        <!--<v-ons-icon fixed-width class="list-item__icon" icon="fa-user-circle"></v-ons-icon>-->
+                    </div>
+                    <label class="center">
+                        <v-ons-input float maxlength="20" placeholder="Name" v-model="user.name"></v-ons-input>
+                    </label>
+                </v-ons-list-item>
+                    <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        <b>이메일 :  </b>
+                        <!--<v-ons-icon fixed-width class="list-item__icon" icon="fa-user-circle"></v-ons-icon>-->
+                    </div>
+                    <label class="center">
+                        <v-ons-input float maxlength="20" placeholder="Email" v-model="user.email"></v-ons-input>
+                    </label>
+                </v-ons-list-item>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        <b>비밀번호 :  </b>
+                    </div>
+                    <label class="center">
+                        <v-ons-input float maxlength="20" placeholder="password" v-model="user.password"></v-ons-input>
+                    </label>
+                </v-ons-list-item>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        <b>전화번호 :  </b>
+                    </div>
+                    <label class="center">
+                        <v-ons-input float maxlength="20" placeholder="phone number" v-model="user.phoneNum"></v-ons-input>
+                    </label>
+                </v-ons-list-item>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        <b>카카오톡ID :  </b>
+                    </div>
+                    <label class="center">
+                        <v-ons-input float maxlength="20" placeholder="kakao id" v-model="user.kakaoId"></v-ons-input>
+                    </label>
+                </v-ons-list-item>
+                <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                    <div class="left">
+                        <b>타입 :  </b>
+                    </div>
+                    <label class="center">
+                        <v-ons-select float maxlength="20" v-model="user.type">
+                            <option disabled value="">Please select one</option>
+                            <option>여행객</option>
+                            <option>가이드</option>
+                        </v-ons-select>
+                    </label>
+                </v-ons-list-item>
+
                 <div class="guide_info" v-if="user.type === '가이드'">
-                    <br>
-                    <!--<h1 style="font-size: 25px" align="center">가이드 인증 번호 만들기</h1>-->
-                    <!--<input class="register_form" v-model="auth_make" placeholder="Make Guide registration number">-->
-                    <!--<p align="center">-->
-                        <!--<button class="check_button" @click="Make_Guide_Auth(auth_make)">만들기!</button>-->
-                    <!--</p>-->
-                    <h1 style="font-size: 25px" align="center">가이드 인증 번호</h1>
-                    <input class="register_form" v-model="user.auth" placeholder="Guide registration number">
-                    <p align="center">
-                        <button class="check_button" @click="Check_Guide(user.auth)">인증 번호 확인</button>
-                    </p>
-                    <h1 style="font-size: 25px" align="center">프로필 사진 등록</h1>
-                    <v-ons-list :modifier="md ? 'nodivider' : ''">
-                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 text-center app">
-
-                            <img class="profile-image" :src="userImage" width="100%" height="230px"/>
-
-                            <div v-if="!userImage">
-                                <input type="file" round class="change-profile-image" @change="onFileChange" />
-                            </div>
-                            <div v-else>
-                                <button class="delete-profile-image" color="secondary" icon="delete" @click="removeImage">Delete</button>
-                            </div>
-
+                    <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                        <div class="left">
+                            <b>가이드 인증 번호 :  </b>
                         </div>
-                    </v-ons-list>
+                        <label class="center">
+                            <v-ons-input float maxlength="20" placeholder="Guide registration number" v-model="user.auth"></v-ons-input>
+                            <v-ons-button class="check_button" @click="Check_Guide(user.auth)">인증 번호 확인</v-ons-button>
+                        </label>
+
+                    </v-ons-list-item>
+                    <v-ons-list-item :modifier="md ? 'nodivider' : ''">
+                        <div class="left">
+                            <b>프로필 사진 등록   </b>
+                        </div>
+                        <img class="profile-image" :src="userImage" width="100%" height="230px"/>
+
+                        <div v-if="!userImage">
+                            <input type="file" round class="change-profile-image" @change="onFileChange" />
+                        </div>
+                        <div v-else>
+                            <v-ons-button class="delete-profile-image" color="secondary" icon="delete" @click="removeImage">Delete</v-ons-button>
+                        </div>
+                    </v-ons-list-item>
                 </div>
-            <p align="center">
-                <button class="register_button" @click="signUp()">SignUp</button>
-            </p>
+                <p align="center">
+                    <v-ons-button class="register_button" color="secondary" @click="signUp()">SignUp</v-ons-button>
+                </p>
+
+            </v-ons-list>
+
+
         </div>
     </v-ons-page>
 </template>
