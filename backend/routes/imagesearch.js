@@ -14,13 +14,16 @@ router.post('/',function(req,res,next){
          //   console.log("laskdfjiaoewfjasdlkfs\n"+detectLandmarks(req.file.filename));
 
                detectLandmarks(req.file.filename).then(function (senddata) {
-
-                       //   console.log(senddata);
-                       senddata.forEach(data => console.log(data));
-                      // console.log("senddata[0]"+senddata[0]);
-                       console.log(senddata[0].description);
-                       res.json(senddata);
-
+                        if(senddata[0]) {
+                            //   console.log(senddata);
+                            senddata.forEach(data => console.log(data));
+                            // console.log("senddata[0]"+senddata[0]);
+                            console.log(senddata[0].description);
+                            res.json(senddata);
+                        }
+                        else{
+                            res.json("없음");
+                        }
                });
 
            //console.log(senddata);
