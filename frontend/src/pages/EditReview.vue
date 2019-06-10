@@ -83,7 +83,7 @@
 
                     alert('제출되었습니다.');
                 })
-                 location.reload();
+                location.reload();
             }
         },
         data(){

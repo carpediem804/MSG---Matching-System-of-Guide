@@ -113,7 +113,7 @@
                     _self: this,
 
                     callback: function (index) {
-                        this._self.Alarm(this._self.userid, "가이드 게시글에 대한 지원",this._self.recruit.content);
+                        // this._self.Alarm(this._self.userid, "가이드 게시글에 대한 지원",this._self.recruit.content);
                         location.reload();
                     },
                 })

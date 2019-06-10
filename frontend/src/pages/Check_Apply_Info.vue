@@ -13,9 +13,9 @@
                         <v-ons-card>핸드폰 번호 : {{item.PhoneNum}}</v-ons-card>
                         <v-ons-card>카카오 ID : {{item.kakaoID}}</v-ons-card>
                         <v-ons-card>가이드 등록번호 : {{item.Auth}}</v-ons-card>
-                        <v-ons-card>평점 :
-                            <ons-icon v-for="n in Math.floor(item.GuideGrade)" icon="fa-star"></ons-icon>
-                            <ons-icon v-if="count(item.GuideGrade)" icon="fa-star-half-alt"></ons-icon>
+                        <v-ons-card @click="push(page2.component,page2.label,item.Email)">평점 :
+                            <ons-icon v-for="n in Math.floor(item.GuideGrade)"  style="color: gold" icon="fa-star"></ons-icon>
+                            <ons-icon v-if="count(item.GuideGrade)"  style="color: gold" icon="fa-star-half-alt"></ons-icon>
                             {{item.GuideGrade}} / {{item.Total_Review}}명 평가</v-ons-card>
                         <v-ons-card>여행 진행 건수 : {{item.Total_Tour}}</v-ons-card>
                     </v-ons-card>
@@ -50,6 +50,8 @@
 </template>
 
 <script>
+    import showguidreview from "./showguidreview.vue";
+
     export default {
         head: {
             script: [
@@ -83,6 +85,21 @@
                 })
         },
         methods:{
+            push(page, key,guidid) {
+                console.log("push한 guid id"+guidid);
+                this.$store.state.guidid = guidid;
+                this.$store.commit('navigator/push', {
+                    extends: page,
+                    data() {
+                        return {
+                            toolbarInfo: {
+                                backLabel: 'Back',
+                                title: key
+                            }
+                        }
+                    }
+                });
+            },
             Alarm(id, title, comment){
                 this.$http.post('http://13.125.164.72:8000/checkinfo/alarm', {
                     params: {
@@ -196,7 +213,7 @@
                                         return 0;
                                     });
                                 alert("가이드가 확정되었습니다.");
-                                this.Alarm(this.user, "가이드 지원글 가이드 확정.","지원한 게시글의 가이드로 확정되었습니다.");
+                                // this.Alarm(this.user, "가이드 지원글 가이드 확정.","지원한 게시글의 가이드로 확정되었습니다.");
                                 location.reload();
                                 // location.reload();
                             },
@@ -217,6 +234,10 @@
         },
         data() {
             return {
+                page2: {
+                    component: showguidreview,
+                    label: '가이드리뷰보기'
+                },
                 user: this.$store.state.user,
                 target: this.$store.state.target,
                 traveler_apply_data:[{

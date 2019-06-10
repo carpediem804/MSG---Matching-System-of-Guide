@@ -157,7 +157,7 @@
   import firebase from 'firebase'
   import Admin from "./TaeTae.vue";
   import Myapply from "./Myapply.vue";
-  import ShowReview from "./showguidreview.vue";
+  import ShowReview2 from "./showguidreview2.vue";
 
   export default {
     mounted() {
@@ -335,7 +335,7 @@
             label: '관리자 페이지'
           },
           {
-            component: ShowReview,
+            component: ShowReview2,
             label: '리뷰'
           },
           

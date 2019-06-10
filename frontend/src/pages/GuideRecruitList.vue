@@ -329,7 +329,7 @@
     padding-top: 1px;
     border: none;
     border-radius: 0;
-    background-color: #F79F81;
+    background-color: #01DF01;
     cursor: pointer;
     text-align: center;
     color: #fff;
@@ -346,7 +346,7 @@
     padding-top: 1px;
     border: none;
     border-radius: 0;
-    background-color: #01DF01;
+    background-color: #f7ab54;
     cursor: pointer;
     text-align: center;
     color: #fff;
@@ -363,7 +363,7 @@
     padding-top: 1px;
     border: none;
     border-radius: 0;
-    background-color: red;
+    background-color: #fe111b;
     cursor: pointer;
     text-align: center;
     color: #fff;

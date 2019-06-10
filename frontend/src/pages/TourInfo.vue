@@ -216,7 +216,8 @@
                     msg += '에러내용 : ' + result_failure.error_msg;
                     alert(msg);
 
-
+                    // this._self.Alarm(this.tour.UserID, "투어상품 '" +this.tour.TourTitle.toString()+ "'에 신청자가 있습니다.",num.toString()+"명 신청")
+                  //  location.reload();
 
                 })
             },
