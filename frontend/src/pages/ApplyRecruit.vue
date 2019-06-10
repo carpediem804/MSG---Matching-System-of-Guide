@@ -50,6 +50,27 @@
 
     export default {
             methods: {
+
+                Alarm(id, title, comment){
+                    this.$http.post('http://localhost:8000/checkinfo/alarm', {
+                        params: {
+                            target: id,
+                            comment: comment,
+                            title: title
+                        }
+                    })
+                        .then((response) => {  //로그인 성공;
+                                console.log(response);
+                            },
+                            (error) => { // error 를 보여줌
+                                console.log(error);
+                            }
+                        )
+                        .catch(error => {
+                            alert(error)
+                        })
+                },
+
                 onFileChange(e) {
                     var files = e.target.files || e.dataTransfer.files
                     this.selectedFile = e.target.files[0];
@@ -97,6 +118,7 @@
                     message: "가이드 신청 되었습니다.",
                     title: "가이드 신청 성공",
                     callback: function (index) {
+                        this._self.Alarm(this._self.userid, "가이드 게시글에 대한 지원",this._self.recruit.content);
                         location.reload();
                     },
                 })

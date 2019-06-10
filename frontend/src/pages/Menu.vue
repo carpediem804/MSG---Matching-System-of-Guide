@@ -255,16 +255,16 @@
                             localStorage.setItem('newGuide_Total_Review', response.data.user_info.Total_Review);
                             alert("로그인 성공!")
                             location.reload();
-                          },
-                          (error) => { // error 를 보여줌
+                        },
+                        (error) => { // error 를 보여줌
                             alert(error.response.data.error)
-                          }
-                  )
-                  .catch(error => {
-                    alert(error)
-                  })
-        })
-      },
+                        }
+                    )
+                    .catch(error => {
+                        alert(error)
+                    })
+            })
+        },
       Logout(){
         firebase.auth().signOut().catch(function(err){
           alert(err)
