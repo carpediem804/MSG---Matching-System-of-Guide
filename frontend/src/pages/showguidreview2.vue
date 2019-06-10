@@ -56,8 +56,7 @@
         beforeCreate() {
             let self = this;
             console.log("시작");
-           // console.log(this.$store.state.guideid);
-            self.guide = this.$store.state.guidid
+            self.guide = localStorage.getItem('newEmail');
             console.log(self.guide);
             axios.post('http://localhost:8000/review/list',{
                 params: {

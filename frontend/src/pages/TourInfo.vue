@@ -80,7 +80,6 @@
             push(page, key,guidid) {
                 console.log("push한 guid id"+guidid);
                 this.$store.state.guidid = guidid;
-                console.log(localStorage.getItem('newType'));
                 this.$store.commit('navigator/push', {
                     extends: page,
                     data() {
