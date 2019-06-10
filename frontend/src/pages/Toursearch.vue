@@ -3,9 +3,9 @@
     <div class="test2" align="center">
         <v-ons-list>
             <v-ons-list-item :modifier="md ? 'nodivider' : ''">
-                <div> <v-ons-input type="date" v-model="startDate"> </v-ons-input> </div>
-                <label class="center">
 
+                <div class="center">
+                    <v-ons-list-item> <v-ons-input type="date" v-model="startDate"> </v-ons-input> </v-ons-list-item>
                 &nbsp;&nbsp;<div><v-ons-input maxlength="20"
                     placeholder="Search"
                     v-model="search"></v-ons-input>&nbsp;&nbsp;
@@ -15,7 +15,7 @@
                 <v-ons-button class="button-margin" @click="imagesearch()" >
                     <ons-icon icon="camera" size="15px" style="color: white"></ons-icon>
                 </v-ons-button>&nbsp;</div>
-            </label>
+            </div>
             </v-ons-list-item>
             <p align="right">
                 <v-ons-button class="button-margin" v-if="session_existed()" icon='ion-edit'
