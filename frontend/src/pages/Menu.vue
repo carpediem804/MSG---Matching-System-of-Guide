@@ -90,7 +90,9 @@
               {{ present_user.type }}
             </div>
           </v-ons-list-item>
-          <v-ons-list-item v-if="session_existed()" :modifier="md ? 'nodivider' : ''">
+          <v-ons-list-item v-if="session_existed()" :modifier="md ? 'nodivider' : ''"
+            @click="push(page[6].component, page[6].label)"
+          >
             <div class="left">
               <v-ons-icon fixed-width class="list-item__icon" icon="fa-star"></v-ons-icon>
             </div>
@@ -155,6 +157,7 @@
   import firebase from 'firebase'
   import TaeTae from "./TaeTae.vue";
   import Myapply from "./Myapply.vue";
+  import ShowReview from "./showguidreview.vue";
 
   export default {
     mounted() {
@@ -302,6 +305,11 @@
             component: TaeTae,
             label: '퉤퉤'
           },
+          {
+            component: ShowReview,
+            label: '리뷰'
+          },
+          
         ],
         user: {
           email: '',

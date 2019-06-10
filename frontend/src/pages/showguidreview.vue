@@ -52,6 +52,9 @@
 
             }
         },
+        mounted(){
+            this.guide = localStorage.getItem('newEmail')
+        },
         beforeCreate() {
             let self = this;
             console.log("시작");
