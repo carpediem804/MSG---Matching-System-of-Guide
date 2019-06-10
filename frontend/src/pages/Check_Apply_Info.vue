@@ -50,6 +50,8 @@
 </template>
 
 <script>
+    import showguidreview from "./showguidreview.vue";
+
     export default {
         head: {
             script: [

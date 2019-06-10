@@ -42,6 +42,7 @@
 </template>
 
 <script>
+    import showguidreview from "./showguidreview.vue";
     export default {
         beforeCreate(){
             this.$http.post('http://localhost:8000/checkInfo/show2', {
