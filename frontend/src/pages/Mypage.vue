@@ -17,9 +17,10 @@
         </div>
         <v-ons-card>이메일 : {{present_user.email}}</v-ons-card>
         <v-ons-card>타입 : {{present_user.type}}</v-ons-card>
+        <v-ons-list>
         <v-ons-list-item :modifier="md ? 'nodivider' : ''">
             <div class="left">
-                <h3>이름</h3>
+                <h3>수정할 이름 </h3>
             </div>
             <label class="center">
                 <v-ons-input maxlength="20"
@@ -31,7 +32,7 @@
         </v-ons-list-item>
         <v-ons-list-item :modifier="md ? 'nodivider' : ''">
             <div class="left">
-                <h3>폰번호</h3>
+                <h3>수정할 폰번호 </h3>
             </div>
             <label class="center">
                 <v-ons-input maxlength="20"
@@ -43,7 +44,7 @@
         </v-ons-list-item>
         <v-ons-list-item :modifier="md ? 'nodivider' : ''">
             <div class="left">
-                <h3>카카오ID</h3>
+                <h3>수정할 카카오ID </h3>
             </div>
             <label class="center">
                 <v-ons-input maxlength="20"
@@ -53,6 +54,7 @@
                 </v-ons-input>
             </label>
         </v-ons-list-item>
+        </v-ons-list>
         <p align="center">
             <button class="register_button" @click="fixup()">수정하기</button>
         </p>
