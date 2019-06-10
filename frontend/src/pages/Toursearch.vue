@@ -93,10 +93,9 @@
                 <div class="content">
                     <v-ons-list>
                         <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
+                        <v-ons-list-item> # {{time_set(todo.TourDayandTime_start)}}<br> ~ {{time_set(todo.TourDayandTime_end)}}</v-ons-list-item>
                         <v-ons-list-item ># {{todo.TourLocation}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}} </v-ons-list-item>
                         <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
-                       <v-ons-list-item> # {{time_set(todo.TourDayandTime_start)}} ~ {{time_set(todo.TourDayandTime_end)}}
-                       </v-ons-list-item>
                         <v-ons-list-item>
                             <div class="time_check1" v-if="todo.TourState === 0">
                                 여행객 모집 중!
