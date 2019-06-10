@@ -47,6 +47,7 @@ router.post('/', function(req, res,next) {
 });
 router.post('/list', function(req, res,next) {
     console.log(req.body.params);
+    console.log("review/list로 왓땅~ ");
     reviewdata.find({TargetGuide : req.body.params.guideID},function(err,totaldata){
         if(err){
             console.log("review 안에서 가이드거 찾기 오류 "+err);

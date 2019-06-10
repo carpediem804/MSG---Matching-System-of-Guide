@@ -12,4 +12,4 @@ var ReviewSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('ApplyRecruitModel', ReviewSchema);
+module.exports = mongoose.model('Review', ReviewSchema);

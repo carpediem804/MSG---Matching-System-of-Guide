@@ -11,7 +11,6 @@ router.post('/',function(req,res,next){
         }
         else {
             console.log("되고있따아앙~~ ");
-         //   console.log("laskdfjiaoewfjasdlkfs\n"+detectLandmarks(req.file.filename));
 
                detectLandmarks(req.file.filename).then(function (senddata) {
                         if(senddata[0]) {
@@ -25,10 +24,6 @@ router.post('/',function(req,res,next){
                             res.json("없음");
                         }
                });
-
-           //console.log(senddata);
-//            res.send(detectLandmarks(req.file.filename));
-
         }
     })
 });

@@ -42,7 +42,7 @@
                         <v-ons-card>핸드폰 번호 : {{item.PhoneNum}}</v-ons-card>
                         <v-ons-card>카카오 ID : {{item.kakaoID}}</v-ons-card>
                         <v-ons-card>가이드 등록번호 : {{item.Auth}}</v-ons-card>
-                        <v-ons-card>평점 :
+                        <v-ons-card @click="push(page2.component,page2.label,item.Email)">평점 :
                             <ons-icon v-for="n in Math.floor(item.GuideGrade)" icon="fa-star"></ons-icon>
                             <ons-icon v-if="count(item.GuideGrade)" icon="fa-star-half-alt"></ons-icon>
                             {{item.GuideGrade}} / {{item.Total_Review}}명 평가</v-ons-card>
@@ -74,8 +74,26 @@
 
 <script>
     import login from './Menu.vue'
+    import showguidreview from './showguidreview.vue'
+
     export default {
         methods: {
+            push(page, key,guidid) {
+                console.log("push한 guid id"+guidid);
+                this.$store.state.guidid = guidid;
+                console.log(localStorage.getItem('newType'));
+                this.$store.commit('navigator/push', {
+                    extends: page,
+                    data() {
+                        return {
+                            toolbarInfo: {
+                                backLabel: 'Back',
+                                title: key
+                            }
+                        }
+                    }
+                });
+            },
             time_set(key){
                 var time_set = this.$moment(key).format('YYYY-MM-DD h:mm a');
                 return time_set;
@@ -238,6 +256,10 @@
                 page: {
                     component: login,
                     label: '로그인'
+                },
+                page2: {
+                    component: showguidreview,
+                    label: '가이드리뷰보기'
                 },
             };
         }

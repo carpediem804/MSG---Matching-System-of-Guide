@@ -14,28 +14,6 @@
 
         <v-ons-card :modifier="md ? 'nodivider' : ''">
 
-            <div>
-                {{myID}}<br>
-                <span class="star-input">
-                      <span class="input">
-                        <input type="radio"  id="p1" value="0.5" v-model="userstar"><label for="p1">0.5</label>
-                        <input type="radio"  id="p2" value="1" v-model="userstar"><label for="p2">1</label>
-                        <input type="radio"  id="p3" value="1.5" v-model="userstar"><label for="p3">1.5</label>
-                        <input type="radio"  id="p4" value="2" v-model="userstar"><label for="p4">2</label>
-                        <input type="radio"  id="p5" value="2.5" v-model="userstar"><label for="p5">2.5</label>
-                        <input type="radio"  id="p6" value="3" v-model="userstar"><label for="p6">3</label>
-                        <input type="radio"  id="p7" value="3.5" v-model="userstar"><label for="p7">3.5</label>
-                        <input type="radio"  id="p8" value="4" v-model="userstar"><label for="p8">4</label>
-                        <input type="radio"  id="p9" value="4.5" v-model="userstar"><label for="p9">4.5</label>
-                        <input type="radio"  id="p10" value="5" v-model="userstar"><label for="p10">15</label>
-                      </span>
-                    <b> {{userstar}} </b> 점
-
-                    </span>
-
-                <textarea name="content" v-model="myreview.mytext" cols="30" rows="5" placeholder="리뷰를 남겨주세요."></textarea>
-                <v-ons-button align="right" @click="submit2()">Submit</v-ons-button>
-            </div>
         </v-ons-card>
 
 
@@ -47,67 +25,46 @@
     import axios from 'axios'
     export default {
         methods: {
-
-
             count(counter){
-                    var temp = counter;
-                    console.log(temp);
-                    temp = temp - Math.floor(counter);
-                    console.log(temp);
-                    if(temp>0){
-                        console.log("반쪽자리");
-                        this.checkGrade= true;
-                        //return this.checkGrade;
-                    }
-                    else{
-                        console.log("없어도되");
-                        this.checkGrade =false;
-                        // return this.checkGrade;
+                var temp = counter;
+                console.log(temp);
+                temp = temp - Math.floor(counter);
+                console.log(temp);
+                if(temp>0){
+                    console.log("반쪽자리");
+                    this.checkGrade= true;
+                    //return this.checkGrade;
+                }
+                else{
+                    console.log("없어도되");
+                    this.checkGrade =false;
+                    // return this.checkGrade;
                 }
             },
-            submit2(){
-                console.log(this.myreview.mytext);
-                console.log(this.myreview.mystar);
-                console.log(this.myID);
-                console.log("user: "+ this.$store.state.guideid);
-                //console.log(this.user);
-                axios.post('http://localhost:8000/review',{
-                    params: {
-                        mytext : this.myreview.mytext,
-                        mystar : this.userstar,
-                        myuserID: this.myID,
-                        guideID: this.$store.state.guideid
-                    }
-                }).then(function(data){
-                    console.log("던졋다");
 
-                    alert('제출되었습니다.');
-                })
-                 location.reload();
-            }
         },
         data(){
             return{
                 userstar: 0,
-                guide: this.$store.state.guideid,
-                myID: localStorage.getItem('newEmail'),
+                guide: "",
                 checkGrade : false,
                 prereview : [],
-                myreview : [{
-                    mytext: "",
-                    mystar: Number,
-                }]
+
             }
         },
         beforeCreate() {
             let self = this;
             console.log("시작");
+           // console.log(this.$store.state.guideid);
+            self.guide = self.$store.state.guidid;
+            console.log(self.guide);
             axios.post('http://localhost:8000/review/list',{
                 params: {
-                    guideID: self.$store.state.guideid
+                    guideID: self.guide
                 }
             }).then(function(data){
                 console.log("받았따");
+                console.log("data"+data);
                 for (var i = 0; i < data.data.length; i++) {
                     console.log(data.data[i]);
                     self.prereview.push(data.data[i]);
