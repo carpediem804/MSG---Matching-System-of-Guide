@@ -3,9 +3,9 @@
     <div class="test2" align="center">
         <v-ons-list>
             <v-ons-list-item :modifier="md ? 'nodivider' : ''">
-
+                <div> <v-ons-input type="date" v-model="startDate"> </v-ons-input> </div>
                 <label class="center">
-                   <div> <v-ons-input type="date" v-model="startDate"> </v-ons-input> </div>
+
                 &nbsp;&nbsp;<div><v-ons-input maxlength="20"
                     placeholder="Search"
                     v-model="search"></v-ons-input>&nbsp;&nbsp;
