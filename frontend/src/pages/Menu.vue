@@ -42,7 +42,7 @@
           </v-ons-list-item>
           <v-ons-list-header>관리자</v-ons-list-header>
           <v-ons-list-item :modifier="md ? 'nodivider' : ''"
-            @click="push(page[5].component, page[5].label)()"
+            @click="admin()"
           >
             <div class="left">
               <v-ons-icon fixed-width class="list-item__icon" icon="fa-lock"></v-ons-icon>
@@ -202,6 +202,28 @@
             }
           }
         });
+      },
+      admin(){
+        this.$ons.notification.prompt({
+          message: '비밀번호를 입력하세요',
+          title: '관리자 페이지',
+          buttonLabels: 'access',
+          placeholder: '',
+          inputType: 'password',
+          cancelable: 'true',
+          _self: this,
+          callback: function (password) {
+            if(password == '123123'){
+              this._self.push(this._self.page[5].component, this._self.page[5].label)
+            }
+            else {
+              this._self.$ons.notification.alert({
+                  message: "check password",
+                  title: "ERROR",
+              })
+            }
+          }
+        })
       },
       Login() {
         firebase.auth().signInWithEmailAndPassword(this.user.email,this.user.password).catch(function(err){
