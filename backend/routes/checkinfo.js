@@ -256,13 +256,47 @@ router.post('/check/token', function(req, res,next) {
     });
     }
 });
+
 router.post('/alarm', function(req, res,next){
     console.log(req.body.params);
-    console.log("레드 라인");
+    console.log("알람을 보냅니다!");
+
     Token.find({ID:req.body.params.target},function(err,data){
         console.log(data);
+        console.log(data[0].Token);
+
+        var FCM = require('fcm-node');
+
+        var serverKey = 'AAAAtFt4CjY:APA91bHeJoV_099lT4ciq3MXjxVbn0YSgJeL2cQ-g1vkyH4IVaqKUoYHl7qPAaOiXy-OWVPERgP7N2fNwrtg6tJjnxoqiOdvT1D6Z6627N1GaR48Vvv7diMVUHDm_pwhDMq2ig-OvbS7';     //인증키
+        var fcm = new FCM(serverKey);
+
+        var client_token = data[0].Token;
+
+        // console.log(typeof client_token)
+        // console.log(typeof req.body.params.token)
+
+        var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
+            to: client_token,  //기기 토큰값
+
+            notification: {
+                title: req.body.params.title,   //제목
+                body: req.body.params.comment  //보낼메시지
+            },
+        };
+
+        fcm.send(message, function(err, response){
+            console.log("들어왔다");
+            if (err) {
+                console.log("Something has gone wrong!");
+            } else {
+                console.log("Successfully sent with response: ", response);
+            }
+        });
+
     });
+
 });
+
 router.post('/guide/addtour', function(req, res,next){
     console.log(req.body.params.user_id);
     userinfo.findOne({Email: req.body.params.user_id},function(err,data){
