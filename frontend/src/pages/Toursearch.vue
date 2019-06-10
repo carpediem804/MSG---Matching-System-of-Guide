@@ -123,7 +123,7 @@
         methods: {
 
             time_set(key){
-                var time_set = this.$moment(key).format('YYYY-MM-DD h:mm');
+                var time_set = this.$moment(key).format('YYYY-MM-DD h:mm a');
                 return time_set;
             },
 

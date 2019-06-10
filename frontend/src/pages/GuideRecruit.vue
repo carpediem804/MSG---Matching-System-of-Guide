@@ -26,7 +26,7 @@
 
             <v-ons-card>
                 기간:<br>
-                {{item.From_time.substring(0,21)}} ~ <br>{{item.To_time.substring(0,21)}}<br>
+                {{time_set(item.From_time)}} ~ <br>{{time_set(item.To_time)}}<br>
             </v-ons-card>
 
             <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>
@@ -122,6 +122,10 @@ export default {
 
 
                 methods: {
+                    time_set(key){
+                        var time_set = this.$moment(key).format('YYYY-MM-DD h:mm a');
+                        return time_set;
+                    },
 
                     pay(){
                         //

@@ -29,6 +29,7 @@
           <div class="content2">
             <v-ons-list>
               <v-ons-list-item ># {{item.RecruitLocation}} </v-ons-list-item>
+              <v-ons-list-item ># {{time_set(item.From_time)}} ~ {{time_set(item.To_time)}}</v-ons-list-item>
             </v-ons-list>
           </div>
           <div class="content3" align="center" v-if="item.Apply_state === 0">
@@ -157,6 +158,10 @@
       };
     },
     methods: {
+      time_set(key){
+        var time_set = this.$moment(key).format('YYYY-MM-DD h:mm a');
+        return time_set;
+      },
       time_check(target, state, key){
         var time_register = this.$moment(key).format('YYYYMMDD');
         var time_present =  this.$moment(new Date()).format('YYYYMMDD');
