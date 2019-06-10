@@ -6,8 +6,7 @@
                 <v-ons-button class="Delete_button"  icon="trash" style="width:auto" v-if="item.Apply_state === 0"
                               @click="delete_info()"> 삭제하기
                 </v-ons-button>
-                <v-ons-button class="review"  icon="edit" style="width:auto" v-if="item.Apply_state !== 0"
-                              @click="push2(page2.component, page2.label, item.GuideID)">리뷰</v-ons-button>
+
             </p>
             <v-ons-list-header>세부 정보</v-ons-list-header>
             <v-ons-list>
@@ -28,10 +27,14 @@
                 </v-ons-list>
             </div>
             <div class="confirm" v-if="confirm_guide()">
-                <v-ons-list-header>확정자</v-ons-list-header>
+                <v-ons-list-header>확정자
+                    <v-ons-button class="review"  icon="edit" style="width:auto"
+                                                      @click="push2(page2.component, page2.label, item.GuideID)">리뷰</v-ons-button>
+                </v-ons-list-header>
                 <v-ons-list>
                     <v-ons-card @click="push1(page.component, page.label, item.GuideID)">
                         {{item.GuideID}}
+
                     </v-ons-card>
                 </v-ons-list>
             </div>
