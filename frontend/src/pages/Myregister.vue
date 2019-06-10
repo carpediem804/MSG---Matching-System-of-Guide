@@ -40,8 +40,8 @@
                             <v-ons-list-item># {{time_set(todo.TourDayandTime_start)}} ~  <br> &nbsp;&nbsp;&nbsp;{{time_set(todo.TourDayandTime_end)}} </v-ons-list-item>
                             <v-ons-list-item># {{todo.TourPrice}}원  </v-ons-list-item>
                             <v-ons-list-item>
-                                <div class="content3" v-if="todo.TourState === 0">여행객 모집 중</div>
-                                <div class="content4" v-if="todo.TourState === 1">여행객 모집 완료</div>
+                                <div class="content4" v-if="todo.TourState === 0">여행객 모집 중</div>
+                                <div class="content3" v-if="todo.TourState === 1">여행객 모집 완료</div>
                                 <div class="content5" v-if="todo.TourState === 2">기간 지남</div>
                             </v-ons-list-item>
                         </v-ons-list>
