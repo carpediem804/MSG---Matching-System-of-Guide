@@ -202,22 +202,23 @@
       },
       Login() {
         firebase.auth().signInWithEmailAndPassword(this.user.email,this.user.password).catch(function(err){
-          switch(err.code)
-          {
-            case "auth/invalid-email": {
-              alert('유효하지 않은 메일입니다');
-              break;
+            if(err) {
+                switch (err.code) {
+                    case "auth/invalid-email": {
+                        alert('유효하지 않은 메일입니다');
+                        break;
+                    }
+                    case "auth/wrong-password": {
+                        alert('잘못된 패스워드 입니다.');
+                        break;
+                    }
+                }
             }
-            case "auth/wrong-password":{
-              alert('잘못된 패스워드 입니다.');
-              break;
-            }
-          }
-        }).then((res)=>{
-          this.$http.post('http://localhost:8000/registUserInfo/login', {
-            email: this.user.email
-          })
-                  .then((response) => {  //로그인 성공;
+            else {
+                this.$http.post('http://localhost:8000/registUserInfo/login', {
+                    email: this.user.email
+                })
+                    .then((response) => {  //로그인 성공;
                             localStorage.setItem('newImagePath', response.data.user_info.User_ImageURL);
                             localStorage.setItem('newEmail', response.data.user_info.Email)
                             localStorage.setItem('newPWD',response.data.user_info.PWD)
@@ -230,14 +231,15 @@
                             localStorage.setItem('newGuide_Total_Review', response.data.user_info.Total_Review);
                             alert("로그인 성공!")
                             location.reload();
-                          },
-                          (error) => { // error 를 보여줌
-                            alert(error.response.data.error)
-                          }
-                  )
-                  .catch(error => {
-                    alert(error)
-                  })
+                        },
+                        (error) => { // error 를 보여줌
+                            console.log(error.response.data.error);
+                        }
+                    )
+                    .catch(error => {
+                        console.log(error);
+                    })
+            }
         })
       },
       Logout(){
