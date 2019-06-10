@@ -1,4 +1,3 @@
-
 <template>
     <v-ons-page>
         <custom-toolbar v-bind="toolbarInfo">{{tour.TourTitle}}</custom-toolbar>
@@ -13,11 +12,11 @@
                 테마: {{tour.TourThema}}<br>
             </v-ons-card>
 
-        <v-ons-card>
-            날짜: <br>
-            {{time_set(tour.TourDayandTime_start)}} ~ <br>
-            {{time_set(tour.TourDayandTime_end)}}<br>
-        </v-ons-card>
+            <v-ons-card>
+                날짜: <br>
+                {{time_set(tour.TourDayandTime_start)}} ~ <br>
+                {{time_set(tour.TourDayandTime_end)}}<br>
+            </v-ons-card>
 
             <v-ons-card>
                 신청 인원: {{tour.TourNowPeopleNum}}/{{tour.TourMaxNum}}<br>
