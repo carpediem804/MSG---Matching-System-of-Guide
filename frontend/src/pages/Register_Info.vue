@@ -28,7 +28,7 @@
             </div>
             <div class="confirm" v-if="confirm_guide()">
                 <v-ons-list-header>확정자
-                    <v-ons-button class="review"  icon="edit" style="width:auto"
+                    <v-ons-button class="review" icon="edit" style="width:auto"
                                                       @click="push2(page2.component, page2.label, item.GuideID)">리뷰</v-ons-button>
                 </v-ons-list-header>
                 <v-ons-list>

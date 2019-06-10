@@ -28,13 +28,13 @@
                   :tabbar-style="swipeTheme"
                   :tabs="tabs"
                   :index.sync="index"
-                  @postchange="showTip($event, 'Tip: Try swiping pages!')"
+
     ></v-ons-tabbar>
   </v-ons-page>
 </template>
 
 <script>
-
+  //    @postchange="showTip($event, 'Tip: Try swiping pages!')" 저기 tabbar 젤밑줄꺼 shut up 뜨는거
   import RecruitGuideSearch from './pages/GuideRecruitList.vue';
   import Home from './pages/Home.vue';
   import Toursearch from "./pages/Toursearch.vue";
@@ -86,19 +86,19 @@
         this.colors = this.colors.map((c, i) => lerp(this.tabs[a].theme[i], this.tabs[b].theme[i], ratio));
         this.topPosition = lerp(this.tabs[a].top || 0, this.tabs[b].top || 0, ratio);
       },
-      showTip(e, message) {
-        if (!this.shutUp && !(e && e.swipe) && !this.showingTip) {
-          this.showingTip = true;
-          this.$ons.notification.toast({
-            message,
-            buttonLabel: 'Shut up!',
-            timeout: 2000
-          }).then(i => {
-            this.shutUp = i === 0;
-            this.showingTip = false;
-          });
-        }
-      }
+      // showTip(e, message) {
+      //   if (!this.shutUp && !(e && e.swipe) && !this.showingTip) {
+      //     this.showingTip = true;
+      //     this.$ons.notification.toast({
+      //       message,
+      //       buttonLabel: 'Shut up!',
+      //       timeout: 2000
+      //     }).then(i => {
+      //       this.shutUp = i === 0;
+      //       this.showingTip = false;
+      //     });
+      //   }
+      // }
     },
 
     computed: {
