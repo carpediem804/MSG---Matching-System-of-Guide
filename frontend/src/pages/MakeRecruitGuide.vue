@@ -101,7 +101,7 @@
         methods: {
             signUp(){
 
-                axios.post('http://localhost:8000/recruit/custom',{
+                axios.post('http://13.125.164.72:8000/recruit/custom',{
                     params: {
                         recruitdata: this.recruit
 

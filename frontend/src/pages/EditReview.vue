@@ -71,7 +71,7 @@
                 console.log(this.myID);
                 console.log("user: "+ this.$store.state.guideid);
                 //console.log(this.user);
-                axios.post('http://localhost:8000/review',{
+                axios.post('http://13.125.164.72:8000/review',{
                     params: {
                         mytext : this.myreview.mytext,
                         mystar : this.userstar,
@@ -102,7 +102,7 @@
         beforeCreate() {
             let self = this;
             console.log("시작");
-            axios.post('http://localhost:8000/review/list',{
+            axios.post('http://13.125.164.72:8000/review/list',{
                 params: {
                     guideID: self.$store.state.guideid
                 }

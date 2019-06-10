@@ -18,7 +18,7 @@
             };
         },
         beforeCreate(){
-            this.$http.post('http://localhost:8000/checkInfo/guide', {
+            this.$http.post('http://13.125.164.72:8000/checkInfo/guide', {
                 params: {user: this.$store.state.userid}
             })
                 .then((response) => {

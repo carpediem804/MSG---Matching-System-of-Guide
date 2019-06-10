@@ -3,7 +3,7 @@
         <custom-toolbar v-bind="toolbarInfo"></custom-toolbar>
         <div class="check_guide" v-show="present_user.type === '가이드'">
             <v-ons-card>
-                <img  v-if="!userImage" v-bind:src="'http://localhost:8000/'+UserImage" alt="MSG" width="275" height="230">
+                <img  v-if="!userImage" v-bind:src="'http://13.125.164.72:8000/'+UserImage" alt="MSG" width="275" height="230">
                 <img v-else class="profile-image" :src="userImage" width="275" height="230"/>
                 <div v-if="!userImage">
                     <input type="file" round class="change-profile-image" @change="onFileChange" />
@@ -98,7 +98,7 @@
                 let formData = new FormData();
                 formData.append('file',this.selectedFile);
 
-                axios.post('http://localhost:8000/registUserInfo/fix',formData, {
+                axios.post('http://13.125.164.72:8000/registUserInfo/fix',formData, {
                     params: {
                         useremail: this.present_user.email,
                         userpassword: this.present_user.password,

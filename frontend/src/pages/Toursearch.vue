@@ -3,9 +3,9 @@
     <div class="test2" align="center">
         <v-ons-list>
             <v-ons-list-item :modifier="md ? 'nodivider' : ''">
-
+                <div> <v-ons-input type="date" v-model="startDate"> </v-ons-input> </div>
                 <label class="center">
-                   <div> <v-ons-input type="date" v-model="startDate"> </v-ons-input> </div>
+
                 &nbsp;&nbsp;<div><v-ons-input maxlength="20"
                     placeholder="Search"
                     v-model="search"></v-ons-input>&nbsp;&nbsp;
@@ -84,7 +84,7 @@
                 <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start,todo.UserID) === 0">
                 </div>
                 <p align="center">
-                <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="300" height="230">
+                <img v-bind:src="'http://13.125.164.72:8000/'+todo.TourImageURL" alt="MSG" width="300" height="230">
                 <p align="center">
                 <div class="title">
                     <strong>  {{todo.TourTitle}} </strong>
@@ -144,7 +144,7 @@
                     return 0;
                 }
                 if(temp > 0 && temp <= 3 && state !== 1){
-                        this.$http.post('http://localhost:8000/checkInfo/check/time', {
+                        this.$http.post('http://13.125.164.72:8000/checkInfo/check/time', {
                             params: {
                                 change_stat: 1,
                                 target: target
@@ -164,14 +164,14 @@
                             });
                 }
                 else if(temp <= 0 && state !== 2){
-                        this.$http.post('http://localhost:8000/checkInfo/check/time', {
+                        this.$http.post('http://13.125.164.72:8000/checkInfo/check/time', {
                             params: {
                                 change_stat: 2,
                                 target: target
                             }
                         })
                             .then((response) => {
-                                    this.$http.post('http://localhost:8000/checkInfo/guide/addtour', {
+                                    this.$http.post('http://13.125.164.72:8000/checkInfo/guide/addtour', {
                                         params: {
                                             user_id: user,
                                         }
@@ -248,7 +248,7 @@
                 let formData = new FormData();
                 formData.append('file',this.selectedFile);
                 let self =this;
-                axios.post('http://localhost:8000/imagesearch',formData,{
+                axios.post('http://13.125.164.72:8000/imagesearch',formData,{
                     params: {
                     }
                 }).then(function(data2){
@@ -423,7 +423,7 @@
                     userImage: '',
                     selectedFile:null,
                     nowDate: Date.now(),
-                    viewimg:"http://localhost:8000/uploads/",
+                    viewimg:"http://13.125.164.72:8000/uploads/",
                     fakeimg: "file-1544454352258.png",
                     page: {
                         component: MakeTourItem,
@@ -440,7 +440,7 @@
                             TourContent: "testcontent",
                             TourDayandTime_start: "testDay",
                             TourDayandTime_end: "testDay",
-                            TourImageURL: "http://localhost:8000/",
+                            TourImageURL: "http://13.125.164.72:8000/",
                             TourLocation: "testLo",
                             TourThema: 'testThe',
                             TourMaxNum: 10,
@@ -496,7 +496,7 @@
             },
 
             beforeCreate() {
-                this.$http.get('http://localhost:8000/getTourList/custom').then(res => {
+                this.$http.get('http://13.125.164.72:8000/getTourList/custom').then(res => {
                     console.log("보냇다 보냇다~ ")
                     this.categories = res.data.tourdata;
 

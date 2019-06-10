@@ -233,12 +233,12 @@ router.post('/check/token', function(req, res,next) {
         res.send("둘중에 하나라도 null 값 들어가있어서 아무것도 안했어.")
     }
     else{
-        Token.findOneAndUpdate({Token:req.body.params.token},{$set:{ID:req.body.params.id}},{new: true},function(err,data){
+        Token.findOneAndUpdate({ID:req.body.params.id},{$set:{Token:req.body.params.token}},{new: true},function(err,data){
             if (err) {
                 console.log(err);
             }
-            console.log(data);
-            if(data === null){
+            console.log("findansupdate후"+data);
+            if(data===null){
                 let new_token = new Token();
                 new_token.ID = req.body.params.id;
                 new_token.Token = req.body.params.token;
@@ -251,7 +251,7 @@ router.post('/check/token', function(req, res,next) {
                 });
             }
             else{
-                res.send("기존 data" + data);
+                res.send("바꾼 data" + data);
             }
     });
     }
@@ -263,7 +263,7 @@ router.post('/alarm', function(req, res,next){
 
     Token.find({ID:req.body.params.target},function(err,data){
         console.log(data);
-        console.log(data[0].Token);
+        console.log("토큰 고유값"+ data[0].Token);
 
         var FCM = require('fcm-node');
 
@@ -288,8 +288,11 @@ router.post('/alarm', function(req, res,next){
             console.log("들어왔다");
             if (err) {
                 console.log("Something has gone wrong!");
+                console.log(err);
+                // res.send(err);
             } else {
                 console.log("Successfully sent with response: ", response);
+                // res.send("알람 보냇다");
             }
         });
 
@@ -318,4 +321,5 @@ router.post('/guide/addtour', function(req, res,next){
         }
     });
 });
+
 module.exports = router;

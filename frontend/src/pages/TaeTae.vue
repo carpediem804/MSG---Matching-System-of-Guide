@@ -26,7 +26,7 @@
     export default {
         methods: {
             Make_Guide_Auth(guide_auth) {
-                this.$http.post('http://localhost:8000/checkInfo/guideAuth/make', {
+                this.$http.post('http://13.125.164.72:8000/checkInfo/guideAuth/make', {
                     params: {Auth_Number: guide_auth}
                 })
                     .then(response => {  //로그인 성공
@@ -42,7 +42,7 @@
                     })
             },
             Delete_user_DB(ID){
-                this.$http.post('http://localhost:8000/registUserInfo/delete', {
+                this.$http.post('http://13.125.164.72:8000/registUserInfo/delete', {
                     params: {user:ID}
                 })
                     .then(response => {  //로그인 성공
@@ -58,7 +58,7 @@
                     })
             },
             Delete_DB(ID,type){
-                this.$http.post('http://localhost:8000/checkInfo/delete2', {
+                this.$http.post('http://13.125.164.72:8000/checkInfo/delete2', {
                     params: {
                         user:ID,
                         type:type

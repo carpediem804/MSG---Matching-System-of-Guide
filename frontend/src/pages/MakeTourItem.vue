@@ -177,7 +177,7 @@
             },
             signUp(){
                 this.recruit.id = localStorage.getItem('newUser');
-                axios.post('http://localhost:8000/recruit/custom',{
+                axios.post('http://13.125.164.72:8000/recruit/custom',{
                     params: {
                         recruitdata: this.recruit
                     }
@@ -197,7 +197,7 @@
                 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
                 let formData = new FormData();
                 formData.append('file',this.selectedFile);
-                axios.post('http://localhost:8000/registerTour',formData,{
+                axios.post('http://13.125.164.72:8000/registerTour',formData,{
                     params: {
                                             userID: this.Tour.userId,
                         title: this.Tour.title,

@@ -244,7 +244,7 @@
           }
         }).then((res)=>{
             if(temp ==0) {
-                this.$http.post('http://localhost:8000/registUserInfo/login', {
+                this.$http.post('http://13.125.164.72:8000/registUserInfo/login', {
                     email: this.user.email
                 })
                     .then((response) => {  //로그인 성공;

@@ -64,7 +64,7 @@
   export default {
 
     beforeCreate(){
-      this.$http.get('http://localhost:8000/recruit/custom').then(data => {
+      this.$http.get('http://13.125.164.72:8000/recruit/custom').then(data => {
         this.total_data=data.data.recruitdata;
         this.filtered_data.pop();
         for (var i = 0; i < this.total_data.length; i++) {
@@ -171,7 +171,7 @@
           return 0;
         }
         if(temp <= 0 && state !== 2){
-          this.$http.post('http://localhost:8000/recruit/check/time', {
+          this.$http.post('http://13.125.164.72:8000/recruit/check/time', {
             params: {
               change_stat: 2,
               target: target

@@ -6,6 +6,7 @@ export default {
       state: {
         temp: '',
         userid:'',
+        user_id:'',
         user:'',
         target:'',
         guideid:'',

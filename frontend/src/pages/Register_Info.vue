@@ -135,7 +135,7 @@
                 });
             },
             delete_info(){
-                this.$http.post('http://localhost:8000/checkInfo/delete', {
+                this.$http.post('http://13.125.164.72:8000/checkInfo/delete', {
                     params: {
                         item: this.item,
                         type: localStorage.getItem('newType')

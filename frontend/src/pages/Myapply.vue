@@ -5,7 +5,7 @@
             <v-ons-list-header>신청글 : 총 {{travler_apply_data.length}}건</v-ons-list-header>
             <v-ons-list>
                 <v-ons-card v-for="todo in travler_apply_data" @click="push(page.component, page.label, todo)" >
-                    <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
+                    <img v-bind:src="'http://13.125.164.72:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
                     <div class="title2">
                         <strong>  {{todo.TourTitle}} </strong>
                     </div>
@@ -57,7 +57,7 @@
 
     export default {
         beforeCreate(){
-            this.$http.post('http://localhost:8000/checkInfo/apply', {
+            this.$http.post('http://13.125.164.72:8000/checkInfo/apply', {
                 params: {
                     email: localStorage.getItem('newEmail'),
                     type: localStorage.getItem('newType')

@@ -7,7 +7,7 @@
                 가이드 프로필
                 <div class="guide_info" v-show="show_info === true">
                     <v-ons-card v-for="item in guide_info">
-                        <img v-bind:src="'http://localhost:8000/'+item.User_ImageURL" alt="MSG" width="275" height="230">
+                        <img v-bind:src="'http://13.125.164.72:8000/'+item.User_ImageURL" alt="MSG" width="275" height="230">
                         <v-ons-card>이메일 : {{item.Email}}</v-ons-card>
                         <v-ons-card>이름 : {{item.Name}}</v-ons-card>
                         <v-ons-card>핸드폰 번호 : {{item.PhoneNum}}</v-ons-card>
@@ -31,7 +31,7 @@
             </v-ons-card>
             <v-ons-card v-for="todo in guide_apply_data">
                 투어 정보
-                <img v-bind:src="'http://localhost:8000/'+todo.apply_Image_URL" alt="MSG" width="275" height="230">
+                <img v-bind:src="'http://13.125.164.72:8000/'+todo.apply_Image_URL" alt="MSG" width="275" height="230">
                 <v-ons-card>가격 : {{todo.SuggestPrice}}</v-ons-card>
                 <v-ons-card>내용 : {{todo.SuggestContent}}</v-ons-card>
             </v-ons-card>
@@ -58,7 +58,7 @@
             ]
         },
         beforeCreate(){
-            this.$http.post('http://localhost:8000/checkInfo/show', {
+            this.$http.post('http://13.125.164.72:8000/checkInfo/show', {
                 params: {
                     type: localStorage.getItem('newType'),
                     user: this.$store.state.user,
@@ -84,7 +84,7 @@
         },
         methods:{
             Alarm(id, title, comment){
-                this.$http.post('http://localhost:8000/checkinfo/alarm', {
+                this.$http.post('http://13.125.164.72:8000/checkinfo/alarm', {
                     params: {
                         target: id,
                         comment: comment,
@@ -122,7 +122,7 @@
             show_guide_info(key1){
                 if(this.show_info === false){
                     this.show_info=true;
-                    this.$http.post('http://localhost:8000/checkInfo/guide', {
+                    this.$http.post('http://13.125.164.72:8000/checkInfo/guide', {
                         params: {user: key1}
                     })
                         .then((response) => {  //로그인 성공;
@@ -169,7 +169,7 @@
                     msg += '결제 금액 : ' + result_success.paid_amount;
                     msg += '카드 승인번호 : ' + result_success.apply_num;
                     alert(msg);
-                    this.$http.post('http://localhost:8000/confirm/', {
+                    this.$http.post('http://13.125.164.72:8000/confirm/', {
                         params: {
                             user: this.user,
                             target: this.target
@@ -179,7 +179,7 @@
                                 console.log(response.data);
                                 console.log("확인확인");
                                 console.log(response.data.RecruitApplier);
-                                this.$http.post('http://localhost:8000/checkInfo/guide/addtour', {
+                                this.$http.post('http://13.125.164.72:8000/checkInfo/guide/addtour', {
                                     params: {
                                         user_id: response.data.RecruitApplier,
                                     }

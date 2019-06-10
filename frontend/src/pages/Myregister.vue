@@ -27,7 +27,7 @@
             <v-ons-list-header>투어 등록상품 : 총 {{guide_register_data.length}}건</v-ons-list-header>
             <v-ons-list>
                 <v-ons-card v-for="todo in guide_register_data" @click="push(page.component, page.label, todo)">
-                    <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
+                    <img v-bind:src="'http://13.125.164.72:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
                     <div class="title2">
                         {{todo.TourTitle}}
                     </div>
@@ -57,7 +57,7 @@
 
     export default {
         beforeCreate(){
-            this.$http.post('http://localhost:8000/checkInfo/register', {
+            this.$http.post('http://13.125.164.72:8000/checkInfo/register', {
                 params: {
                     email: localStorage.getItem('newEmail'),
                     type: localStorage.getItem('newType')

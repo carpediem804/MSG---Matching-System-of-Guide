@@ -131,7 +131,7 @@
                 this.userImage = ''
             },
             // Make_Guide_Auth(guide_auth) {
-            //     this.$http.post('http://localhost:8000/checkInfo/guideAuth/make', {
+            //     this.$http.post('http://13.125.164.72:8000/checkInfo/guideAuth/make', {
             //         params: {Auth_Number: guide_auth}
             //     })
             //         .then(response => {  //로그인 성공
@@ -147,7 +147,7 @@
             //         })
             // },
             Check_Guide(guide_auth) {
-                this.$http.post('http://localhost:8000/checkInfo/guideAuth/check', {
+                this.$http.post('http://13.125.164.72:8000/checkInfo/guideAuth/check', {
                     params: {Auth_Number: guide_auth}
                 })
                     .then(response => {  //로그인 성공
@@ -177,7 +177,7 @@
                             axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
                             let formData = new FormData();
                             formData.append('file', this.selectedFile);
-                            axios.post('http://localhost:8000/registUserInfo/signup', formData, {
+                            axios.post('http://13.125.164.72:8000/registUserInfo/signup', formData, {
                                 params: {
                                     Email: this.user.email,
                                     PWD: this.user.password,

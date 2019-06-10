@@ -49,8 +49,10 @@
     import axios from 'axios'
     export default {
         methods: {
+
             Alarm(id, title, comment){
-                this.$http.post('http://localhost:8000/checkinfo/alarm', {
+
+                this.$http.post('http://13.125.164.72:8000/checkinfo/alarm', {
                     params: {
                         target: id,
                         comment: comment,
@@ -68,6 +70,7 @@
                         alert(error)
                     })
             },
+
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files
                 this.selectedFile = e.target.files[0];
@@ -94,7 +97,7 @@
                 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
                 let formData = new FormData();
                 formData.append('file',this.selectedFile);
-                axios.post('http://localhost:8000/recruit/apply',formData, {
+                axios.post('http://13.125.164.72:8000/recruit/apply',formData, {
                     params: {
                         target : this.recruit.target,
                         id : this.recruit.id,
@@ -107,6 +110,8 @@
                 this.$ons.notification.alert({
                     message: "가이드 신청 되었습니다.",
                     title: "가이드 신청 성공",
+                    _self: this,
+
                     callback: function (index) {
                         this._self.Alarm(this._self.userid, "가이드 게시글에 대한 지원",this._self.recruit.content);
                         location.reload();
@@ -118,6 +123,7 @@
         data() {
             return {
                 userImage: '',
+                userid:this.$store.state.user_id,
                 recruit: {
                     target : this.$store.state.item.RecruitNum,
                     id : localStorage.getItem('newEmail'),

@@ -59,7 +59,7 @@
            // console.log(this.$store.state.guideid);
             self.guide = localStorage.getItem('newEmail');
             console.log(self.guide);
-            axios.post('http://localhost:8000/review/list',{
+            axios.post('http://13.125.164.72:8000/review/list',{
                 params: {
                     guideID: self.guide
                 }

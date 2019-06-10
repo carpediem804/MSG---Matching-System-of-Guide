@@ -194,6 +194,7 @@ export default {
                     },
 
                     push1(page, key) {
+                        this.$store.state.user_id= this.item.UserID;
                         this.$store.commit('navigator/push', {
                             extends: page,
                             data() {

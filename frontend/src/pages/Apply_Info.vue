@@ -22,7 +22,7 @@
             </v-ons-card>
             <div class="guide_info" v-show="show_info === true">
                 <v-ons-card v-for="item in guide_info">
-                    <img v-bind:src="'http://localhost:8000/'+item.User_ImageURL" alt="MSG" width="275" height="230">
+                    <img v-bind:src="'http://13.125.164.72:8000/'+item.User_ImageURL" alt="MSG" width="275" height="230">
                     <v-ons-card>이메일 : {{item.Email}}</v-ons-card>
                     <v-ons-card>이름 : {{item.Name}}</v-ons-card>
                     <v-ons-card>핸드폰 번호 : {{item.PhoneNum}}</v-ons-card>
@@ -127,7 +127,7 @@
             show_guide_info(key1){
                 if(this.show_info === false){
                     this.show_info=true;
-                    this.$http.post('http://localhost:8000/checkInfo/guide', {
+                    this.$http.post('http://13.125.164.72:8000/checkInfo/guide', {
                         params: {user: key1}
                     })
                         .then((response) => {  //로그인 성공;
@@ -199,7 +199,7 @@
                             this.temp_people_num = this.item.TourApplyList2[i].user_num;
                         }
                     }
-                        this.$http.post('http://localhost:8000/checkInfo/apply/delete', {
+                        this.$http.post('http://13.125.164.72:8000/checkInfo/apply/delete', {
                             params: {
                                 email: localStorage.getItem('newEmail'),
                                 item: this.item,
@@ -220,7 +220,7 @@
                             })
                 }
                 else{
-                    this.$http.post('http://localhost:8000/checkInfo/apply/delete', {
+                    this.$http.post('http://13.125.164.72:8000/checkInfo/apply/delete', {
                         params: {
                             email: localStorage.getItem('newEmail'),
                             item: this.item,
