@@ -226,26 +226,31 @@
         })
       },
       Login() {
-        firebase.auth().signInWithEmailAndPassword(this.user.email,this.user.password).catch(function(err){
+          var temp =0;
+          firebase.auth().signInWithEmailAndPassword(this.user.email,this.user.password).catch(function(err){
+
           switch(err.code)
           {
             case "auth/invalid-email": {
+                temp =1;
               alert('유효하지 않은 메일입니다');
               break;
             }
             case "auth/wrong-password":{
+                temp =1;
               alert('잘못된 패스워드 입니다.');
               break;
             }
           }
         }).then((res)=>{
-          this.$http.post('http://localhost:8000/registUserInfo/login', {
-            email: this.user.email
-          })
-                  .then((response) => {  //로그인 성공;
+            if(temp ==0) {
+                this.$http.post('http://localhost:8000/registUserInfo/login', {
+                    email: this.user.email
+                })
+                    .then((response) => {  //로그인 성공;
                             localStorage.setItem('newImagePath', response.data.user_info.User_ImageURL);
                             localStorage.setItem('newEmail', response.data.user_info.Email)
-                            localStorage.setItem('newPWD',response.data.user_info.PWD)
+                            localStorage.setItem('newPWD', response.data.user_info.PWD)
                             localStorage.setItem('newName', response.data.user_info.Name)
                             localStorage.setItem('newPhoneNum', response.data.user_info.PhoneNum)
                             localStorage.setItem('newkakaoID', response.data.user_info.kakaoID)
@@ -263,7 +268,9 @@
                     .catch(error => {
                         alert(error)
                     })
+            }
             })
+
         },
       Logout(){
         firebase.auth().signOut().catch(function(err){
