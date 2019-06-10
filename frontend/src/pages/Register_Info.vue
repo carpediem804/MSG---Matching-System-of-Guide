@@ -7,7 +7,7 @@
                               @click="delete_info()"> 삭제하기
                 </v-ons-button>
                 <v-ons-button class="review"  icon="edit" style="width:auto" v-if="item.Apply_state !== 0"
-                              @click="push2(page2.component, page2.label, item.GuideID)">리뷰 작성하기</v-ons-button>
+                              @click="push2(page2.component, page2.label, item.GuideID)">리뷰</v-ons-button>
             </p>
             <v-ons-list-header>세부 정보</v-ons-list-header>
             <v-ons-list>

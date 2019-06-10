@@ -57,12 +57,12 @@
                 if(temp>0){
                     console.log("반쪽자리");
                     this.checkGrade= true;
-                    return this.checkGrade;
+                    //return this.checkGrade;
                 }
                 else{
                     console.log("없어도되");
                     this.checkGrade =false;
-                    return this.checkGrade;
+                   // return this.checkGrade;
                 }
             },
             submit2(){
@@ -80,9 +80,10 @@
                     }
                 }).then(function(data){
                     console.log("던졋다");
+
                     alert('제출되었습니다.');
                 })
-                // location.reload();
+                 location.reload();
             }
         },
         data(){
@@ -100,6 +101,7 @@
         },
         beforeCreate() {
             let self = this;
+            console.log("시작");
             axios.post('http://localhost:8000/review/list',{
                 params: {
                     guideID: self.$store.state.guideid
@@ -110,7 +112,7 @@
                     console.log(data.data[i]);
                     self.prereview.push(data.data[i]);
                 }
-                console.log(self.prereview);
+                console.log("prereview"+ self.prereview);
                 alert('리스트리스트.');
             })
         },
