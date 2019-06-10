@@ -62,6 +62,7 @@
 
     </div>
     <v-ons-list>
+
         <v-ons-list v-if="viewType ==='list'">
             <v-ons-card v-for="todo in filtered" @click="push(page2.component, page2.label, todo)"  >
                 <div class="update_time" v-if="time_check(todo.TourNum,todo.TourState,todo.TourDayandTime_start,todo.UserID) === 0">
