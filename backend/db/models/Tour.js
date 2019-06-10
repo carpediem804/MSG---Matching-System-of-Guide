@@ -19,7 +19,8 @@ var Tour_Schema = new mongoose.Schema({
     Tour_create_date: { type:Date, default:Date.now },
     TourNowPeopleNum : {type:Number, default:0},
     TourThema : String,
-    TourState : {type:Number, default:0}  // 0:아직 구하는 중 , 1 : 완료 , 2: 기간지남 ??
+    TourState : {type:Number, default:0},  // 0:아직 구하는 중 , 1 : 완료 , 2: 기간지남 ??
+    TourImageiswhat : {type : String , default:"없음"}
 });
 Tour_Schema.plugin(autoIncrement, {
     model: 'tourinfo',
