@@ -6,8 +6,6 @@
             <v-ons-list>
                 <v-ons-card v-for="todo in travler_apply_data" @click="push(page.component, page.label, todo)" >
                     <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
-                    <v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>
-                    <v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
                     <div class="title2">
                         <strong>  {{todo.TourTitle}} </strong>
                     </div>
@@ -15,8 +13,9 @@
                     <div class="content2">
 
                         <v-ons-list>
-                            <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
                             <v-ons-list-item ># {{todo.TourLocation}} # {{todo.TourThema}} </v-ons-list-item>
+                            <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
+                            <v-ons-list-item># {{time_set(todo.TourDayandTime_start)}} ~ <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{time_set(todo.TourDayandTime_end)}}</v-ons-list-item>
                             <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
                             <v-ons-list-item>
                                 <div class="content3" v-if="todo.TourState === 0">여행객 모집 중</div>
@@ -39,6 +38,7 @@
                     <div class="content2">
                         <v-ons-list>
                             <v-ons-list-item ># {{todo.RecruitLocation}} </v-ons-list-item>
+                            <v-ons-list-item># {{time_set(todo.From_time)}} ~ <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{time_set(todo.To_time)}}</v-ons-list-item>
                             <v-ons-list-item >
                                 <div class="content3" v-if="todo.Apply_state === 0">가이드 미정</div>
                                 <div class="content4" v-if="todo.Apply_state === 1">가이드 확정</div>
@@ -116,6 +116,10 @@
             };
         },
         methods: {
+            time_set(key){
+                var time_set = this.$moment(key).format('YYYY-MM-DD h:mm a');
+                return time_set;
+            },
             session_type(){
                 if(localStorage.getItem('newType') === '여행객'){
                     return true;

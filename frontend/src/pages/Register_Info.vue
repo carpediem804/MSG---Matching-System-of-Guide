@@ -14,7 +14,7 @@
             <v-ons-card>제목 : {{item.RecruitTitle}}</v-ons-card>
             <v-ons-card>지역 : {{item.RecruitLocation}}</v-ons-card>
             <v-ons-card>내용 : {{item.RecruitContent}}</v-ons-card>
-            <v-ons-card>날짜 : <br>{{item.From_time.substring(0,21)}} 부터 <br>{{item.To_time.substring(0,21)}} 까지</v-ons-card>
+            <v-ons-card>날짜 : {{time_set(item.From_time)}} ~ <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{time_set(item.To_time)}}</v-ons-card>
             <v-ons-card>인원 : {{item.RecruitPeopleNumber}}</v-ons-card>
             <v-ons-card>작성시간 : {{item.WriteTime}}</v-ons-card>
             </v-ons-list>
@@ -51,7 +51,7 @@
             <v-ons-card>지역 : {{item.TourLocation}}</v-ons-card>
             <v-ons-card>테마 : {{item.TourThema}}</v-ons-card>
             <v-ons-card>내용 : {{item.TourContent}}</v-ons-card>
-            <v-ons-card>날짜 : <br>{{item.TourDayandTime_start.substring(0,21)}} 부터 <br>{{item.TourDayandTime_end.substring(0,21)}} 까지</v-ons-card>
+            <v-ons-card>날짜 : {{time_set(item.TourDayandTime_start)}} ~ <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{time_set(item.TourDayandTime_end)}}</v-ons-card>
             <v-ons-card>최소인원 : {{item.TourMinNum}}</v-ons-card>
             <v-ons-card>최대인원 : {{item.TourMaxNum}}</v-ons-card>
             <v-ons-list-header>신청인원 : {{item.TourNowPeopleNum}}명 / {{item.TourApplyList2.length}} 단체 </v-ons-list-header>
@@ -71,6 +71,10 @@
 
     export default {
         methods: {
+            time_set(key){
+                var time_set = this.$moment(key).format('YYYY-MM-DD h:mm a');
+                return time_set;
+            },
             session_type(){
                 if(localStorage.getItem('newType') === '여행객'){
                     return true;

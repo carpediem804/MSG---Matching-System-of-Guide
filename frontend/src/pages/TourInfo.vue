@@ -42,8 +42,8 @@
                         <v-ons-card>카카오 ID : {{item.kakaoID}}</v-ons-card>
                         <v-ons-card>가이드 등록번호 : {{item.Auth}}</v-ons-card>
                         <v-ons-card @click="push(page2.component,page2.label,item.Email)">평점 :
-                            <ons-icon v-for="n in Math.floor(item.GuideGrade)" icon="fa-star"></ons-icon>
-                            <ons-icon v-if="count(item.GuideGrade)" icon="fa-star-half-alt"></ons-icon>
+                            <ons-icon v-for="n in Math.floor(item.GuideGrade)" style="color: gold" icon="fa-star"></ons-icon>
+                            <ons-icon v-if="count(item.GuideGrade)" style="color: gold" icon="fa-star-half-alt"></ons-icon>
                             {{item.GuideGrade}} / {{item.Total_Review}}명 평가</v-ons-card>
                         <v-ons-card>여행 진행 건수 : {{item.Total_Tour}}</v-ons-card>
                     </v-ons-card>
@@ -156,6 +156,27 @@
                 this.$store.commit('navigator/pop', {
                 });
             },
+
+            Alarm(id, title, comment){
+                this.$http.post('http://localhost:8000/checkinfo/alarm', {
+                    params: {
+                        target: id,
+                        comment: comment,
+                        title: title
+                    }
+                })
+                    .then((response) => {  //로그인 성공;
+                            console.log(response);
+                        },
+                        (error) => { // error 를 보여줌
+                            console.log(error);
+                        }
+                    )
+                    .catch(error => {
+                        alert(error)
+                    })
+            },
+
             pay(num){
                 this.$IMP().request_pay({
                     pg: 'kakao',
@@ -188,6 +209,10 @@
                     var msg = '결제에 실패하였습니다.';
                     msg += '에러내용 : ' + result_failure.error_msg;
                     alert(msg);
+
+                    this._self.Alarm(this.tour.UserID, "투어상품 '" +this.tour.TourTitle.toString()+ "'에 신청자가 있습니다.",num.toString()+"명 신청")
+                    location.reload();
+
                 })
             },
             applyTour(){

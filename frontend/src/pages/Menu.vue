@@ -42,7 +42,7 @@
           </v-ons-list-item>
           <v-ons-list-header>관리자</v-ons-list-header>
           <v-ons-list-item :modifier="md ? 'nodivider' : ''"
-            @click="push(page[5].component, page[5].label)()"
+            @click="admin()"
           >
             <div class="left">
               <v-ons-icon fixed-width class="list-item__icon" icon="fa-lock"></v-ons-icon>
@@ -90,7 +90,9 @@
               {{ present_user.type }}
             </div>
           </v-ons-list-item>
-          <v-ons-list-item v-if="session_existed()" :modifier="md ? 'nodivider' : ''">
+          <v-ons-list-item v-if="session_existed()" :modifier="md ? 'nodivider' : ''"
+            @click="push(page[6].component, page[6].label)"
+          >
             <div class="left">
               <v-ons-icon fixed-width class="list-item__icon" icon="fa-star"></v-ons-icon>
             </div>
@@ -155,6 +157,7 @@
   import firebase from 'firebase'
   import Admin from "./TaeTae.vue";
   import Myapply from "./Myapply.vue";
+  import ShowReview from "./showguidreview.vue";
 
   export default {
     mounted() {
@@ -200,6 +203,28 @@
           }
         });
       },
+      admin(){
+        this.$ons.notification.prompt({
+          message: '비밀번호를 입력하세요',
+          title: '관리자 페이지',
+          buttonLabels: 'access',
+          placeholder: '',
+          inputType: 'password',
+          cancelable: 'true',
+          _self: this,
+          callback: function (password) {
+            if(password == '123123'){
+              this._self.push(this._self.page[5].component, this._self.page[5].label)
+            }
+            else {
+              this._self.$ons.notification.alert({
+                  message: "check password",
+                  title: "ERROR",
+              })
+            }
+          }
+        })
+      },
       Login() {
         firebase.auth().signInWithEmailAndPassword(this.user.email,this.user.password).catch(function(err){
           switch(err.code)
@@ -230,16 +255,16 @@
                             localStorage.setItem('newGuide_Total_Review', response.data.user_info.Total_Review);
                             alert("로그인 성공!")
                             location.reload();
-                          },
-                          (error) => { // error 를 보여줌
+                        },
+                        (error) => { // error 를 보여줌
                             alert(error.response.data.error)
-                          }
-                  )
-                  .catch(error => {
-                    alert(error)
-                  })
-        })
-      },
+                        }
+                    )
+                    .catch(error => {
+                        alert(error)
+                    })
+            })
+        },
       Logout(){
         firebase.auth().signOut().catch(function(err){
           alert(err)
@@ -302,6 +327,11 @@
             component: Admin,
             label: '관리자 페이지'
           },
+          {
+            component: ShowReview,
+            label: '리뷰'
+          },
+          
         ],
         user: {
           email: '',
