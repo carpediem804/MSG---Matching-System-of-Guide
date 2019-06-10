@@ -52,9 +52,9 @@
                 carouselIndex: 0,
 
                 carouselItems:{
-                    a: "/src/assets/homeImage3.png",
-                    b: "/src/assets/homeImage1.png",
-                    c: "/src/assets/homeImage2.png",
+                    a: "./src/assets/homeImage3.png",
+                    b: "./src/assets/homeImage1.png",
+                    c: "./src/assets/homeImage2.png",
                     // d: "/src/assets/background4.jpg",
                 }
             };
