@@ -71,8 +71,8 @@
                 &nbsp;# {{todo.TourPrice}}원 <br>
                 # {{todo.TourLocation}}    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}}
                 <br>
-                # {{todo.TourDayandTime_start}}
-                # {{test_time}}
+                # {{time_set(todo.TourDayandTime_start)}} ~ {{time_set(todo.TourDayandTime_end)}}
+
             </v-ons-card>
         </v-ons-list>
 
@@ -92,6 +92,8 @@
                         <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
                         <v-ons-list-item ># {{todo.TourLocation}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}} </v-ons-list-item>
                         <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
+                       <v-ons-list-item> # {{time_set(todo.TourDayandTime_start)}} ~ {{time_set(todo.TourDayandTime_end)}}
+                       </v-ons-list-item>
                         <v-ons-list-item>
                             상태 : {{todo.TourState}}
                         </v-ons-list-item>
@@ -122,6 +124,11 @@
 
     export default {
         methods: {
+
+            time_set(key){
+                var time_set = this.$moment(key).format('YYYY-MM-DD h:mm');
+                return time_set;
+            },
 
             time_check(target, state, key, user){
                 console.log(user);
@@ -257,29 +264,12 @@
                     console.log('이미지검색 시작~');
                     console.log(self.Landmarks2);
                     self.imagesearch2(self.Landmarks2);
-                    // while (this.filtered.length !== 0) {
-                    //     this.filtered.pop();
-                    // }
-                    // console.log('필터 길이'+this.filtered.length);
-                    // console.log('진짜 길이'+this.categories.length);
-                    //
-                    // for (var i = 0; i < this.categories.length; i++) {
-                    //     if(this.categories[i].TourContent.includes(self.Landmarks2) || this.categories[i].TourTitle.includes(self.Landmarks2)){
-                    //         this.filtered.push(this.categories[i]);
-                    //     }
-                    // } //검색엔진
-                    // console.log('진짜 필터 길이'+this.filtered.length);
+
                 })
                 {
                     this.removeImage();
                     this.modalVisible = false;
-                    // this.$ons.notification.alert({
-                    //     message: "이미지 검색",
-                    //     title: "이미지검색",
-                    //     callback: function (index) {
-                    //         // location.reload();
-                    //     },
-                    // });
+
                 }// axios
             },
             push(page, key,tour) {
@@ -363,28 +353,27 @@
 
             },//toursearch()
             toggleList: function (type, className) {
+                function time_set2(TourDayandTime_start) {
+                        var time_set = this.$moment(key).format('YYYYMMDD');
+                        return time_set;
+                }
+
                 switch (type) {
                     case 'view':
                         this.viewType = className;
                         break;
                     case 'sort':
                         this.sortType = className;
+
                         if(className === 'sort-numeric-up')
                         {
-                            this.filtered.sort(function (a, b) {return a['dealdline'] > b['deadline']});
+                            this.filtered.sort(function (a, b) {return +time_set2(a.TourDayandTime_start)- +time_set2(b.TourDayandTime_start)   });
                             console.log("시간");
-                        }
-                        if(className === 'sort-alpha-down')
-                        {   console.log(this.filtered);
-                            this.filtered.sort(function(a,b){return a.TourTitle > b.TourTitle});
-                            console.log("제목");
-                            console.log(this.filtered);
                         }
                         if(className === 'star')
                         {  console.log(this.filtered);
-                            this.filtered.sort(function(a,b){return a.TourPrice - b.TourPrice});
+                            this.filtered.sort(function(a,b){return +a.TourPrice - +b.TourPrice});
                             console.log("가격");
-
                             console.log(this.filtered);
                         }
 
@@ -462,7 +451,6 @@
                         ],
                         'sort':[
                             {'class': 'sort-numeric-up', 'title':'sort by deadline '},
-                            {'class': 'sort-alpha-down', 'title':'sort by alphabet'},
                             {'class': 'star', 'title':'sort by stars'},
                         ]
                     }
@@ -501,10 +489,13 @@
         margin: 6px 0;
     }
     .conte{
-        overflow: hidden;
-        text-overflow: ellipsis;
+
         white-space: nowrap;
         width: auto;
+        border: 1px solid #000000;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
         }
     .button-margin{
         height: 35px;

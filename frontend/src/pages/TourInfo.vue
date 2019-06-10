@@ -14,8 +14,8 @@
 
         <v-ons-card>
             날짜: <br>
-            {{tour.TourDayandTime_start.substring(0,21)}} ~ <br>
-            {{tour.TourDayandTime_end.substring(0,21)}}<br>
+            {{time_set(tour.TourDayandTime_start)}} ~ <br>
+            {{time_set(tour.TourDayandTime_end)}}<br>
         </v-ons-card>
 
         <v-ons-card>
@@ -75,6 +75,10 @@
     import login from './Menu.vue'
     export default {
         methods: {
+            time_set(key){
+                var time_set = this.$moment(key).format('YYYY-MM-DD h:mm a');
+                return time_set;
+            },
             count(counter){
                 var temp = counter;
                 temp = temp - Math.floor(counter);
