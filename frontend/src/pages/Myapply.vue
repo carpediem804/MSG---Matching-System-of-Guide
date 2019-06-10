@@ -6,8 +6,6 @@
             <v-ons-list>
                 <v-ons-card v-for="todo in travler_apply_data" @click="push(page.component, page.label, todo)" >
                     <img v-bind:src="'http://localhost:8000/'+todo.TourImageURL" alt="MSG" width="275" height="230">
-                    <v-ons-button ><v-ons-icon icon="ion-thumbsup"></v-ons-icon></v-ons-button>
-                    <v-ons-button ><v-ons-icon icon="ion-share"></v-ons-icon></v-ons-button>
                     <div class="title2">
                         <strong>  {{todo.TourTitle}} </strong>
                     </div>
