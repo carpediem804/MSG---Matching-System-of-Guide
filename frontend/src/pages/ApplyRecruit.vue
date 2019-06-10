@@ -47,70 +47,60 @@
 
 <script>
     import axios from 'axios'
-
     export default {
-            methods: {
-
-                Alarm(id, title, comment){
-                    this.$http.post('http://localhost:8000/checkinfo/alarm', {
-                        params: {
-                            target: id,
-                            comment: comment,
-                            title: title
+        methods: {
+            Alarm(id, title, comment){
+                this.$http.post('http://localhost:8000/checkinfo/alarm', {
+                    params: {
+                        target: id,
+                        comment: comment,
+                        title: title
+                    }
+                })
+                    .then((response) => {  //로그인 성공;
+                            console.log(response);
+                        },
+                        (error) => { // error 를 보여줌
+                            console.log(error);
                         }
+                    )
+                    .catch(error => {
+                        alert(error)
                     })
-                        .then((response) => {  //로그인 성공;
-                                console.log(response);
-                            },
-                            (error) => { // error 를 보여줌
-                                console.log(error);
-                            }
-                        )
-                        .catch(error => {
-                            alert(error)
-                        })
-                },
-
-                onFileChange(e) {
-                    var files = e.target.files || e.dataTransfer.files
-                    this.selectedFile = e.target.files[0];
-                    if (!files.length) {
-                        return
-                    }
-                    this.createImage(files[0])
-                    console.log('이미지올림');
-                    console.log(files[0].name);
-                    console.log(this.selectedFile.name);
-
-
-                },
-
-                createImage(file) {
-                    var reader = new FileReader()
-                    var vm = this
-
-                    reader.onload = (e) => {
-                        vm.userImage = e.target.result
-
-                    }
-                    reader.readAsDataURL(file)
-
-                },
-                removeImage: function (e) {
-                    this.userImage = ''
-                },
-
+            },
+            onFileChange(e) {
+                var files = e.target.files || e.dataTransfer.files
+                this.selectedFile = e.target.files[0];
+                if (!files.length) {
+                    return
+                }
+                this.createImage(files[0])
+                console.log('이미지올림');
+                console.log(files[0].name);
+                console.log(this.selectedFile.name);
+            },
+            createImage(file) {
+                var reader = new FileReader()
+                var vm = this
+                reader.onload = (e) => {
+                    vm.userImage = e.target.result
+                }
+                reader.readAsDataURL(file)
+            },
+            removeImage: function (e) {
+                this.userImage = ''
+            },
             ApplyGuide() {
                 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
                 let formData = new FormData();
                 formData.append('file',this.selectedFile);
                 axios.post('http://localhost:8000/recruit/apply',formData, {
-                params: {
-                    target : this.recruit.target,
-                    id : this.recruit.id,
-                    price: this.recruit.price,
-                    content: this.recruit.content,
-                }
+                    params: {
+                        target : this.recruit.target,
+                        id : this.recruit.id,
+                        price: this.recruit.price,
+                        content: this.recruit.content,
+                    }
                 }).then(function (data) {
                     console.log("Apply Guide complete");
                 });
@@ -125,7 +115,6 @@
                 // location.reload();
             }
         },
-
         data() {
             return {
                 userImage: '',
@@ -136,7 +125,6 @@
                     content: '',
                 }
             };
-
         }
     };
 </script>

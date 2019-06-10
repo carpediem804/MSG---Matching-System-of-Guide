@@ -83,7 +83,6 @@
                 })
         },
         methods:{
-
             Alarm(id, title, comment){
                 this.$http.post('http://localhost:8000/checkinfo/alarm', {
                     params: {
@@ -103,7 +102,6 @@
                         alert(error)
                     })
             },
-
             count(counter){
                 var temp = counter;
                 temp = temp - Math.floor(counter);
@@ -111,7 +109,6 @@
                 {this.checkGrade= true;}
                 else
                     this.checkGrade =false;
-
                 return this.checkGrade;
             },
             confirm(){
@@ -198,7 +195,6 @@
                                         alert(err);
                                         return 0;
                                     });
-
                                 alert("가이드가 확정되었습니다.");
                                 this.Alarm(this.user, "가이드 지원글 가이드 확정.","지원한 게시글의 가이드로 확정되었습니다.");
                                 location.reload();
@@ -206,7 +202,6 @@
                             },
                             (error) => { // error 를 보여줌
                                 alert(error.response.data.error)
-
                             }
                         )
                         .catch(error => {
@@ -235,5 +230,4 @@
 </script>
 
 <style scoped>
-
 </style>
