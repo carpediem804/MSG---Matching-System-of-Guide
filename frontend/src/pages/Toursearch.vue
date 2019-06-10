@@ -292,7 +292,7 @@
                 console.log(this.filtered.length)
                 console.log(this.categories.length);
                 for (var i = 0; i < this.categories.length; i++) {
-                    if(this.categories[i].TourContent.includes(search) || this.categories[i].TourTitle.includes(search)){
+                    if(this.categories[i].TourContent.includes(search) || this.categories[i].TourTitle.includes(search) || this.categories[i].TourImageiswhat === search){
                         this.filtered.push(this.categories[i]);
                     }
                 } //검색엔진
@@ -349,9 +349,12 @@
                 }
 
             },//toursearch()
+            computed:{
+
+            },
             toggleList: function (type, className) {
-                function time_set2(TourDayandTime_start) {
-                        var time_set = this.$moment(key).format('YYYYMMDD');
+                function time_set2(key) {
+                        const time_set = key.substring(0,4)+ key.substring(5,7) + key.substring(8,10);
                         return time_set;
                 }
 
@@ -363,16 +366,23 @@
                         this.sortType = className;
 
                         if(className === 'sort-numeric-up')
-                        {
-                            this.filtered.sort(function (a, b) {return +time_set2(a.TourDayandTime_start)- +time_set2(b.TourDayandTime_start)   });
+                        {   console.log('원래 ');
+                            console.log(this.filtered);
+                            this.filtered.sort( (a, b)=> {return time_set2(a.TourDayandTime_start)- time_set2(b.TourDayandTime_start) });
                             console.log("시간");
-                        }
-                        if(className === 'star')
-                        {  console.log(this.filtered);
-                            this.filtered.sort(function(a,b){return +a.TourPrice - +b.TourPrice});
-                            console.log("가격");
+                            console.log("변경 ");
                             console.log(this.filtered);
                         }
+                        if(className === 'star')
+                        {
+                            console.log('원래 ');
+                            console.log(this.filtered);
+                            this.filtered.sort((a,b)=>{return a.TourPrice - b.TourPrice});
+                            console.log("가격");
+                            console.log("변경 ");
+                            console.log(this.filtered);
+                        }
+                        break;
 
                 }
             }
@@ -403,7 +413,8 @@
                     filtered: [
                         {
                             TourContent: "testcontent",
-                            TourDayandTime: "testDay",
+                            TourDayandTime_start: "testDay",
+                            TourDayandTime_end: "testDay",
                             TourImageURL: "http://localhost:8000/",
                             TourLocation: "testLo",
                             TourThema: 'testThe',
@@ -415,13 +426,15 @@
                             TourTitle: "title",
                             Tour_create_date: "2019-05-06T07:10:20.163Z",
                             UserID: "kki",
+                            TourImageiswhat :"없음"
 
                         }
                     ],
                     categories: [
                         {
                             TourContent: "content",
-                            TourDayandTime: "2019-05-06T07:10:20.163Z",
+                            TourDayandTime_start: "2019-05-06T07:10:20.163Z",
+                            TourDayandTime_end: "2019-05-06T07:10:20.163Z",
                             TourImageURL: "ABCD",
                             TourLocation: "Local",
                             TourThema: 'Thema',
@@ -433,7 +446,7 @@
                             TourTitle: "title",
                             Tour_create_date: "2019-05-06T07:10:20.163Z",
                             UserID: "kki",
-
+                            TourImageiswhat : "없음"
                         }
                     ],
 
@@ -441,6 +454,8 @@
                     spdOpen: false,
                     viewType:'th-large',
                     sortType:'sort-numeric-up',
+                    sort_star: false,
+                    sort_day: false,
                     buttons:{
                         'view':[
                             {'class': 'list', 'title':'view in list', selected:false},
@@ -465,7 +480,7 @@
                         // if(this.categories[i].TourImageURL ==="아직구현안함")
                         // {this.categories[i].TourImageURL = this.fakeimg;}
                         this.filtered.push( this.categories[i]);
-
+                        //this.filtered[i].TourDayandTime_start
 
                     }
                    // console.log(this.filtered)
