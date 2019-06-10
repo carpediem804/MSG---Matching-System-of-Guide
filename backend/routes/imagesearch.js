@@ -13,15 +13,14 @@ router.post('/',function(req,res,next){
             console.log("되고있따아앙~~ ");
          //   console.log("laskdfjiaoewfjasdlkfs\n"+detectLandmarks(req.file.filename));
 
-               detectLandmarks(req.file.filename).then(function (err,senddata) {
-                   if(err){
-                       console.log(err)
-                   }
-                   else {
+               detectLandmarks(req.file.filename).then(function (senddata) {
+
                        //   console.log(senddata);
                        senddata.forEach(data => console.log(data));
+                      // console.log("senddata[0]"+senddata[0]);
+                       console.log(senddata[0].description);
                        res.json(senddata);
-                   }
+
                });
 
            //console.log(senddata);
@@ -41,21 +40,10 @@ async function detectLandmarks(fileName) {
      * TODO(developer): Uncomment the following line before running the sample.
      */
     fileName = "./uploads/" + fileName ;
-    //console.log(fileName);
-   // const fileName2 = "C:\\Users\\carpe\\Desktop\\testfolider\\MSG---Matching-System-of-Guide\\backend\\uploads\\test.jpg"
-    //'Local image file, e.g. /path/to/image.png';
 
-    // Performs landmark detection on the local file
     const [result] = await client.landmarkDetection(fileName);
     const landmarks = result.landmarkAnnotations;
-  //  console.log(landmarks);
-   // console.log(landmarks.description);
-    // console.log('Landmarks:');
-    // console.log("landmark[0] = " +landmarks[0][0]);
-    // landmarks.forEach(landmark => console.log(landmark));
-    //console.log("-----------\n"+landmarks);
-     temp = landmarks
-    //temp2 = 1;
+    // temp = landmarks
     return landmarks;
 
     // [END vision_landmark_detection]
