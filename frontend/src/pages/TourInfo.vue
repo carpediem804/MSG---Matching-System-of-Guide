@@ -156,6 +156,27 @@
                 this.$store.commit('navigator/pop', {
                 });
             },
+
+            Alarm(id, title, comment){
+                this.$http.post('http://localhost:8000/checkinfo/alarm', {
+                    params: {
+                        target: id,
+                        comment: comment,
+                        title: title
+                    }
+                })
+                    .then((response) => {  //로그인 성공;
+                            console.log(response);
+                        },
+                        (error) => { // error 를 보여줌
+                            console.log(error);
+                        }
+                    )
+                    .catch(error => {
+                        alert(error)
+                    })
+            },
+
             pay(num){
                 this.$IMP().request_pay({
                     pg: 'kakao',
@@ -188,6 +209,10 @@
                     var msg = '결제에 실패하였습니다.';
                     msg += '에러내용 : ' + result_failure.error_msg;
                     alert(msg);
+
+                    this._self.Alarm(this.tour.UserID, "투어상품 '" +this.tour.TourTitle.toString()+ "'에 신청자가 있습니다.",num.toString()+"명 신청")
+                    location.reload();
+
                 })
             },
             applyTour(){
