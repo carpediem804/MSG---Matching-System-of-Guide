@@ -73,7 +73,7 @@ router.post('/fix',function(req,res,next){
     });
 });
 router.post('/login',function(req,res,next){
-    console.log(req.body);
+    console.log(req.body.email);
     userinfo.findOne({Email:req.body.email}).exec()
         .then(user_info=>{
             console.log("userinfo : "+user_info);
