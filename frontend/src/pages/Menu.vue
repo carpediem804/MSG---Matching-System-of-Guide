@@ -200,21 +200,20 @@
           }
         });
       },
-      Login() {
-        firebase.auth().signInWithEmailAndPassword(this.user.email,this.user.password).catch(function(err){
-            if(err) {
-                switch (err.code) {
+        Login() {
+            firebase.auth().signInWithEmailAndPassword(this.user.email,this.user.password).catch(function(err){
+                switch(err.code)
+                {
                     case "auth/invalid-email": {
                         alert('유효하지 않은 메일입니다');
                         break;
                     }
-                    case "auth/wrong-password": {
+                    case "auth/wrong-password":{
                         alert('잘못된 패스워드 입니다.');
                         break;
                     }
                 }
-            }
-            else {
+            }).then((res)=>{
                 this.$http.post('http://localhost:8000/registUserInfo/login', {
                     email: this.user.email
                 })
@@ -233,15 +232,14 @@
                             location.reload();
                         },
                         (error) => { // error 를 보여줌
-                            console.log(error.response.data.error);
+                            alert(error.response.data.error)
                         }
                     )
                     .catch(error => {
-                        console.log(error);
+                        alert(error)
                     })
-            }
-        })
-      },
+            })
+        },
       Logout(){
         firebase.auth().signOut().catch(function(err){
           alert(err)
