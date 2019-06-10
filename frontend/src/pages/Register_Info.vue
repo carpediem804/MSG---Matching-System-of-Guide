@@ -56,7 +56,7 @@
             <v-ons-card>최대인원 : {{item.TourMaxNum}}</v-ons-card>
             <v-ons-list-header>신청인원 : {{item.TourNowPeopleNum}}명 / {{item.TourApplyList2.length}} 단체 </v-ons-list-header>
             <v-ons-list>
-                <v-ons-card v-for="todo in item.TourApplyList2">
+                <v-ons-card v-for="todo in item.TourApplyList2" @click="push3(page3.component, page3.label, todo.user_apply_id)">
                     단체대표 : {{todo.user_apply_id}} {{todo.user_num}}명
                 </v-ons-card>
             </v-ons-list>
@@ -67,6 +67,7 @@
 <script>
     import Check_Apply_Info from "./Check_Apply_Info.vue";
     import EditReview from "./EditReview.vue";
+    import Travelerinfo from "./Traveler_Info.vue"
 
     export default {
         methods: {
@@ -115,6 +116,20 @@
                     }
                 });
             },
+            push3(page, key, todo) {
+                this.$store.state.userid = todo;
+                this.$store.commit('navigator/push', {
+                    extends: page,
+                    data() {
+                        return {
+                            toolbarInfo: {
+                                backLabel: 'Back',
+                                title: key
+                            }
+                        }
+                    }
+                });
+            },
             delete_info(){
                 this.$http.post('http://localhost:8000/checkInfo/delete', {
                     params: {
@@ -144,6 +159,10 @@
                 page2:{
                     component:EditReview,
                     label: '리뷰작성'
+                },
+                page3:{
+                    component:Travelerinfo,
+                    label: '여행자 정보'
                 },
                 item : this.$store.state.item
             };

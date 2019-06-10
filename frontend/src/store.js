@@ -4,6 +4,7 @@ export default {
       strict: true,
       namespaced: true,
       state: {
+        userid:'',
         user:'',
         target:'',
         guideid:'',
