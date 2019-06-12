@@ -98,6 +98,7 @@
                         <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
                        <v-ons-list-item> # {{time_set(todo.TourDayandTime_start)}} ~ {{time_set(todo.TourDayandTime_end)}}
                        </v-ons-list-item>
+                        <!--<v-ons-list-item> # {{todo.TourDayandTime_start}} ~ {{todo.TourDayandTime_end}}</v-ons-list-item>-->
                         <v-ons-list-item>
                             <div class="time_check1" v-if="todo.TourState === 0">
                                 여행객 모집 중!
@@ -127,7 +128,7 @@
         methods: {
 
             time_set(key){
-                var time_set = this.$moment(key).format('YYYY-MM-DD h:mm a');
+                var time_set = this.$moment(key).format('YYYY-MM-DD h:mm A');
                 return time_set;
             },
             time_set2(key){

@@ -197,6 +197,7 @@
                 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
                 let formData = new FormData();
                 formData.append('file',this.selectedFile);
+
                 axios.post('http://13.125.164.72:8000/registerTour/',formData,{
                     params: {
                         userID: this.Tour.userId,
@@ -218,6 +219,7 @@
                     message: "투어 상품이 등록 되었습니다.",
                     title: "투어 상품 등록 성공",
                     callback: function (index) {
+
                    location.reload();
                     },
                 })
