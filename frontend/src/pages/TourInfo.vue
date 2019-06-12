@@ -79,7 +79,7 @@
         methods: {
             push(page, key,guidid) {
                 console.log("push한 guid id"+guidid);
-                this.$store.state.guidid = guidid;
+                this.$store.state.guideid = guidid;
                 console.log(localStorage.getItem('newType'));
                 this.$store.commit('navigator/push', {
                     extends: page,
@@ -178,8 +178,11 @@
             },
 
             pay(num){
+
+                // IMP.init('INIpayTest');
+
                 this.$IMP().request_pay({
-                    pg: 'html5_inicis',
+                    pg: 'kakao',
                     pay_method: 'card',
                     merchant_uid: 'merchant_' + new Date().getTime(),
                     name: this.tour.TourTitle,
@@ -216,8 +219,8 @@
                     msg += '에러내용 : ' + result_failure.error_msg;
                     alert(msg);
 
-                    // this._self.Alarm(this.tour.UserID, "투어상품 '" +this.tour.TourTitle.toString()+ "'에 신청자가 있습니다.",num.toString()+"명 신청")
-                  //  location.reload();
+                    this._self.Alarm(this.tour.UserID, "투어상품 '" +this.tour.TourTitle.toString()+ "'에 신청자가 있습니다.",num.toString()+"명 신청")
+                   location.reload();
 
                 })
             },

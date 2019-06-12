@@ -99,52 +99,53 @@
     import axios from 'axios'
     export default {
         methods: {
-            signUp(){
-
-                axios.post('http://13.125.164.72:8000/recruit/custom',{
+            signUp() {
+                this.$http.post('http://13.125.164.72:8000/recruit/custom222', {
                     params: {
-                        recruitdata: this.recruit
-
+                        id: this.recruit.id,
+                        title: this.recruit.title,
+                        location: this.recruit.location,
+                        number: this.recruit.number,
+                        from_day: this.recruit.from_day,
+                        to_day: this.recruit.to_day,
+                        content: this.recruit.content
                     }
-                }).then(function(data){
-                    console.log("던졋다");
-                    this.submitted = true;
-                    console.log("submitted가 true 됨 ")
-
-                });
-
-
-
-
-                alert('제출되었습니다.');
-
-                location.reload();
+                })
+                    .then((response) => {  //로그인 성공;
+                            alert('제출되었습니다.');
+                            location.reload();
+                        },
+                        (error) => { // error 를 보여줌
+                            alert(error.response.data.error)
+                        }
+                    )
+                    .catch(error => {
+                        alert(error)
+                    })
             },
-
-
         },
-        data() {
-            return {
-                checkGrade: false,
-                recruit: {
-                    id: localStorage.getItem('newEmail'),
-                    title: '',
-                    location: '',
-                    number:'',
+            data() {
+                return {
+                    checkGrade: false,
+                    recruit: {
+                        id: localStorage.getItem('newEmail'),
+                        title: '',
+                        location: '',
+                        number: '',
+                        // from_month: '',
+                        from_day: '',
+                        // to_month: '',
+                        to_day: '',
+                        content: ''
+                    },
+
                     // from_month: '',
                     from_day: '',
-                    // to_month: '',
-                    to_day: '',
-                    content: ''
-                },
-
-                // from_month: '',
-                from_day : '',
-                // to_month :'',
-                to_day:''
-            };
-        }
-    };
+                    // to_month :'',
+                    to_day: ''
+                };
+            }
+    }
 </script>
 
 <style>

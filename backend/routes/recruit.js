@@ -50,18 +50,18 @@ router.post('/apply', function (req, res, next) {
 
     });
 });
-router.post('/custom', function (req, res, next) {
+router.post('/custom222', function (req, res, next) {
     //console.log(req);
-    console.log("/custom임");
+    console.log("/custom임되어라되어라");
     console.log(req.body.params);
     let savecustom = new guiderecruit();
-    savecustom.UserID = req.body.params.recruitdata.id;
-    savecustom.RecruitTitle = req.body.params.recruitdata.title;
-    savecustom.RecruitLocation =req.body.params.recruitdata.location;
-    savecustom.RecruitPeopleNumber = req.body.params.recruitdata.number;
-    savecustom.RecruitContent = req.body.params.recruitdata.content;
-    savecustom.From_time = req.body.params.recruitdata.from_day
-    savecustom.To_time = req.body.params.recruitdata.to_day
+    savecustom.UserID = req.body.params.id;
+    savecustom.RecruitTitle = req.body.params.title;
+    savecustom.RecruitLocation =req.body.params.location;
+    savecustom.RecruitPeopleNumber = req.body.params.number;
+    savecustom.RecruitContent = req.body.params.content;
+    savecustom.From_time = req.body.params.from_day
+    savecustom.To_time = req.body.params.to_day
 
     savecustom.save(function(err,data){
         if(err){

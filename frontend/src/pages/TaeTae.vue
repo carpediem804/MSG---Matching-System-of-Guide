@@ -18,6 +18,11 @@
             <p align="center">
                 <button class="check_button" @click="Delete_DB(db, type)">삭제하기!</button>
             </p>
+            <h1 style="font-size: 25px" align="center">토큰 티비 지우기</h1>
+            <input class="register_form" v-model="token_id" placeholder="토큰 디비 지우기 : 아이디">
+            <p align="center">
+                <button class="check_button" @click="Delete_token_DB(token_id)">삭제하기!</button>
+            </p>
         </div>
     </v-ons-page>
 </template>
@@ -25,6 +30,22 @@
 <script>
     export default {
         methods: {
+            Delete_token_DB(ID){
+                this.$http.post('http://13.125.164.72:8000/checkinfo/delete/token', {
+                    params: {id:ID}
+                })
+                    .then(response => {  //로그인 성공
+                            console.log(response.data.data);
+                            alert("토큰 디비 삭제 완료");
+                        },
+                        (error) => { // error 를 보여줌
+                            alert(error.response.data.error)
+                        }
+                    )
+                    .catch(error => {
+                        alert(error)
+                    })
+            },
             Make_Guide_Auth(guide_auth) {
                 this.$http.post('http://13.125.164.72:8000/checkInfo/guideAuth/make', {
                     params: {Auth_Number: guide_auth}
@@ -78,6 +99,7 @@
         },
         data() {
             return {
+                token_id:'',
                 auth_make:'',
                 delete_id:'',
                 type:'',

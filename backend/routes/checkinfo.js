@@ -227,18 +227,23 @@ router.post('/check/time', function(req, res,next) { //가이드 등록번호 �
         res.send("된다")
     });
 });
-router.post('/check/token', function(req, res,next) {
+router.post('/check/token', function(req, res,next) { //가이드 등록번호 임의로 생성.
+
     console.log(req.body.params);
+    console.log("--------------------------------------------");
+    console.log("애로 접속"+req.body.params.token)
+    console.log("--------------------------------------------");
+
     if(req.body.params.token === null || req.body.params.id === null){
         res.send("둘중에 하나라도 null 값 들어가있어서 아무것도 안했어.")
     }
     else{
-        Token.findOneAndUpdate({ID:req.body.params.id},{$set:{Token:req.body.params.token}},{new: true},function(err,data){
+        Token.findOneAndUpdate({Token:req.body.params.token},{$set:{ID:req.body.params.id}},{new: true},function(err,data){
             if (err) {
                 console.log(err);
             }
-            console.log("findansupdate후"+data);
-            if(data===null){
+            console.log(data);
+            if(data === null){
                 let new_token = new Token();
                 new_token.ID = req.body.params.id;
                 new_token.Token = req.body.params.token;
@@ -251,12 +256,24 @@ router.post('/check/token', function(req, res,next) {
                 });
             }
             else{
-                res.send("바꾼 data" + data);
+                res.send("기존 data" + data);
             }
-    });
+        });
     }
 });
-
+router.post('/delete/token', function(req, res,next) {
+    console.log(req.body.params);
+    Token.findOneAndRemove({ID:req.body.params.id},function(err,data){
+        if (err) {
+            console.log(err);
+        }
+        else{
+            console.log("고고고고");
+            console.log(data);
+            res.send(data);
+        }
+    });
+});
 router.post('/alarm', function(req, res,next){
     console.log(req.body.params);
     console.log("알람을 보냅니다!");

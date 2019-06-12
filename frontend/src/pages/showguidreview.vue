@@ -52,16 +52,13 @@
 
             }
         },
-        
         beforeCreate() {
             let self = this;
             console.log("시작");
-           // console.log(this.$store.state.guideid);
-            self.guide = this.$store.state.guidid
-            console.log(self.guide);
+            console.log(this.$store.state.guideid);
             axios.post('http://13.125.164.72:8000/review/list',{
                 params: {
-                    guideID: self.guide
+                    guideID: this.$store.state.guideid
                 }
             }).then(function(data){
                 console.log("받았따");
@@ -70,7 +67,6 @@
                     console.log(data.data[i]);
                     self.prereview.push(data.data[i]);
                 }
-                console.log("prereview"+ self.prereview);
 
             })
         },

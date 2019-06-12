@@ -70,8 +70,8 @@
         },
         methods:{
             push(page, key,guidid) {
-                console.log("push한 guid id"+guidid);
-                this.$store.state.guidid = guidid;
+                this.$store.state.guideid = guidid;
+                console.log(this.$store.state.guideid);
                 this.$store.commit('navigator/push', {
                     extends: page,
                     data() {

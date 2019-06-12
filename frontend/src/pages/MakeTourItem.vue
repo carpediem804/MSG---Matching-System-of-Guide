@@ -197,9 +197,9 @@
                 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
                 let formData = new FormData();
                 formData.append('file',this.selectedFile);
-                axios.post('http://13.125.164.72:8000/registerTour',formData,{
+                axios.post('http://13.125.164.72:8000/registerTour/',formData,{
                     params: {
-                                            userID: this.Tour.userId,
+                        userID: this.Tour.userId,
                         title: this.Tour.title,
                         location: this.Tour.location,
                         thema: this.Tour.thema,

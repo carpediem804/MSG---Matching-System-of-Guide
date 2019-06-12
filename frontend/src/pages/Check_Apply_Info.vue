@@ -86,8 +86,9 @@
         },
         methods:{
             push(page, key,guidid) {
-                console.log("push한 guid id"+guidid);
-                this.$store.state.guidid = guidid;
+                console.log(guidid);
+                this.$store.state.guideid = guidid;
+                console.log(this.$store.state.guideid);
                 this.$store.commit('navigator/push', {
                     extends: page,
                     data() {
@@ -213,8 +214,8 @@
                                         return 0;
                                     });
                                 alert("가이드가 확정되었습니다.");
-                                // this.Alarm(this.user, "가이드 지원글 가이드 확정.","지원한 게시글의 가이드로 확정되었습니다.");
-                                location.reload();
+                                this.Alarm(this.user, "가이드 지원글 가이드 확정.","지원한 게시글의 가이드로 확정되었습니다.");
+                                console.log(this.user);
                                 // location.reload();
                             },
                             (error) => { // error 를 보여줌

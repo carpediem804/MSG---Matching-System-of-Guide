@@ -31,7 +31,11 @@ Vue.use(VueMomentJS, moment);
 // Object.values(OnsenComponents).forEach(component => Vue.component(component.name, component)); // For ESM
 
 //Vue.use(IMP, '가맹점식별코드')
+// Vue.IMP().load()
 Vue.use(IMP, 'imp11299540') //아임포트 회원가입 후 발급된 가맹점 고유 코드를 사용해주세요. 예시는 KCP공식 아임포트 데모 계정입니다.
+// Vue.use(IMP, 'cnstest25m')
+// Vue.use(IMP, 'TC0ONETIME')
+// Vue.use(IMP, 'PARTNERTEST')
 Vue.IMP().load()
 
 Vue.component('custom-toolbar', CustomToolbar); // Common toolbar

@@ -32,7 +32,7 @@
 <script>
     export default {
         beforeCreate(){
-            this.
+
             this.$http.post('http://13.125.164.72:8000/checkinfo/check/token', {
                 params: {
                     id: localStorage.getItem("newEmail"),

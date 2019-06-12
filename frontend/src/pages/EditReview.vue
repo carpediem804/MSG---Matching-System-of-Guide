@@ -67,23 +67,28 @@
             },
             submit2(){
                 console.log(this.myreview.mytext);
-                console.log(this.myreview.mystar);
+                console.log(this.userstar);
                 console.log(this.myID);
-                console.log("user: "+ this.$store.state.guideid);
-                //console.log(this.user);
-                axios.post('http://13.125.164.72:8000/review',{
+                console.log(this.$store.state.guideid);
+
+                this.$http.post('http://13.125.164.72:8000/review/send',{
                     params: {
-                        mytext : this.myreview.mytext,
-                        mystar : this.userstar,
+                        mytext: this.myreview.mytext,
+                        mystar: this.userstar,
                         myuserID: this.myID,
                         guideID: this.$store.state.guideid
                     }
-                }).then(function(data){
-                    console.log("던졋다");
-
-                    alert('제출되었습니다.');
-                })
-                location.reload();
+                }).then((response) => {  //로그인 성공;
+                        alert('제출되었습니다.');
+                        location.reload();
+                    },
+                    (error) => { // error 를 보여줌
+                        alert(error.response.data.error)
+                    }
+                )
+                    .catch(error => {
+                        alert(error)
+                    })
             }
         },
         data(){
@@ -93,18 +98,18 @@
                 myID: localStorage.getItem('newEmail'),
                 checkGrade : false,
                 prereview : [],
-                myreview : [{
-                    mytext: "",
+                myreview : {
+                    mytext: '',
                     mystar: Number,
-                }]
+                }
             }
         },
         beforeCreate() {
             let self = this;
-            console.log("시작");
+            // console.log("시작");
             axios.post('http://13.125.164.72:8000/review/list',{
                 params: {
-                    guideID: self.$store.state.guideid
+                    guideID: this.$store.state.guideid
                 }
             }).then(function(data){
                 console.log("받았따");
