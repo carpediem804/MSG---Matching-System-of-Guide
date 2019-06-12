@@ -6,7 +6,7 @@
                 <v-ons-button class="Delete_button" icon="trash" style="width:auto" v-if="item.TourState ===0"
                               @click="cancel_info()"> 신청취소
                 </v-ons-button>
-
+                <v-ons-button  class="review" v-if="(item.TourState ==2 && item.TourNowPeopleNum> item.TourMinNum)" icon="edit" @click="push2(page2.component, page2.label,item.UserID)">리뷰 작성하기</v-ons-button>
             </p>
             <v-ons-list-header>세부 정보</v-ons-list-header>
             <v-ons-card>
@@ -32,7 +32,6 @@
                         <ons-icon v-for="n in Math.floor(item.GuideGrade)" style="color: gold"icon="fa-star"></ons-icon>
                         <ons-icon v-if="count(item.GuideGrade)" style="color: gold" icon="fa-star-half-alt"></ons-icon>
                         {{item.GuideGrade}} / {{item.Total_Review}}명 평가
-                        <v-ons-button  class="review" v-if="(item.TourState ==2 && item.TourNowPeopleNum> item.TourMinNum)" icon="edit" @click="push2(page2.component, page2.label,item.Email)">리뷰</v-ons-button>
                     </v-ons-card>
                     <v-ons-card>여행 진행 건수 : {{item.Total_Tour}}</v-ons-card>
                 </v-ons-card>
