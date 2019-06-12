@@ -212,19 +212,19 @@
                         content: this.Tour.content,
 
                     }
-                }).then(function(data){
-                    console.log("register TourItem complete");
-                });
-                this.$ons.notification.alert({ 
-                    message: "투어 상품이 등록 되었습니다.",
-                    title: "투어 상품 등록 성공",
-                    callback: function (index) {
-
-                   location.reload();
-                    },
                 })
-                // location.reload();
-            },
+                    .then((response) => {  //로그인 성공;
+                            alert("투어 상품 등록 완료!");
+                            location.reload();
+                        },
+                        (error) => { // error 를 보여줌
+                            alert(error.response.data.error)
+                        }
+                    )
+                    .catch(error => {
+                        alert(error)
+                    })
+            }
         },
         data() {
             return {

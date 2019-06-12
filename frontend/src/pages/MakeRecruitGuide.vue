@@ -112,13 +112,13 @@
                     }
                 })
                     .then((response) => {  //로그인 성공;
-                            alert('제출되었습니다.');
-                            location.reload();
-                        },
-                        (error) => { // error 를 보여줌
-                            alert(error.response.data.error)
-                        }
-                    )
+                        alert('제출되었습니다.');
+                        location.reload();
+                    },
+                    (error) => { // error 를 보여줌
+                        alert(error.response.data.error)
+                    }
+                )
                     .catch(error => {
                         alert(error)
                     })

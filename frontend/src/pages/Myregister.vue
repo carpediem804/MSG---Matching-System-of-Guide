@@ -12,7 +12,7 @@
                     <div class="content2">
                         <v-ons-list>
                             <v-ons-list-item ># {{todo.RecruitLocation}} </v-ons-list-item>
-                            <v-ons-list-item># {{time_set(todo.From_time)}} ~  <br> &nbsp;&nbsp;&nbsp;{{time_set(todo.To_time)}} </v-ons-list-item>
+                            <v-ons-list-item># {{time_set(todo.From_time.toString().substring(0,19))}} ~  <br> &nbsp;&nbsp;&nbsp;{{time_set(todo.To_time.toString().substring(0,19))}} </v-ons-list-item>
                             <v-ons-list-item >
                                 <div class="content4" v-if="todo.Apply_state === 0">가이드 미정</div>
                                 <div class="content3" v-if="todo.Apply_state === 1">가이드 확정</div>
@@ -37,7 +37,7 @@
                             <v-ons-list-item ># {{todo.TourLocation}} # {{todo.TourThema}} </v-ons-list-item>
                             <v-ons-list-item># {{todo.TourContent}}</v-ons-list-item>
                             <v-ons-list-item># {{todo.TourPrice}}원  </v-ons-list-item>
-                            <v-ons-list-item># {{time_set(todo.TourDayandTime_start)}} ~  <br> &nbsp;&nbsp;&nbsp;{{time_set(todo.TourDayandTime_end)}} </v-ons-list-item>
+                            <v-ons-list-item># {{time_set(todo.TourDayandTime_start.toString().substring(0,19))}} ~  <br> &nbsp;&nbsp;&nbsp;{{time_set(todo.TourDayandTime_end.toString().substring(0,19))}} </v-ons-list-item>
                             <v-ons-list-item># {{todo.TourPrice}}원  </v-ons-list-item>
                             <v-ons-list-item>
                                 <div class="content4" v-if="todo.TourState === 0">여행객 모집 중</div>

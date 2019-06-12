@@ -26,7 +26,7 @@
 
             <v-ons-card>
                 기간:<br>
-                {{time_set(item.From_time)}} ~ <br>{{time_set(item.To_time)}}<br>
+                {{time_set(item.From_time.toString().substring(0,19))}} ~ <br>{{time_set(item.To_time.toString().substring(0,19))}}<br>
             </v-ons-card>
 
             <v-ons-list-header>지원자 : 총 {{item.ApplyGuideID.length}}명</v-ons-list-header>

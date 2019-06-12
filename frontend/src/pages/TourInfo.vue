@@ -14,8 +14,8 @@
 
             <v-ons-card>
                 날짜: <br>
-                {{time_set(tour.TourDayandTime_start)}} ~ <br>
-                {{time_set(tour.TourDayandTime_end)}}<br>
+                {{time_set(tour.TourDayandTime_start.toString().substring(0,19))}} ~ <br>
+                {{time_set(tour.TourDayandTime_end.toString().substring(0,19))}}<br>
             </v-ons-card>
 
             <v-ons-card>

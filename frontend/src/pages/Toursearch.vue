@@ -93,13 +93,14 @@
                 <div class="content">
                     <v-ons-list>
                         <v-ons-list-item ># {{todo.TourPrice}}\  </v-ons-list-item>
-                        <v-ons-list-item> # {{time_set(todo.TourDayandTime_start)}}<br> ~ {{time_set(todo.TourDayandTime_end)}}</v-ons-list-item>
+                        <v-ons-list-item> # {{time_set(todo.TourDayandTime_start.toString().substring(0,19))}}<br> ~ {{time_set(todo.TourDayandTime_end.toString().substring(0,19))}}</v-ons-list-item>
                         <v-ons-list-item ># {{todo.TourLocation}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # {{todo.TourThema}} </v-ons-list-item>
                         <v-ons-list-item class="conte" ># {{todo.TourContent}}</v-ons-list-item>
-                       <v-ons-list-item> # {{time_set(todo.TourDayandTime_start)}} ~ {{time_set(todo.TourDayandTime_end)}}
-                       </v-ons-list-item>
-                        <!--<v-ons-list-item> # {{todo.TourDayandTime_start}} ~ {{todo.TourDayandTime_end}}</v-ons-list-item>-->
-                        <v-ons-list-item>
+                       <!--<v-ons-list-item> # {{time_set(todo.TourDayandTime_start)}} ~ {{time_set(todo.TourDayandTime_end)}}-->
+                       <!--</v-ons-list-item>-->
+                        <!--<v-ons-list-item> # {{todo.TourDayandTime_start.toString().substring(0,19)}} ~ {{todo.TourDayandTime_end}}</v-ons-list-item>-->
+                        <!--<v-ons-list-item>-->
+                            <!---->
                             <div class="time_check1" v-if="todo.TourState === 0">
                                 여행객 모집 중!
                             </div>
@@ -128,7 +129,7 @@
         methods: {
 
             time_set(key){
-                var time_set = this.$moment(key).format('YYYY-MM-DD h:mm A');
+                var time_set = this.$moment(key).format('YYYY-MM-DD hh:mm A');
                 return time_set;
             },
             time_set2(key){
