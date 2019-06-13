@@ -29,7 +29,7 @@
           <div class="content2">
             <v-ons-list>
               <v-ons-list-item ># {{item.RecruitLocation}} </v-ons-list-item>
-              <v-ons-list-item ># {{time_set(item.From_time)}} ~ {{time_set(item.To_time)}}</v-ons-list-item>
+              <v-ons-list-item ># {{time_set(item.From_time.toString().substring(0,19))}}<br> ~ {{time_set(item.To_time.toString().substring(0,19))}}</v-ons-list-item>
             </v-ons-list>
           </div>
           <div class="content3" align="center" v-if="item.Apply_state === 0">
@@ -211,7 +211,19 @@
                       this.filtered.push(this.listitems[i])
                   }
               }
-              // alert("보냈다!");
+            if(this.filtered.length == 0){
+              this.$ons.notification.alert({
+                message: "가이드 모집글이 없습니다",
+                title: "가이드 모집글 검색",
+              });
+
+            }
+            else {
+              this.$ons.notification.alert({
+                message: "가이드 모집글이 검색되었습니다",
+                title: "가이드 모집글 검색",
+              });
+            }
           },
 
 
