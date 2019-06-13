@@ -23,23 +23,23 @@
                 </v-ons-button>
             </p>
             <!--//보기 정렬-->
-            <div class="button-group">
-                <div class="buttons" align="center">
-                    <span>view</span>
-                    <button v-for="b in buttons.view" v-bind:title="b.title"
-                            v-bind:class="viewType == b.class?'selected':''"
-                            v-on:click="toggleList('view',b.class)">
-                        <i class="fas" v-bind:class="'fa-'+b.class"></i>
-                    </button>
+            <!--<div class="button-group">-->
+                <!--<div class="buttons" align="center">-->
+                    <!--<span>view</span>-->
+                    <!--<button v-for="b in buttons.view" v-bind:title="b.title"-->
+                            <!--v-bind:class="viewType == b.class?'selected':''"-->
+                            <!--v-on:click="toggleList('view',b.class)">-->
+                        <!--<i class="fas" v-bind:class="'fa-'+b.class"></i>-->
+                    <!--</button>-->
 
-                    <span>sort</span>
-                    <button v-for="b in buttons.sort" v-bind:title="b.title"
-                            v-bind:class="sortType == b.class?'selected':''"
-                            v-on:click="toggleList('sort',b.class)">
-                        <i class="fas" v-bind:class="'fa-'+b.class"></i>
-                    </button>
-                </div>
-            </div>
+                    <!--<span>sort</span>-->
+                    <!--<button v-for="b in buttons.sort" v-bind:title="b.title"-->
+                            <!--v-bind:class="sortType == b.class?'selected':''"-->
+                            <!--v-on:click="toggleList('sort',b.class)">-->
+                        <!--<i class="fas" v-bind:class="'fa-'+b.class"></i>-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</div>-->
             &nbsp;
         </v-ons-list>
         <v-ons-modal :visible="modalVisible" >

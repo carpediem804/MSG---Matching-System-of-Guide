@@ -11,12 +11,6 @@
                 <v-ons-list-item style="width: auto">{{item.writecontent}}</v-ons-list-item>
             </v-ons-card>
         </v-ons-list>
-
-        <v-ons-card :modifier="md ? 'nodivider' : ''">
-
-        </v-ons-card>
-
-
     </v-ons-page>
 </template>
 
@@ -46,7 +40,7 @@
         data(){
             return{
                 userstar: 0,
-                guide: "",
+                guide: '',
                 checkGrade : false,
                 prereview : [],
 
@@ -54,25 +48,31 @@
         },
         
         beforeCreate() {
-            let self = this;
             console.log("시작");
-            self.guide = localStorage.getItem('newEmail');
-            console.log(self.guide);
-            axios.post('http://localhost:8000/review/list',{
+            this.guide = localStorage.getItem('newEmail');
+            console.log(this.guide);
+            this.$http.post('http://13.125.164.72:8000/review/list',{
                 params: {
-                    guideID: self.guide
+                    guideID: this.guide
                 }
-            }).then(function(data){
-                console.log("받았따");
-                console.log("data"+data);
-                for (var i = 0; i < data.data.length; i++) {
-                    console.log(data.data[i]);
-                    self.prereview.push(data.data[i]);
-                }
-                console.log("prereview"+ self.prereview);
-
             })
-        },
+                .then((response) => {
+                        console.log("받았따");
+                        console.log(response);
+                        for (var i = 0; i < response.data.length; i++) {
+                            console.log(response.data[i]);
+                            this.prereview.push(response.data[i]);
+                        }
+                        console.log("prereview"+ this.prereview);
+                    },
+                    (error) => { // error 를 보여줌
+                        alert(error.response.data.error)
+                    }
+                )
+                .catch(error => {
+                    alert(error);
+                });
+        }
     }
 </script>
 

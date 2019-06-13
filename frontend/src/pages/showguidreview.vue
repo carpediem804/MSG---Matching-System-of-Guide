@@ -11,12 +11,6 @@
                 <v-ons-list-item style="width: auto">{{item.writecontent}}</v-ons-list-item>
             </v-ons-card>
         </v-ons-list>
-
-        <v-ons-card :modifier="md ? 'nodivider' : ''">
-
-        </v-ons-card>
-
-
     </v-ons-page>
 </template>
 
