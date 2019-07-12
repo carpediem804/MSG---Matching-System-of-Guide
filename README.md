@@ -46,6 +46,8 @@
 ### 리뷰기능 
 ![image](https://user-images.githubusercontent.com/33194900/61107650-68774f80-a4bb-11e9-972f-d3cae39273bc.png)
 
+## 비지니스 모델 
+![image](https://user-images.githubusercontent.com/33194900/61107779-a1afbf80-a4bb-11e9-96b1-b3230922460d.png)
 
 ## Setup
 ## install dependencies
